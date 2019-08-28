@@ -29,8 +29,8 @@ function inicializarGame(){
 
 
 function proximaRodada(){
-    rodada_atual += 1.0;
-    dano_atual += 1.0;
+    rodada_atual += 1;
+    dano_atual += 1;
 
     // lista_rodadas.push(rodada_atual);
     // lista_dados.push(dano_atual);
@@ -39,7 +39,6 @@ function proximaRodada(){
     document.getElementById("rodada_atual").innerHTML = rodada_atual;
 
     player_ataca();
-
 }
 
 
@@ -60,4 +59,10 @@ function player_ataca(){
         document.getElementById("vida_bloco2").value = 0;
     else
         document.getElementById("vida_bloco2").value -= document.getElementById("ataque_bloco1").value;
+}
+
+
+// esta função é responsável por gerar um valor aleatório de [1, 6]
+function rolarDado(){
+    return Math.floor(Math.random() * 6 + 1);
 }
