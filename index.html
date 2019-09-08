@@ -21,43 +21,43 @@
     </style>
 
     <script src="scripts/chart.min.js"></script>
-    
-    <script>
-        var rodada_atual = 0;
-        var lista_rodadas = [0];
-        var dano_atual = 0;
-        var lista_dados = [0];
-    </script>
-    
     <script src="scripts/script.js"></script>
 
 </head>
 
 <body onload="inicializarGame();">
     <h1>Sobre o trabalho</h1>
-    
-    <div class="container-principal">
+
+    <div class="jogo">
         <div class="blocos" id="bloco1"></div>
         <div class="blocos" id="bloco2"></div>
-
+    </div>
+    
+    <div class="container-dados">
         <fieldset>
             <h1>Rodada atual: <span id="rodada_atual"></span></h1>
             <h3>Bloco 1</h3>
             <form>
                 <p>Vida:</p>
-                <input type="number" id="vida_bloco1" min="0">
+                <input type="number" min="0" id="vida_jogador" step="0.01">
 
                 <p>Ataque</p>
-                <input type="number" min="0" id="ataque_bloco1">
+                <input type="number" min="0" id="ataque_jogador" step="0.01">
+
+                <p>Defesa</p>
+                <input type="number" min="0" id="defesa_jogador" step="0.01">
             </form>
 
             <h3>Bloco 2</h3>
             <form>
                 <p>Vida:</p>
-                <input type="number" min="0" id="vida_bloco2">
+                <input type="number" min="0" id="vida_boss" step="0.01">
 
                 <p>Ataque</p>
-                <input type="number" min="0" id="ataque_bloco2">
+                <input type="number" min="0" id="ataque_boss" step="0.01">
+
+                <p>Defesa</p>
+                <input type="number" min="0" id="defesa_boss" step="0.01">
             </form>
         </fieldset>
 
