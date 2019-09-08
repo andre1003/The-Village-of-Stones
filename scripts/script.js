@@ -86,8 +86,8 @@ function inicializarGame(){
 }
 
 function proximaRodada(){
-    rodada_atual += 1.0;
-    dano_atual += 1.0;
+    rodada_atual += 1;
+    dano_atual += 1;
 
     // lista_rodadas.push(rodada_atual);
     // lista_dados.push(dano_atual);
@@ -124,4 +124,9 @@ function boss_ataca(){
         vida_jogador = 0;
     else
         vida_jogador -= dano_boss;
+}
+
+// esta função é responsável por gerar um valor aleatório de [1, 6]
+function rolarDado(){
+    return Math.floor(Math.random() * 6 + 1);
 }
