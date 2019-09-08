@@ -1,8 +1,8 @@
 // Variáveis do sistema
-var rodada_atual = 0;
-var lista_rodadas = [0];
-var dano_atual = 0;
-var lista_dados = [0];
+var rodada_atual;
+var lista_rodadas;
+var dano_atual;
+var lista_dados;
 
 // Variáveis do jogador
 var vida_jogador;
@@ -13,6 +13,7 @@ var defesa_jogador;
 var vida_boss;
 var dano_boss;
 var defesa_boss;
+
 
 
 // Esta função atualiza os valores das variáveis com base no que está no formulário
@@ -47,9 +48,44 @@ function atualizaFormulario(){
     document.getElementById("rodada_atual").innerHTML = rodada_atual;
 }
 
+function criarGrafico(var_grafico, id_canvas){
+    ctx = document.getElementById(id_canvas).getContext('2d');
+    var_grafico = new Chart(ctx, {
+        type: 'line',
+        data: {
+            // eixo x
+            labels: rodada_atual,
+            // eixo y
+            datasets: [
+                {
+                    data: lista_dados,
+                    backgroundColor: ['rgba(255, 99, 132, 0.7)']
+                }
+            ],
+        },
+        options: {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true
+                    }
+                }],
+                xAxes: [{
+                    ticks: {
+                        beginAtZero: false
+                    }
+                }]
+            }
+        }
+    });
+
+    return var_grafico;
+}
+
 // Esta função atualiza todos os campos do formulário
 function resetarJogo(){
     
+    // jogador
     vida_jogador = 10;
     dano_jogador = 1;
     defesa_jogador = 0.4;
@@ -60,6 +96,15 @@ function resetarJogo(){
     defesa_boos = 0.4;
         
     rodada_atual = 0;
+    dano_atual = 0;
+
+    // resetando listas do gráfico
+    lista_rodadas = [0];
+    lista_dados = [0];
+
+    myLineChart.destroy(); // deletando gráfico
+    myLineChart = criarGrafico(myLineChart, 'myChart'); // criando um novo gráfico
+
 
     // aplicando mudanças no painel de visualização
     atualizaFormulario();
@@ -71,18 +116,8 @@ function inicializarGame(){
     // apenas para teste
     resetarJogo();
 
-    // jogador
-    document.getElementById("dano_jogador").value = dano_jogador;
-    document.getElementById("defesa_jogador").value = defesa_jogador;
-    document.getElementById("vida_jogador").value = vida_jogador;
-
-    // segundo bloco
-    document.getElementById("dano_boss").value = dano_boss;
-    document.getElementById("ataque_boss").value = ataque_boss;
-    document.getElementById("defesa_boos").value = defesa_boss;
-    
-    // rodada
-    document.getElementById("rodada_atual").innerHTML = rodada_atual;
+    // aplicando mudanças no painel de visualização
+    atualizaFormulario();
 }
 
 function proximaRodada(){
@@ -108,6 +143,13 @@ function addData(chart, label, data) {
         dataset.data.push(data);
     });
     chart.update();
+}
+
+function resetGrafico(chart){
+    chart.data.labels = [0];
+    // chart.data.datasets.data = [0];
+    websiteChart.config.data = [0];
+    chart.destroy();
 }
 
 // Esta função calcula a vida do boss quando o jogador ataca
