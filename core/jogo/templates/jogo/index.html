@@ -34,12 +34,24 @@
 
     var csrftoken = getCookie('csrftoken');
 
-        function oi() {
+        function post_oi() {
             console.log("oi");
             $.ajax({
                 url:'/teste/',
                 type: "POST",
-                data: {dano_total: 1, csrfmiddlewaretoken: '{{ csrf_token }}'},
+                data: {dano_jogador: dano_jogador, id_jogo: "2" , csrfmiddlewaretoken: '{{ csrf_token }}'},
+                success:function(response){},
+                complete:function(){},
+                error:function (xhr, textStatus, thrownError){}
+            });
+        }
+
+        function get_oi() {
+            console.log("oi");
+            $.ajax({
+                url:'/teste/',
+                type: "GET",
+                data: {id_jogo: '4002', csrfmiddlewaretoken: '{{ csrf_token }}'},
                 success:function(response){},
                 complete:function(){},
                 error:function (xhr, textStatus, thrownError){}
@@ -128,7 +140,9 @@
     </div>
 
     <hr>
-    <button onclick="oi();">Vamos tentar</button>
+    <button onclick="post_oi();">POST</button>
+
+    <button onclick="get_oi();">GET</button>
 
 
     <script src="{% static 'jogo/scripts/jquery-3.4.1.min.js' %}" ></script>

@@ -1,5 +1,7 @@
-from django.shortcuts import render
-from django.views.decorators.csrf import csrf_protect
+from django.shortcuts import render, HttpResponse, Http404
+from django.core.exceptions import ObjectDoesNotExist
+from .models import Teste, Jogo
+
 
 # Create your views here.
 def index(request):
@@ -11,11 +13,34 @@ def novo_evento_batalha(request):
     pass
 
 
-@csrf_protect
 def teste(request):
+    status = 0
     if request.method == 'POST':
-        dano_total = request.POST['dano_total']
+        dano_jogador = request.POST['dano_jogador']
+        id_jogo = request.POST['id_jogo']
 
-        return render(request, 'jogo/teste.html', {'dano_total': dano_total})
+        # pesquisando id_jogo
+        try:
+            jogo = Jogo.objects.get(id_jogo=id_jogo)
+        except ObjectDoesNotExist:
+            return Http404(request, 'Jogo não identificado')
+
+        # id_jogo, dano_jogador, jogo
+        testee = Teste(jogo=jogo, dano_jogador=dano_jogador, id_jogo=jogo.id_jogo)
+        testee.save()
+
+        return HttpResponse(request)
+
+    elif request.method == 'GET':  # consultar todas as batalhas relacionadas a um jogo.id_jogo
+        id_jogo = request.GET['id_jogo']
+
+        try:
+            jogo = Jogo.objects.filter(id_jogo=id_jogo).select_related('batalha')
+        except ObjectDoesNotExist:
+            return Http404(request, 'O jogo não existe')
+
+        # return HttpResponse(request, {'status': 'ok'})
+        return HttpResponse("Oi, deu certo!")
+
     else:
-        return 'Mano não deu certo ó'
+        return Http404('Função indevida')
