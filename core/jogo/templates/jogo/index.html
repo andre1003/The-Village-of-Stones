@@ -17,33 +17,19 @@
     <script>
         // https://docs.djangoproject.com/en/2.2/ref/csrf/
         function getCookie(name) {
-        var cookieValue = null;
-        if (document.cookie && document.cookie !== '') {
-            var cookies = document.cookie.split(';');
-            for (var i = 0; i < cookies.length; i++) {
-                var cookie = cookies[i].trim();
-                // Does this cookie string begin with the name we want?
-                if (cookie.substring(0, name.length + 1) === (name + '=')) {
-                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                    break;
+            var cookieValue = null;
+            if (document.cookie && document.cookie !== '') {
+                var cookies = document.cookie.split(';');
+                for (var i = 0; i < cookies.length; i++) {
+                    var cookie = cookies[i].trim();
+                    // Does this cookie string begin with the name we want?
+                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
                 }
             }
-        }
-        return cookieValue;
-    }
-
-    var csrftoken = getCookie('csrftoken');
-
-        function post_oi() {
-            console.log("oi");
-            $.ajax({
-                url:'/teste/',
-                type: "POST",
-                data: {dano_jogador: dano_jogador, id_jogo: "2" , csrfmiddlewaretoken: '{{ csrf_token }}'},
-                success:function(response){},
-                complete:function(){},
-                error:function (xhr, textStatus, thrownError){}
-            });
+            return cookieValue;
         }
 
         function get_oi() {
@@ -51,7 +37,39 @@
             $.ajax({
                 url:'/teste/',
                 type: "GET",
+                data: {id_jogo: '4003', csrfmiddlewaretoken: '{{ csrf_token }}'},
+                success:function(response){alert("OK");},
+                complete:function(){},
+                error:function (xhr, textStatus, thrownError){}
+            });
+        }
+        function get_oi_teste() {
+            console.log("oi");
+            $.ajax({
+                url:'/json_teste/',
+                type: "GET",
                 data: {id_jogo: '4002', csrfmiddlewaretoken: '{{ csrf_token }}'},
+                dataType: 'json',
+                {#success:function(response){alert("OK");},#}
+                success: function (data) {
+                    if (data.is_taken){
+                        // alert('Deu certo!');
+                        console.log(data)
+                    }
+                },
+                complete:function(){},
+                error:function (xhr, textStatus, thrownError){}
+            });
+        }
+
+        var csrftoken = getCookie('csrftoken');
+
+        function post_oi() {
+            console.log("oi");
+            $.ajax({
+                url:'/teste/',
+                type: "POST",
+                data: {dano_jogador: dano_jogador, id_jogo: "2" , csrfmiddlewaretoken: '{{ csrf_token }}'},
                 success:function(response){},
                 complete:function(){},
                 error:function (xhr, textStatus, thrownError){}
@@ -142,7 +160,7 @@
     <hr>
     <button onclick="post_oi();">POST</button>
 
-    <button onclick="get_oi();">GET</button>
+    <button onclick="get_oi_teste();">GET</button>
 
 
     <script src="{% static 'jogo/scripts/jquery-3.4.1.min.js' %}" ></script>

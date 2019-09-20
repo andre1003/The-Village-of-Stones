@@ -18,7 +18,7 @@ class Batalha(models.Model):  # rodadas da batalha
 class Jogo(models.Model):
     id_jogo = models.CharField(max_length=10)
     data_jogo = models.DateField(auto_now_add=True)
-    jogo = models.ForeignKey(Batalha, on_delete=models.CASCADE, related_name='batalha')
+    jogo = models.ForeignKey(Batalha, on_delete=models.CASCADE)
 
     def __str__(self):
         return str(self.id_jogo)
