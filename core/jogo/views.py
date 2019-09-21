@@ -7,7 +7,13 @@ from django.http import JsonResponse
 
 # https://docs.djangoproject.com/en/2.2/topics/serialization/#serialization-formats-json
 from django.core.serializers import serialize
-from django.core import serializers
+from django.core.serializers.json import DjangoJSONEncoder
+
+class LazyEncoder(DjangoJSONEncoder):
+    def default(self, obj):
+        if isinstance(obj, YourCustomType):
+            return str(obj)
+        return super().default(obj)
 
 
 # Create your views here.
@@ -22,14 +28,17 @@ def novo_evento_batalha(request):
 
 def json_teste(request):
     id_jogo = request.GET.get('id_jogo', None)
-    data = {
-        'is_taken': Teste.objects.filter(id_jogo=id_jogo).exists(),
-        'data': Teste.objects.filter(id_jogo=id_jogo)
-    }
+    # data = {
+    #     'is_taken': Teste.objects.filter(id_jogo=id_jogo).exists(),
+    #     'data': serializers.serialize('json', Teste.objects.all(), cls=LazyEncoder)
+    # }
     # if data['is_taken']:
     #     data['dano_jogador'] = Teste.objects.filter(id_jogo=id_jogo)
-    data = serializers.serialize('json', [data, ])
-    return JsonResponse(data)
+
+    data = serialize('json', Teste.objects.all())
+    # return JsonResponse({'data': data})
+    return HttpResponse(data, content_type='application/json')
+    # return JsonResponse(data, safe=False)
 
 
 def teste(request):

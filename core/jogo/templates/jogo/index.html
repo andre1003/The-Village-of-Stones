@@ -43,6 +43,9 @@
                 error:function (xhr, textStatus, thrownError){}
             });
         }
+
+        var resultado = null;
+
         function get_oi_teste() {
             console.log("oi");
             $.ajax({
@@ -50,12 +53,10 @@
                 type: "GET",
                 data: {id_jogo: '4002', csrfmiddlewaretoken: '{{ csrf_token }}'},
                 dataType: 'json',
-                {#success:function(response){alert("OK");},#}
+                //success:function(response){alert("OK");},
                 success: function (data) {
-                    if (data.is_taken){
-                        // alert('Deu certo!');
-                        console.log(data)
-                    }
+                    console.log(data);
+                    resultado = data;
                 },
                 complete:function(){},
                 error:function (xhr, textStatus, thrownError){}
