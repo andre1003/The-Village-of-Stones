@@ -36,11 +36,17 @@
             console.log("oi");
             $.ajax({
                 url:'/teste/',
-                type: "GET",
-                data: {id_jogo: '4003', csrfmiddlewaretoken: '{{ csrf_token }}'},
+                type: "POST",
+                data: {
+                    /* Rodadas fields: vida_personagem, vida_boss, dano_base_personagem, dano_final_personagem, dano_total_boss,
+                    porcent_def_personagem, porcent_def_boss, id_boss, tempo_rodada, rodada_batalha, level_fase */
+                    id_jogo: 1, vida_personagem: 1, vida_boss: 1, dano_base_personagem: 1, dano_final_personagem: 1,
+                    dano_total_boss: 1, porcent_def_personagem: 1, porcent_def_boss: 1, id_boss: 1, tempo_rodada: 1,
+                    rodada_batalha: 1, level_fase: 1,
+                    csrfmiddlewaretoken: '{{ csrf_token }}'},
                 success:function(response){alert("OK");},
                 complete:function(){},
-                error:function (xhr, textStatus, thrownError){}
+                error:function (xhr, textStatus, thrownError){}, function (){alert('Erro!')}
             });
         }
 
@@ -161,7 +167,7 @@
     <hr>
     <button onclick="post_oi();">POST</button>
 
-    <button onclick="get_oi_teste();">GET</button>
+    <button onclick="get_oi();">Nova rodada</button>
 
 
     <script src="{% static 'jogo/scripts/jquery-3.4.1.min.js' %}" ></script>
