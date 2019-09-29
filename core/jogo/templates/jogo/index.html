@@ -32,7 +32,7 @@
             return cookieValue;
         }
 
-        function get_oi() {
+        function prox_rodada() {
             console.log("oi");
             $.ajax({
                 url:'/teste/',
@@ -50,19 +50,17 @@
             });
         }
 
-        var resultado = null;
-
-        function get_oi_teste() {
-            console.log("oi");
+        function get_ult_rodada() {
+            console.log("Pegando o valor da ultima rodada");
             $.ajax({
-                url:'/json_teste/',
+                url:'/get_ult_rodada/',
                 type: "GET",
-                data: {id_jogo: '4002', csrfmiddlewaretoken: '{{ csrf_token }}'},
+                data: {id_jogo: 1, csrfmiddlewaretoken: '{{ csrf_token }}'},
                 dataType: 'json',
                 //success:function(response){alert("OK");},
                 success: function (data) {
                     console.log(data);
-                    resultado = data;
+                    ult_rodada = data;
                 },
                 complete:function(){},
                 error:function (xhr, textStatus, thrownError){}
@@ -127,8 +125,6 @@
     </div>
     
 
-
-
     <div class="main-container" style="margin-top: 100px; height: 350px; width: 350px;">
         <canvas id="myChart"></canvas>
         <script>
@@ -167,7 +163,9 @@
     <hr>
     <button onclick="post_oi();">POST</button>
 
-    <button onclick="get_oi();">Nova rodada</button>
+    <button onclick="prox_rodada();">Nova rodada</button>
+
+    <button onclick="get_ult_rodada();">Atualizar dados</button>
 
 
     <script src="{% static 'jogo/scripts/jquery-3.4.1.min.js' %}" ></script>

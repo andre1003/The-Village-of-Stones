@@ -1,0 +1,39 @@
+{% extends 'jogo/base.html' %}
+
+{% block titulo_pagina %}Pesquisar resultado de um jogo{% endblock %}
+
+{% block body %}
+    <h1>Resultados para o jogo: #{{ jogo.id_jogo }} - {{ jogo.data_jogo }}</h1>
+
+
+    <table cellpadding="1" border="1px">
+        <tr>
+            <td>N° Rodada</td>
+            <td>HP personagem</td>
+            <td>HP boss</td>
+            <td>Dano base personagem</td>
+            <td>Dano final personagem</td>
+            <td>Dano total boss</td>
+            <td>% def personagem</td>
+            <td>% def boss</td>
+            <td>Boss N°</td>
+            <td>Data rodada</td>
+            <td>Fase n°</td>
+        </tr>
+        {% for rodada in rodadas %}
+            <tr>
+                <td>{{ rodada.level_fase }}</td>
+                <td>{{ rodada.vida_personagem }}</td>
+                <td>{{ rodada.vida_boss }}</td>
+                <td>{{ rodada.dano_base_personagem }}</td>
+                <td>{{ rodada.dano_final_personagem }}</td>
+                <td>{{ rodada.dano_total_boss }}</td>
+                <td>{{ rodada.porcent_def_personagem }}</td>
+                <td>{{ rodada.porcent_def_boss }}</td>
+                <td>{{ rodada.id_boss }}</td>
+                <td>{{ rodada.tempo_rodada | date:'H:i:s d-m-Y' }}</td>
+                <td>{{ rodada.rodada_batalha }}</td>
+            </tr>
+        {% endfor %}
+    </table>
+{% endblock %}

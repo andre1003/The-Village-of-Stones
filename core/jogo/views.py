@@ -9,11 +9,12 @@ from django.http import JsonResponse
 from django.core.serializers import serialize
 from django.core.serializers.json import DjangoJSONEncoder
 
-# class LazyEncoder(DjangoJSONEncoder):
-#     def default(self, obj):
-#         if isinstance(obj, YourCustomType):
-#             return str(obj)
-#         return super().default(obj)
+
+class LazyEncoder(DjangoJSONEncoder):
+    def default(self, obj):
+        if isinstance(obj, Rodada):
+            return str(obj)
+        return super().default(obj)
 
 
 # Create your views here.
@@ -23,6 +24,11 @@ def index(request):
 
 # Rodada efetuada, esta função irá salvar ela no banco
 def novaRodada(request):
+    """
+    --> Salva uma nova rodada no BD. Esta função é ativada via AJAX por depender dos parâmetros passados via POST
+    :param request: este param armazena os dados da int. do usuário
+    :return: retorna http status
+    """
     if request.method == 'POST':
         id_jogo = request.POST['id_jogo']
         try:
@@ -62,50 +68,44 @@ def novaRodada(request):
         # jogo.save()
 
         return HttpResponse('Oi, deu certo!')
+    else:
+        return Http404('Erro, método inválido!')
 
-# def json_teste(request):
-#     id_jogo = request.GET.get('id_jogo', None)
-#     # data = {
-#     #     'is_taken': Teste.objects.filter(id_jogo=id_jogo).exists(),
-#     #     'data': serializers.serialize('json', Teste.objects.all(), cls=LazyEncoder)
-#     # }
-#     # if data['is_taken']:
-#     #     data['dano_jogador'] = Teste.objects.filter(id_jogo=id_jogo)
-#
-#     data = serialize('json', Teste.objects.all())
-#     # return JsonResponse({'data': data})
-#     return HttpResponse(data, content_type='application/json')
-#     # return JsonResponse(data, safe=False)
-#
-#
-# def teste(request):
-#     status = 0
-#     if request.method == 'POST':
-#         dano_jogador = request.POST['dano_jogador']
-#         id_jogo = request.POST['id_jogo']
-#
-#         # pesquisando id_jogo
-#         try:
-#             jogo = Jogo.objects.get(id_jogo=id_jogo)
-#         except ObjectDoesNotExist:
-#             return Http404(request, 'Jogo não identificado')
-#
-#         # id_jogo, dano_jogador, jogo
-#         testee = Teste(jogo=jogo, dano_jogador=dano_jogador, id_jogo=jogo.id_jogo)
-#         testee.save()
-#
-#         return HttpResponse(request)
-#
-#     elif request.method == 'GET':  # consultar todas as batalhas relacionadas a um jogo.id_jogo
-#         id_jogo = request.GET['id_jogo']
-#
-#         try:
-#             jogo = Jogo.objects.filter(id_jogo=id_jogo)
-#         except ObjectDoesNotExist:
-#             return Http404(request, 'O jogo não existe')
-#
-#         # return HttpResponse(request, {'status': 'ok'})
-#         return HttpResponse("Oi, deu certo!")
-#
-#     else:
-#         return Http404('Função indevida')
+
+def get_ult_rodada(request):
+    """
+    --> Esta função retorna um JSON referente a todos os objetos rodadas salvos no BD em um JSON
+    :param request: este param armazena os dados de navegação do usuário
+    :return: retorna um JSON contendo todos os objs do banco, ordenados pela data mais recente
+    """
+    if request.method == 'GET':
+        id_jogo = request.GET['id_jogo']
+        try:
+            jogo = Jogo.objects.get(id_jogo=id_jogo)
+        except ObjectDoesNotExist:
+            return Http404(request, 'O jogo não existe')
+
+        jogo = serialize('json', jogo.jogo.all().order_by('-tempo_rodada'))
+
+        # return JsonResponse(jogo, safe=False)
+        return HttpResponse(jogo, content_type='application/json')
+    else:
+        return Http404('Erro, método inválido')
+
+
+def busca_resultados(request):
+    pass
+
+
+def exibir_resultados_jogo(request, id_jogo):
+    try:
+        jogo = Jogo.objects.get(id_jogo=id_jogo)
+    except ObjectDoesNotExist:
+        return render(request, 'jogo/resultados_jogo.html', status=404)
+
+    context = {
+        'jogo': jogo,
+        'rodadas': jogo.jogo.all().order_by('tempo_rodada')
+    }
+
+    return render(request, 'jogo/resultados_jogo.html', context, status=200)
