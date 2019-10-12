@@ -1,0 +1,173 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Probabilidade</title>
+
+    <link rel="stylesheet" href="{% static 'jogo/css/estilo.css' %}">
+
+    <script src="{% static 'jogo/scripts/chart.min.js' %}"></script>
+    <script src="{% static 'jogo/scripts/script.js' %}"></script>
+
+    {% csrf_token %}
+    <script>
+        // https://docs.djangoproject.com/en/2.2/ref/csrf/
+        function getCookie(name) {
+            var cookieValue = null;
+            if (document.cookie && document.cookie !== '') {
+                var cookies = document.cookie.split(';');
+                for (var i = 0; i < cookies.length; i++) {
+                    var cookie = cookies[i].trim();
+                    // Does this cookie string begin with the name we want?
+                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+
+        function prox_rodada() {
+            console.log("oi");
+            $.ajax({
+                url:'/teste/',
+                type: "POST",
+                data: {
+                    /* Rodadas fields: vida_personagem, vida_boss, dano_base_personagem, dano_final_personagem, dano_total_boss,
+                    porcent_def_personagem, porcent_def_boss, id_boss, tempo_rodada, rodada_batalha, level_fase */
+                    id_jogo: 1, vida_personagem: 1, vida_boss: 1, dano_base_personagem: 1, dano_final_personagem: 1,
+                    dano_total_boss: 1, porcent_def_personagem: 1, porcent_def_boss: 1, id_boss: 1, tempo_rodada: 1,
+                    rodada_batalha: 1, level_fase: 1,
+                    csrfmiddlewaretoken: '{{ csrf_token }}'},
+                success:function(response){alert("OK");},
+                complete:function(){},
+                error:function (xhr, textStatus, thrownError){}, function (){alert('Erro!')}
+            });
+        }
+
+        function get_ult_rodada() {
+            console.log("Pegando o valor da ultima rodada");
+            $.ajax({
+                url:'/get_ult_rodada/',
+                type: "GET",
+                data: {id_jogo: 1, csrfmiddlewaretoken: '{{ csrf_token }}'},
+                dataType: 'json',
+                //success:function(response){alert("OK");},
+                success: function (data) {
+                    console.log(data);
+                    ult_rodada = data;
+                },
+                complete:function(){},
+                error:function (xhr, textStatus, thrownError){}
+            });
+        }
+
+        var csrftoken = getCookie('csrftoken');
+
+        function post_oi() {
+            console.log("oi");
+            $.ajax({
+                url:'/teste/',
+                type: "POST",
+                data: {dano_jogador: dano_jogador, id_jogo: "2" , csrfmiddlewaretoken: '{{ csrf_token }}'},
+                success:function(response){},
+                complete:function(){},
+                error:function (xhr, textStatus, thrownError){}
+            });
+        }
+    </script>
+
+</head>
+
+<body onload="inicializarGame();">
+    <h1>Sobre o trabalho</h1>
+
+    <div class="jogo">
+        <div class="blocos" id="bloco1"></div>
+        <div class="blocos" id="bloco2"></div>
+    </div>
+    
+    <div class="container-dados">
+        <fieldset>
+            <h1>Rodada atual: <span id="rodada_atual"></span></h1>
+            <h3>Bloco 1</h3>
+            <form>
+                <p>Vida:</p>
+                <input type="number" min="0" id="vida_jogador" step="0.01">
+
+                <p>Ataque</p>
+                <input type="number" min="0" id="ataque_jogador" step="0.01">
+
+                <p>Defesa</p>
+                <input type="number" min="0" id="defesa_jogador" step="0.01">
+            </form>
+
+            <h3>Bloco 2</h3>
+            <form>
+                <p>Vida:</p>
+                <input type="number" min="0" id="vida_boss" step="0.01">
+
+                <p>Ataque</p>
+                <input type="number" min="0" id="ataque_boss" step="0.01">
+
+                <p>Defesa</p>
+                <input type="number" min="0" id="defesa_boss" step="0.01">
+            </form>
+        </fieldset>
+
+        <button id="prox-rodada" onclick="proximaRodada();">Próxima rodada</button>
+        <button id="resetar-jogo" onclick="resetarJogo();">Resetar game</button>
+    </div>
+    
+
+    <div class="main-container" style="margin-top: 100px; height: 350px; width: 350px;">
+        <canvas id="myChart"></canvas>
+        <script>
+            var ctx = document.getElementById('myChart').getContext('2d');
+            var myLineChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    // eixo x
+                    labels: rodada_atual,
+                    // eixo y
+                    datasets: [
+                        {
+                            data: lista_dados,
+                            backgroundColor: ['rgba(255, 99, 132, 0.7)']
+                        }
+                    ],
+                },
+                options: {
+                    scales: {
+                        yAxes: [{
+                            ticks: {
+                                beginAtZero: true
+                            }
+                        }],
+                        xAxes: [{
+                            ticks: {
+                                beginAtZero: false
+                            }
+                        }]
+                    }
+                }
+            });
+        </script>
+    </div>
+
+    <hr>
+    <button onclick="post_oi();">POST</button>
+
+    <button onclick="prox_rodada();">Nova rodada</button>
+
+    <button onclick="get_ult_rodada();">Atualizar dados</button>
+
+
+    <script src="{% static 'jogo/scripts/jquery-3.4.1.min.js' %}" ></script>
+</body>
+</html>

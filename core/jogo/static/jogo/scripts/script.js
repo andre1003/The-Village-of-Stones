@@ -1,3 +1,7 @@
+// Variáveis do Jogo
+var id_jogo = null;    // esta variável armazena um número inteiro que é usando pra identificar o jogo no BD
+var ult_rodada = null; // esta variável recebe da função get_ult_rodada a última rodada referente ao idjogo do BD
+
 // Variáveis do sistema
 var rodada_atual;
 var lista_rodadas;
@@ -16,7 +20,7 @@ var defesa_boss;
 
 
 
-// Esta função atualiza os valores das variáveis com base no que está no formulário
+// Esta função atualiza os valores das variáveis com base no que está no obg ult_rodada
 function atualizaVariaveis(){
     /*
         O atributo step do html retorna uma string para o js.
@@ -84,7 +88,6 @@ function criarGrafico(var_grafico, id_canvas){
 
 // Esta função atualiza todos os campos do formulário
 function resetarJogo(){
-    
     // jogador
     vida_jogador = 10;
     dano_jogador = 1;
