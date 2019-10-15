@@ -1,4 +1,5 @@
 from django.db import models
+import uuid
 
 
 # https://docs.djangoproject.com/en/2.2/ref/models/fields/
@@ -12,7 +13,7 @@ class Rodada(models.Model):  # rodadas da batalha
     porcent_def_boss = models.DecimalField(max_digits=3, decimal_places=2)        # % de defesa do boss
     id_boss = models.IntegerField()                                               # identificação do boss
     tempo_rodada = models.DateTimeField(auto_now_add=True)                        # tempo em que a rodada foi finalizada
-    rodada_batalha = models.IntegerField()                                        # contadora rodada_atual
+    rodada_batalha = models.PositiveIntegerField()                                # contadora rodada_atual
     level_fase = models.IntegerField()                                            # qual é a fase dessa rodada
 
     def __str__(self):
@@ -20,7 +21,15 @@ class Rodada(models.Model):  # rodadas da batalha
 
 
 class Jogo(models.Model):
-    id_jogo = models.CharField(max_length=10)
+    SEXO_CHOICES = [
+        ('MASC', 'Masculino'),
+        ('FEMI', 'Feminino'),
+    ]
+
+    id_jogo = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    nome_jogador = models.CharField(null=False)
+    idade_jogador = models.PositiveIntegerField()
+    sexo = models.CharField(choices=SEXO_CHOICES, max_length=4)
     data_jogo = models.DateField(auto_now_add=True)
     jogo = models.ManyToManyField(Rodada, related_name='rodadas')
 
