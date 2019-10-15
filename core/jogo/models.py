@@ -20,18 +20,27 @@ class Rodada(models.Model):  # rodadas da batalha
         return str(self.id)
 
 
-class Jogo(models.Model):
+class Jogador(models.Model):
     SEXO_CHOICES = [
         ('MASC', 'Masculino'),
         ('FEMI', 'Feminino'),
     ]
-
-    id_jogo = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    nome_jogador = models.CharField(null=False)
+    nome_jogador = models.CharField(null=False, max_length=100)
     idade_jogador = models.PositiveIntegerField()
     sexo = models.CharField(choices=SEXO_CHOICES, max_length=4)
+
+    def __str__(self):
+        return self.nome_jogador
+
+    class Meta:
+        verbose_name_plural = 'Jogadores'
+
+
+class Jogo(models.Model):
+    id_jogo = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     data_jogo = models.DateField(auto_now_add=True)
     jogo = models.ManyToManyField(Rodada, related_name='rodadas')
+    jogador = models.ForeignKey(Jogador, on_delete=models.CASCADE)
 
     def __str__(self):
         return str(self.id_jogo)
