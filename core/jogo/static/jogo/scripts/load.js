@@ -24,7 +24,7 @@ var loadState = {
 
 		//Carrega os arquivos de áudio 
 		game.load.audio('teste_1','static/jogo/audio/teste_1.mp3');
-		game.load.audio('teste_2','static/jogo /audio/teste_2.mp3');
+		game.load.audio('teste_2','static/jogo/audio/teste_2.mp3');
 
 		// Inicializando o sistema de física do game
 		game.physics.startSystem(Phaser.Physics.ARCADE);
