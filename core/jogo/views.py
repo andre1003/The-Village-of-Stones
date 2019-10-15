@@ -10,14 +10,6 @@ from django.core.serializers import serialize
 from django.core.serializers.json import DjangoJSONEncoder
 
 
-class LazyEncoder(DjangoJSONEncoder):
-    def default(self, obj):
-        if isinstance(obj, Rodada):
-            return str(obj)
-        return super().default(obj)
-
-
-# Create your views here.
 def index(request):
     return render(request, 'jogo/index.html')
 

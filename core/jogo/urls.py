@@ -14,6 +14,9 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.urls import path
+from django.conf.urls.static import static
+from django.conf import settings
+
 from .views import index, novaRodada, get_ult_rodada, busca_resultados, exibir_resultados_jogo
 
 urlpatterns = [
@@ -22,4 +25,4 @@ urlpatterns = [
     path('get_ult_rodada/', get_ult_rodada),
     path('pesquisar_resultados/', busca_resultados),
     path('pesquisar_resultados/<int:id_jogo>', exibir_resultados_jogo),
-]
+] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
