@@ -1,9 +1,16 @@
 from django.shortcuts import render, HttpResponse, Http404
 from django.core.exceptions import ObjectDoesNotExist
-from .models import Rodada, Jogo
+from jogo.models import Rodada, Jogo, Jogador
+from jogo.forms import NovoJogadorForm
+from django.shortcuts import HttpResponseRedirect, redirect
+from django.urls import reverse
+
 
 # https://simpleisbetterthancomplex.com/tutorial/2016/08/29/how-to-work-with-ajax-request-with-django.html
 from django.http import JsonResponse
+
+# Sobre redirects
+# https://realpython.com/django-redirects/#django-redirects-a-super-simple-example
 
 # https://docs.djangoproject.com/en/2.2/topics/serialization/#serialization-formats-json
 from django.core.serializers import serialize
@@ -14,8 +21,12 @@ def index(request):
     return render(request, 'jogo/index.html')
 
 
+def index_old(request):
+    return render(request, 'jogo/index_old.html')
+
+
 # Rodada efetuada, esta função irá salvar ela no banco
-def novaRodada(request):
+def salvarRodada(request):
     """
     --> Salva uma nova rodada no BD. Esta função é ativada via AJAX por depender dos parâmetros passados via POST
     :param request: este param armazena os dados da int. do usuário
@@ -34,22 +45,21 @@ def novaRodada(request):
         # recuperando os valores dados por JSON
         vida_personagem = request.POST['vida_personagem']
         vida_boss = request.POST['vida_boss']
-        dano_base_personagem = request.POST['dano_base_personagem']
-        dano_final_personagem = request.POST['dano_final_personagem']
-        dano_total_boss = request.POST['dano_total_boss']
+        dano_atacante = request.POST['dano_atacante']
+        probabilidade_ataque = request.POST['probabilidade_ataque']
         porcent_def_personagem = request.POST['porcent_def_personagem']
-        porcent_def_boss = request.POST['porcent_def_boss']
-        id_boss = request.POST['id_boss']
-        # tempo_rodada = request.method['tempo_rodada']  # este valor é setado pelo banco
-        rodada_batalha = request.POST['rodada_batalha']
-        level_fase = request.POST['level_fase']
+        probabilidade_defesa = request.POST['probabilidade_defesa']
+        numero_dado = request.POST['numero_dado']
+        numero_rodada = request.POST['numero_rodada']
+        numero_fase = request.POST['numero_fase']
+        personagem_atacou = request.POST['personagem_atacou']
 
         # Criando o obj
         nova_rodada = Rodada(
-            vida_personagem=vida_personagem, vida_boss=vida_boss, dano_base_personagem=dano_base_personagem,
-            dano_final_personagem=dano_final_personagem, dano_total_boss=dano_total_boss,
-            porcent_def_personagem=porcent_def_personagem, porcent_def_boss=porcent_def_boss, id_boss=id_boss,
-            rodada_batalha=rodada_batalha, level_fase=level_fase)
+            vida_personagem=vida_personagem, vida_boss=vida_boss, dano_atacante=dano_atacante,
+            probabilidade_ataque=probabilidade_ataque, porcent_def_personagem=porcent_def_personagem,
+            probabilidade_defesa=probabilidade_defesa, numero_dado=numero_dado, numero_rodada=numero_rodada,
+            numero_fase=numero_fase, personagem_atacou=personagem_atacou)
         nova_rodada.save()
 
         # Relacionando as tabelas
@@ -101,3 +111,29 @@ def exibir_resultados_jogo(request, id_jogo):
     }
 
     return render(request, 'jogo/resultados_jogo.html', context, status=200)
+
+
+def index_jogo(request, uuid):
+    # procurar jogador no BD com este UUID
+    try:
+        jogador = Jogador.objects.get(pk=pk)
+    except ObjectDoesNotExist:  # não encontrei o jogador no BD, redirecionar para o cadastro
+        return redirect('/cadastro')
+
+    jogos = jogador.pk_jogos.all()
+
+    return render(request, 'jogo/index_jogo.html', {'jogos': jogos})
+
+
+def cadastro_novo_jogador(request):
+    if request.method == 'POST':
+        form = NovoJogadorForm(request.POST)
+        if form.is_valid():
+            novo_usuario = form.save()
+            # return HttpResponseRedirect('/index-jogos')
+            return redirect(f'/index_jogo/{novo_usuario.id}')
+        else:
+            return render(request, 'jogo/novo_jogo.html', {'form': form})
+    else:
+        form = NovoJogadorForm()
+        return render(request, 'jogo/novo_jogo.html', {'form': form})

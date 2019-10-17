@@ -17,12 +17,16 @@ from django.urls import path
 from django.conf.urls.static import static
 from django.conf import settings
 
-from .views import index, novaRodada, get_ult_rodada, busca_resultados, exibir_resultados_jogo
+from jogo.views import index, salvarRodada, get_ult_rodada, busca_resultados, \
+    exibir_resultados_jogo, index_old, index_jogo, cadastro_novo_jogador
 
 urlpatterns = [
     path('', index),
-    path('teste/', novaRodada),
+    path('salvarrodada/', salvarRodada),
     path('get_ult_rodada/', get_ult_rodada),
     path('pesquisar_resultados/', busca_resultados),
     path('pesquisar_resultados/<int:id_jogo>', exibir_resultados_jogo),
+    path('index_jogo/<str:uuid>', index_jogo, name='index-jogos'),  # home onde o usuário pode ver todos os seus jogos
+    path('cadastro/', cadastro_novo_jogador, name='cadastrar-jogador'),
+    path('old/', index_old),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

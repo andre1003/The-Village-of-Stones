@@ -32,26 +32,32 @@
             return cookieValue;
         }
 
-        function prox_rodada() {
-            console.log("oi");
+        function enviarDados() {
             $.ajax({
-                url:'/teste/',
+                url:'/salvarrodada/',
                 type: "POST",
                 data: {
-                    /* Rodadas fields: vida_personagem, vida_boss, dano_base_personagem, dano_final_personagem, dano_total_boss,
-                    porcent_def_personagem, porcent_def_boss, id_boss, tempo_rodada, rodada_batalha, level_fase */
-                    id_jogo: 1, vida_personagem: 1, vida_boss: 1, dano_base_personagem: 1, dano_final_personagem: 1,
-                    dano_total_boss: 1, porcent_def_personagem: 1, porcent_def_boss: 1, id_boss: 1, tempo_rodada: 1,
-                    rodada_batalha: 1, level_fase: 1,
+                    id_jogo:id_jogo,
+                    ult_rodada:ult_rodada,
+                    pk_jogador:pk_jogador,
+                    vida_personagem:vida_personagem,
+                    vida_boss:vida_boss,
+                    dano_atacante:dano_atacante,
+                    probabilidade_ataque:probabilidade_ataque,
+                    probabilidade_defesa:probabilidade_defesa,
+                    numero_dado:gerarNumeroIntervalo(1,6),
+                    numero_rodada:numero_rodada,
+                    numero_fase:numero_fase,
+                    personagem_atacou:personagem_atacou,
                     csrfmiddlewaretoken: '{{ csrf_token }}'},
-                success:function(response){alert("OK");},
+                success:function(response){console.log('Rodada alterada com sucesso.');},
                 complete:function(){},
                 error:function (xhr, textStatus, thrownError){}, function (){alert('Erro!')}
             });
         }
 
         function get_ult_rodada() {
-            console.log("Pegando o valor da ultima rodada");
+            console.log("Pegando o valor da ultima rodada")
             $.ajax({
                 url:'/get_ult_rodada/',
                 type: "GET",
@@ -85,47 +91,26 @@
 </head>
 
 <body onload="inicializarGame();">
-    <h1>Sobre o trabalho</h1>
-
-    <div class="jogo">
-        <div class="blocos" id="bloco1"></div>
-        <div class="blocos" id="bloco2"></div>
-    </div>
-    
     <div class="container-dados">
-        <fieldset>
-            <h1>Rodada atual: <span id="rodada_atual"></span></h1>
-            <h3>Bloco 1</h3>
-            <form>
-                <p>Vida:</p>
-                <input type="number" min="0" id="vida_jogador" step="0.01">
+        <h1>Variáveis do sistema:</h1>
+        <p>pk_jogador: <span id="pk_jogador"></span></p>
+        <p>id_jogo: <span id="id_jogo"></span></p>
+{#        var ult_rodada; // esta variável recebe da função get_ult_rodada a última rodada referente ao idjogo do BD#}
 
-                <p>Ataque</p>
-                <input type="number" min="0" id="ataque_jogador" step="0.01">
-
-                <p>Defesa</p>
-                <input type="number" min="0" id="defesa_jogador" step="0.01">
-            </form>
-
-            <h3>Bloco 2</h3>
-            <form>
-                <p>Vida:</p>
-                <input type="number" min="0" id="vida_boss" step="0.01">
-
-                <p>Ataque</p>
-                <input type="number" min="0" id="ataque_boss" step="0.01">
-
-                <p>Defesa</p>
-                <input type="number" min="0" id="defesa_boss" step="0.01">
-            </form>
-        </fieldset>
-
-        <button id="prox-rodada" onclick="proximaRodada();">Próxima rodada</button>
-        <button id="resetar-jogo" onclick="resetarJogo();">Resetar game</button>
+        <p>vida_personagem: <span id="vida_personagem"></span></p>
+        <p>vida_boss: <span id="vida_boss"></span></p>
+        <p>dano_atacante: <span id="dano_atacante"></span></p>
+        <p>probabilidade_ataque: <span id="probabilidade_ataque"></span></p>
+        <p>probabilidade_defesa: <span id="probabilidade_defesa"></span></p>
+        <p>numero_dado: <span id="numero_dado"></span></p>
+        <p>numero_rodada: <span id="numero_rodada"></span></p>
+        <p>numero_fase: <span id="numero_fase"></span></p>
+        <p>personagem_atacou: <span id="personagem_atacou"></span></p>
     </div>
     
 
-    <div class="main-container" style="margin-top: 100px; height: 350px; width: 350px;">
+<!--
+        <div class="main-container" style="margin-top: 100px; height: 350px; width: 350px;">
         <canvas id="myChart"></canvas>
         <script>
             var ctx = document.getElementById('myChart').getContext('2d');
@@ -159,11 +144,12 @@
             });
         </script>
     </div>
+ -->
 
     <hr>
-    <button onclick="post_oi();">POST</button>
+    <button onclick="enviarDados();">Enviar Dados (POST)</button>
 
-    <button onclick="prox_rodada();">Nova rodada</button>
+{#    <button onclick="enviarDados();">Nova rodada</button>#}
 
     <button onclick="get_ult_rodada();">Atualizar dados</button>
 

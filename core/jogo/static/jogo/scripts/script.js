@@ -1,55 +1,61 @@
 // Variáveis do Jogo
-var id_jogo = null;    // esta variável armazena um número inteiro que é usando pra identificar o jogo no BD
-var ult_rodada = null; // esta variável recebe da função get_ult_rodada a última rodada referente ao idjogo do BD
+var id_jogo = 1;    // esta variável armazena um número inteiro que é usando pra identificar o jogo no BD
+var ult_rodada; // esta variável recebe da função get_ult_rodada a última rodada referente ao idjogo do BD
+var pk_jogador = 5;
 
-// Variáveis do sistema
-var rodada_atual;
-var lista_rodadas;
-var dano_atual;
-var lista_dados;
-
-// Variáveis do jogador
-var vida_jogador;
-var dano_jogador;
-var defesa_jogador;
-
-// Variáveis do boos
+// Variáveis rodada
+var vida_personagem;
 var vida_boss;
-var dano_boss;
-var defesa_boss;
+var dano_atacante;
+var probabilidade_ataque;
+var probabilidade_defesa;
+var numero_dado;
+var numero_rodada;
+var tempo_rodada;
+var numero_fase;
+var personagem_atacou;
 
-
-
-// Esta função atualiza os valores das variáveis com base no que está no obg ult_rodada
-function atualizaVariaveis(){
-    /*
-        O atributo step do html retorna uma string para o js.
-        Convertendo string -> float
-    */
-    // jogador
-    vida_jogador = parseFloat(document.getElementById("vida_jogador").value);
-    dano_jogador = parseFloat(document.getElementById("ataque_jogador").value);
-    defesa_jogador = parseFloat(document.getElementById("defesa_jogador").value);
-
-    // boss
-    vida_boss = parseFloat(document.getElementById("vida_boss").value);
-    dano_boss = parseFloat(document.getElementById("ataque_boss").value);
-    defesa_boos = parseFloat(document.getElementById("defesa_boss").value);
+// Teste
+function resetarJogo(){
+    const min = 0, max = 20;
+    // uuid_jogo = gerarNumeroIntervalo(min, max);
+    // ult_rodada = gerarNumeroIntervalo(min, max);
+    // pk_jogador = gerarNumeroIntervalo(min, max);
+    vida_personagem = gerarNumeroIntervalo(min, max);
+    vida_boss = gerarNumeroIntervalo(min, max);
+    dano_atacante = gerarNumeroIntervalo(min, max);
+    probabilidade_ataque = gerarNumeroIntervalo(min, max);
+    probabilidade_defesa = gerarNumeroIntervalo(min, max);
+    numero_dado = gerarNumeroIntervalo(min, max);
+    numero_rodada = gerarNumeroIntervalo(min, max);
+    tempo_rodada = gerarNumeroIntervalo(min, max);
+    numero_fase = gerarNumeroIntervalo(min, max);
+    personagem_atacou = gerarNumeroIntervalo(min, max);
 }
 
-// Esta função atualiza os valores das variáveis do jogo (formulário)
-function atualizaFormulario(){
-    // jogador
-    document.getElementById("vida_jogador").value = vida_jogador;
-    document.getElementById("ataque_jogador").value = dano_jogador;
-    document.getElementById("defesa_jogador").value = defesa_jogador;
+// Esta função atualiza o painel de acordo com as variáveis do sistema
+function atualizarPainel() {
+    $('#pk_jogador').html(pk_jogador);
+    $('#id_jogo').html(id_jogo);
+    $('#vida_personagem').html(vida_personagem);
+    $('#vida_boss').html(vida_boss);
+    $('#dano_atacante').html(dano_atacante);
+    $('#probabilidade_ataque').html(probabilidade_ataque);
+    $('#probabilidade_defesa').html(probabilidade_defesa);
+    $('#numero_dado').html(numero_dado);
+    $('#numero_rodada').html(numero_rodada);
+    $('#numero_fase').html(numero_fase);
+    $('#personagem_atacou').html(personagem_atacou);
+}
 
-    // boss
-    document.getElementById("vida_boss").value = vida_boss;
-    document.getElementById("ataque_boss").value = dano_boss;
-    document.getElementById("defesa_boss").value = defesa_boos;
+// Esta função é responsável por atribuir um valor padrão de vida e ataque
+function inicializarGame(){
 
-    document.getElementById("rodada_atual").innerHTML = rodada_atual;
+    // apenas para teste
+    resetarJogo();
+
+    // aplicando mudanças no painel de visualização
+    atualizarPainel();
 }
 
 function criarGrafico(var_grafico, id_canvas){
@@ -86,57 +92,20 @@ function criarGrafico(var_grafico, id_canvas){
     return var_grafico;
 }
 
-// Esta função atualiza todos os campos do formulário
-function resetarJogo(){
-    // jogador
-    vida_jogador = 10;
-    dano_jogador = 1;
-    defesa_jogador = 0.4;
-
-    // boss
-    vida_boss = 10;
-    dano_boss = 1;
-    defesa_boos = 0.4;
-        
-    rodada_atual = 0;
-    dano_atual = 0;
-
-    // resetando listas do gráfico
-    lista_rodadas = [0];
-    lista_dados = [0];
-
-    myLineChart.destroy(); // deletando gráfico
-    myLineChart = criarGrafico(myLineChart, 'myChart'); // criando um novo gráfico
-
-
-    // aplicando mudanças no painel de visualização
-    atualizaFormulario();
-}
-
-// Esta função é responsável por atribuir um valor padrão de vida e ataque
-function inicializarGame(){
-
-    // apenas para teste
-    resetarJogo();
-
-    // aplicando mudanças no painel de visualização
-    atualizaFormulario();
-}
-
 function proximaRodada(){
     rodada_atual += 1;
     dano_atual += 1;
 
     // lista_rodadas.push(rodada_atual);
     // lista_dados.push(dano_atual);
-    addData(myLineChart, rodada_atual, dano_atual);
+    // addData(myLineChart, rodada_atual, dano_atual);
 
     document.getElementById("rodada_atual").innerHTML = rodada_atual;
 
-    player_ataca();
+    // player_ataca();
 
     // exibindo mudanças no formulário
-    atualizaFormulario();
+    // atualizaFormulario();
 }
 
 // Adiciona uma nova data no gráfico
@@ -155,23 +124,11 @@ function resetGrafico(chart){
     chart.destroy();
 }
 
-// Esta função calcula a vida do boss quando o jogador ataca
-function player_ataca(){
-    // validando dano
-    if(vida_boss - dano_jogador < 0)
-        vida_boss = 0;
-    else
-        vida_boss -= dano_jogador;
-}
-
-function boss_ataca(){
-    if (vida_jogador - dano_boss < 0)
-        vida_jogador = 0;
-    else
-        vida_jogador -= dano_boss;
-}
-
 // esta função é responsável por gerar um valor aleatório de [1, 6]
 function rolarDado(){
     return Math.floor(Math.random() * 6 + 1);
+}
+
+function gerarNumeroIntervalo(min, max) {
+    return Math.floor(Math.random() * max + min);
 }
