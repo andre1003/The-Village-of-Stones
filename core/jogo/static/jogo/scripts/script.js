@@ -1,5 +1,5 @@
 // Variáveis do Jogo
-var id_jogo = 1;    // esta variável armazena um número inteiro que é usando pra identificar o jogo no BD
+var id_jogo = 100;    // esta variável armazena um número inteiro que é usando pra identificar o jogo no BD
 var ult_rodada; // esta variável recebe da função get_ult_rodada a última rodada referente ao idjogo do BD
 var pk_jogador = 5;
 
@@ -24,13 +24,13 @@ function resetarJogo(){
     vida_personagem = gerarNumeroIntervalo(min, max);
     vida_boss = gerarNumeroIntervalo(min, max);
     dano_atacante = gerarNumeroIntervalo(min, max);
-    probabilidade_ataque = gerarNumeroIntervalo(min, max);
-    probabilidade_defesa = gerarNumeroIntervalo(min, max);
-    numero_dado = gerarNumeroIntervalo(min, max);
+    probabilidade_ataque = gerarNumeroIntervalo(0, 1);
+    probabilidade_defesa = gerarNumeroIntervalo(0, 1);
+    numero_dado = gerarNumeroIntervalo(min, 6);
     numero_rodada = gerarNumeroIntervalo(min, max);
     tempo_rodada = gerarNumeroIntervalo(min, max);
     numero_fase = gerarNumeroIntervalo(min, max);
-    personagem_atacou = gerarNumeroIntervalo(min, max);
+    personagem_atacou = true;
 }
 
 // Esta função atualiza o painel de acordo com as variáveis do sistema

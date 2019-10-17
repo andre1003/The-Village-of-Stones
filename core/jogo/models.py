@@ -23,7 +23,7 @@ class Jogo(models.Model):
     id_jogo = models.UUIDField(default=uuid.uuid4, editable=False, unique=True)
     data_jogo = models.DateField(auto_now_add=True)
     escolha_final = models.BooleanField(null=True)  # salvou HumanTown?
-    pk_rodada = models.ManyToManyField(Rodada, related_name='rodadas')
+    pk_rodada = models.ManyToManyField(Rodada, blank=True)
     # pk_jogador = models.ForeignKey(Jogador, on_delete=models.CASCADE)
 
     def __str__(self):
@@ -39,7 +39,7 @@ class Jogador(models.Model):
     apelido = models.CharField(max_length=32, null=True)
     data_nascimento = models.DateField()
     genero = models.CharField(choices=SEXO_CHOICES, max_length=4)
-    pk_jogos = models.ManyToManyField(Jogo)
+    pk_jogos = models.ManyToManyField(Jogo, blank=True)
 
     def __str__(self):
         return self.nome_completo

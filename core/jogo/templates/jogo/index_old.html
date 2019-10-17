@@ -50,9 +50,9 @@
                     numero_fase:numero_fase,
                     personagem_atacou:personagem_atacou,
                     csrfmiddlewaretoken: '{{ csrf_token }}'},
-                success:function(response){console.log('Rodada alterada com sucesso.');},
+                success:function(response){console.log('Rodada salva com sucesso.');},
                 complete:function(){},
-                error:function (xhr, textStatus, thrownError){}, function (){alert('Erro!')}
+                error:function (xhr, status, error){console.log('erro');}
             });
         }
 
