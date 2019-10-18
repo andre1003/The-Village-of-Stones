@@ -112,6 +112,17 @@ def busca_resultados(request):
     pass
 
 
+def buscarJogos(request):
+    apelido = request.GET['apelido']
+    # jogador = Jogo.objects.filter(jogador__apelido__icontains=apelido)
+    jogador = Jogador.objects.get(apelido=apelido)
+    # data = {'jogos': jogador.pk_jogos.all()}
+    # data = jogador.pk_jogos.all()
+    data = serialize('json', jogador.pk_jogos.all())
+    # return JsonResponse(data)
+    return HttpResponse(data,  content_type='application/json')
+
+
 def exibir_resultados_jogo(request, id_jogo):
     try:
         jogo = Jogo.objects.get(id_jogo=id_jogo)

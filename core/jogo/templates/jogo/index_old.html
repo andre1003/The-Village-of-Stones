@@ -73,6 +73,23 @@
             });
         }
 
+        function buscarJogos() {
+            console.log("Buscando todos os jogos")
+            $.ajax({
+                url:'/buscarJogos',
+                type: "GET",
+                data: {apelido: 'Bugates', csrfmiddlewaretoken: '{{ csrf_token }}'},
+                dataType: 'json',
+                //success:function(response){alert("OK");},
+                success: function (data) {
+                    console.log(data);
+                    ult_rodada = data;
+                },
+                complete:function(){},
+                error:function (xhr, textStatus, thrownError){}
+            });
+        }
+
         var csrftoken = getCookie('csrftoken');
 
         function post_oi() {
@@ -106,6 +123,12 @@
         <p>numero_rodada: <span id="numero_rodada"></span></p>
         <p>numero_fase: <span id="numero_fase"></span></p>
         <p>personagem_atacou: <span id="personagem_atacou"></span></p>
+    </div>
+
+    <div>
+        <b>Teste links:</b>
+        {# $('#mudar-url').attr('href', 'www.127.0.0.1:800/old') #}
+        <a href="#" id="mudar-url">Teste</a>
     </div>
     
 
@@ -152,6 +175,8 @@
 {#    <button onclick="enviarDados();">Nova rodada</button>#}
 
     <button onclick="get_ult_rodada();">Atualizar dados</button>
+
+    <button onclick="buscarJogos();">buscarJogos</button>
 
 
     <script src="{% static 'jogo/scripts/jquery-3.4.1.min.js' %}" ></script>

@@ -10,15 +10,6 @@ class DatePicker(forms.DateInput):
 
 # https://docs.djangoproject.com/en/2.2/topics/forms/modelforms/
 class NovoJogadorForm(forms.ModelForm):
-    # fields = ['nome_completo', 'apelido', 'data_nascimento', 'genero']
-    # nome_completo = forms.CharField()
-    # apelido = forms.CharField()
-    # data_nascimento = forms.DateField(
-    #     widget=forms.DateInput(format='%m/%d/%Y', attrs={'class': 'datepicker'}),
-    #     input_formats=('%m/%d/%Y', )
-    #     )
-    # genero = forms.Select()
-
     class Meta:
         model = Jogador
         fields = ['nome_completo', 'apelido', 'data_nascimento', 'genero']

@@ -22,6 +22,7 @@ class Rodada(models.Model):  # rodadas da batalha
 class Jogo(models.Model):
     id_jogo = models.UUIDField(default=uuid.uuid4, editable=False, unique=True)
     data_jogo = models.DateField(auto_now_add=True)
+    total_mortes = models.PositiveIntegerField(default=0)
     escolha_final = models.BooleanField(null=True)  # salvou HumanTown?
     pk_rodada = models.ManyToManyField(Rodada, blank=True)
     # pk_jogador = models.ForeignKey(Jogador, on_delete=models.CASCADE)
