@@ -24,6 +24,10 @@ def index_old(request):
     return render(request, 'jogo/index_old.html')
 
 
+def dashboard(request):
+    return render(request, 'jogo/dashboard.html')
+
+
 def novoJogo(request, id_jogador):
     try:
         jogador = Jogador.objects.get(id=id_jogador)
@@ -87,7 +91,7 @@ def salvarRodada(request):
         return Http404('Erro, método inválido!')
 
 
-def get_ult_rodada(request):
+def get_todas_rodadas(request):
     """
     --> Esta função retorna um JSON referente a todos os objetos rodadas salvos no BD em um JSON
     :param request: este param armazena os dados de navegação do usuário
@@ -100,12 +104,35 @@ def get_ult_rodada(request):
         except ObjectDoesNotExist:
             return Http404(request, 'O jogo não existe')
 
-        jogo = serialize('json', jogo.jogo.all().order_by('-tempo_rodada'))
+        jogo = serialize('json', jogo.pk_rodada.all().order_by('-tempo_rodada'))
 
         # return JsonResponse(jogo, safe=False)
         return HttpResponse(jogo, content_type='application/json')
     else:
         return Http404('Erro, método inválido')
+
+
+def dashboard_vidaJogadorBoss(request):
+    if request.method == 'GET':
+        id_jogo = request.GET['id_jogo']
+        try:
+            jogo = Jogo.objects.get(id=id_jogo)
+        except ObjectDoesNotExist:
+            return Http404(request, 'O jogo não existe')
+
+        jogos = jogo.pk_rodada.all()
+        data = {'personagem': [], 'boss': []}
+
+        for j in jogos:
+            if j.personagem_atacou:
+                data['personagem'].append(j.vida_personagem)
+            else:
+                data['boss'].append(j.vida_personagem)
+
+        return JsonResponse(data, safe=False)
+        # data = [[i.vida_personagem, i.vida_boss for i in rodadas]
+        # data = [[i for i in rodadas]]
+        # return HttpResponse(data, content_type='application/json')
 
 
 def busca_resultados(request):

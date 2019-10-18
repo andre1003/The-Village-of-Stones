@@ -1,0 +1,85 @@
+{% extends 'jogo/base.html' %}
+{% load static %}
+
+{%  block scripts %}
+    <script src="http://code.highcharts.com/highcharts.src.js"></script>
+    <script src="{% static 'jogo/scripts/dashboard_scripts.js' %}"></script>
+
+    <script>
+        document.addEventListener("load", function () {
+            //function getVidaBossPersonagem() {
+            console.log("Pegando o valor da ultima rodada");
+            $.ajax({
+                url:'/dashboard/vida/',
+                type: "GET",
+                data: {id_jogo: 1, csrfmiddlewaretoken: '{{ csrf_token }}'},
+                dataType: 'json',
+                //success:function(response){alert("OK");},
+                success: function (data) {
+                    ult = data;
+                    console.log(data);
+                    //ult_rodada = data;
+                },
+                complete:function(){},
+                error:function (xhr, textStatus, thrownError){}
+            });
+        });
+
+        document.addEventListener('DOMContentLoaded', function () {
+                var myChart = Highcharts.chart('container', {
+                chart: {
+                    type: 'line'
+                },
+                title: {
+                    text: 'Vida do jogador'
+                },
+            //    subtitle: {
+            //        text: 'Source: WorldClimate.com'
+            //    },
+                xAxis: {
+                    categories: [1,2,3,4,5,6,7,8,9,10],
+                    title: {
+                        text: 'Rodadas'
+                    },
+                    min: 0,
+                },
+                yAxis: {
+                    title: {
+                        text: 'Vida'
+                    },
+                    max: 100,
+                    min: 0,
+                },
+                plotOptions: {
+                    line: {
+                        dataLabels: {
+                            enabled: true
+                        },
+                        enableMouseTracking: true
+                    }
+                },
+                series: [{
+                    name: 'Usuário',
+                    data: ult['personagem']
+                }, {
+                    name: 'Boss',
+                    data: [100, 90, 80, 70, 60, 50, 40, 30, 20, 10, 0]
+                }]
+            });
+    });
+</script>
+
+{%  endblock %}
+{% block body %}
+
+
+
+    <h1>teste</h1>
+
+
+<div id="container" style="height: 400px;width: 400px" onload="getVidaBossPersonagem();"></div>
+
+    <button onclick="getVidaBossPersonagem();">Pegar a ultima rodada</button>
+
+
+{% endblock %}
