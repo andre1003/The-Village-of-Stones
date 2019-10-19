@@ -8,8 +8,11 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title> {% block titulo_pagina %}{% endblock %}</title>
 
+    <link rel="stylesheet" href="{% static 'jogo/css/bootstrap.min.css' %}">
     <link rel="stylesheet" href="{% static 'jogo/css/estilo.css' %}">
 
+    <script src="{% static 'jogo/scripts/jquery-3.4.1.min.js' %}" ></script>
+    <script src="{% static 'jogo/scripts/bootstrap.min.js' %}" ></script>
     <script src="{% static 'jogo/scripts/chart.min.js' %}"></script>
     <script src="{% static 'jogo/scripts/script.js' %}"></script>
 
@@ -28,6 +31,5 @@
     {% block body %}
     {% endblock %}
 
-    <script src="{% static 'jogo/scripts/jquery-3.4.1.min.js' %}" ></script>
 </body>
 </html>
