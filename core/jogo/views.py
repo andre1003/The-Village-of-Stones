@@ -112,6 +112,11 @@ def get_todas_rodadas(request):
         return Http404('Erro, método inválido')
 
 
+############################
+# Dashboard ajax functions #
+############################
+
+
 def dashboard_vidaJogadorBoss(request):
     if request.method == 'GET':
         id_jogo = request.GET['id_jogo']
@@ -130,13 +135,26 @@ def dashboard_vidaJogadorBoss(request):
                 data['boss'].append(j.vida_personagem)
 
         return JsonResponse(data, safe=False)
-        # data = [[i.vida_personagem, i.vida_boss for i in rodadas]
-        # data = [[i for i in rodadas]]
-        # return HttpResponse(data, content_type='application/json')
 
 
-def busca_resultados(request):
-    pass
+def dashboard_probabilidadesJogadorBoss(request):
+    if request.method == 'GET':
+        id_jogo = request.GET['id_jogo']
+        try:
+            jogo = Jogo.objects.get(id=id_jogo)
+        except ObjectDoesNotExist:
+            return Http404(request, 'O jogo não existe')
+
+        jogos = jogo.pk_rodada.all()
+        data = {'personagem': [], 'boss': []}
+
+        for j in jogos:
+            if j.personagem_atacou:
+                data['personagem'].append(j.probabilidade_ataque)
+            else:
+                data['boss'].append(j.probabilidade_ataque)
+
+        return JsonResponse(data, safe=False)
 
 
 def buscarJogos(request):

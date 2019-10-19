@@ -1,12 +1,8 @@
-div.main-container canvas#myChart{
-    width: 450px;
-    height: 450px;
+/* dashboard styles */
+section#section-dashboard {
+    background-color: #1c1c29;
 }
 
-div.blocos{
-    display: inline-block;
-    width: 150px;
-    height: 150px;
-    background-color: black;
-    margin-right: 150px;
+section#section-dashboard h1{
+    color: #ffffff;
 }
