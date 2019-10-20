@@ -121,7 +121,7 @@ function proximaRodada(){
     // player_ataca();
 
     // exibindo mudanças no formulário
-    // atualizaFormulario();
+    // atualizaFormulario();resultados_jogo
 }
 
 // Adiciona uma nova data no gráfico

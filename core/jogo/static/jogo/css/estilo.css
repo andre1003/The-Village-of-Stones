@@ -21,11 +21,6 @@ svg.icon {
     height: 20px;
 }
 
-table.dash-table {
-    height: 50px; /* Seria legal habilitar o scroll aq ;;-;;*/
-    overflow-y: scroll;
-}
-
 .dash-card {
     margin-top: 15px;
     margin-bottom: 15px;
@@ -58,4 +53,21 @@ table.dash-table {
 .dash-card-header p {
     font-size: 16px;
     font-weight: lighter;
+}
+
+table.dash-table {
+    color: rgba(255, 255, 255, 0.8);
+    padding-left: 15px;
+    padding-right: 15px;
+    /* tirando conflitos com o bootstrap */
+    margin-bottom: 0 !important;
+    border-collapse: initial !important;
+}
+
+table.dash-table tr {
+    transition: background-color 0.3s;
+}
+
+table.dash-table tr:hover {
+    background-color: rgba(255, 255, 255, 0.1);
 }
