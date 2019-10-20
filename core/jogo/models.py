@@ -37,7 +37,7 @@ class Jogador(models.Model):
         ('FEMI', 'Feminino'),
     ]
     nome_completo = models.CharField(max_length=100)
-    apelido = models.CharField(max_length=32, null=True)
+    apelido = models.CharField(max_length=32, unique=True)
     data_nascimento = models.DateField()
     genero = models.CharField(choices=SEXO_CHOICES, max_length=4)
     pk_jogos = models.ManyToManyField(Jogo, blank=True)

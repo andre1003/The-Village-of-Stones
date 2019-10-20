@@ -3,6 +3,21 @@ section#section-dashboard {
     background-color: #1c1c29;
 }
 
-section#section-dashboard h1{
+section#section-dashboard h1, section#section-dashboard p{
     color: #ffffff;
+}
+
+svg.icon {
+    fill: #ffffff;
+    width: 20px;
+    height: 20px;
+}
+
+table.dash-table {
+    height: 50px; /* Seria legal habilitar o scroll aq ;;-;;*/
+    overflow-y: scroll;
+}
+
+.dash-card {
+    padding: 30px;
 }

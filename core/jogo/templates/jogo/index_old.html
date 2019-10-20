@@ -37,7 +37,7 @@
                 url:'/salvarrodada/',
                 type: "POST",
                 data: {
-                    id_jogo:id_jogo,
+                    id_jogo: 5,
                     ult_rodada:ult_rodada,
                     pk_jogador:pk_jogador,
                     vida_personagem:vida_personagem,
@@ -107,8 +107,8 @@
 
 </head>
 
-<body onload="inicializarGame();">
-    <div class="container-dados">
+<body onload="resetarJogo();inicializarGame();">
+    <div class="" style="color: #000000 !important;">
         <h1>Variáveis do sistema:</h1>
         <p>pk_jogador: <span id="pk_jogador"></span></p>
         <p>id_jogo: <span id="id_jogo"></span></p>
@@ -174,7 +174,7 @@
 
 {#    <button onclick="enviarDados();">Nova rodada</button>#}
 
-    <button onclick="get_ult_rodada();">Atualizar dados</button>
+    <button onclick="acao();">Atualizar dados</button>
 
     <button onclick="buscarJogos();">buscarJogos</button>
 

@@ -35,7 +35,7 @@ var dashboard_distribuicao_probabilidades = [];
 $.ajax({
     url:'/dashboard/vida/',
     type: "GET",
-    data: {id_jogo: 1, csrfmiddlewaretoken: '{{ csrf_token }}'},
+    data: {id_jogo: uuid_jogo, csrfmiddlewaretoken: '{{ csrf_token }}'},
     dataType: 'json',
     success: function (data) {
         dashboard_vida = data;
@@ -44,93 +44,17 @@ $.ajax({
         //ult_rodada = data;
 
         Highcharts.chart('vida_personagem_boss', {
-            title: {
-                text: 'Vida do personagem no decorrer do jogo'
-            },
-
+            title: { text: 'Vida do personagem no decorrer do jogo' },
             //subtitle: {
             //    text: 'Source: thesolarfoundation.com'
             //},´
             xAxis: {
                 allowDecimals: false, // impedindo que as rodadas sejas números reais
                 // categories: [0,1,2,3,4,5,6,7,8,9,10],
-                title: {
-                    text: 'Rodadas'},
-                    min: 0,
-                },
-
-            yAxis: {
-                title: {
-                    text: 'Quantidade de vida'
-                },
-                min: 0,
-                max: 100,
-            },
-            //legend: {
-            //    layout: 'vertical',
-            //   align: 'right',
-            //    verticalAlign: 'middle'
-            //},
-
-            plotOptions: {
-                series: {
-                    label: {
-                        connectorAllowed: true
-                    },
-                    pointStart: 0
-                }
+                title: { text: 'Rodadas'}, min: 0,
             },
 
-            series: [{
-                name: 'Usuário',
-                data: data['personagem']
-            }, {
-                name: 'Boss',
-                data: data['boss']
-            },],
-
-            responsive: {
-                rules: [{
-                    condition: {
-                        maxWidth: 500
-                    },
-                    chartOptions: {
-                        legend: {
-                            layout: 'horizontal',
-                            align: 'center',
-                            verticalAlign: 'top'
-                        }
-                    }
-                }]
-            }
-
-        });
-
-
-        Highcharts.chart('distribuicao_probabilidades', {
-            title: {
-                text: 'Probabilidade de ataque dos personagem e do boss'
-            },
-
-            //subtitle: {
-            //    text: 'Source: thesolarfoundation.com'
-            //},´
-            xAxis: {
-                    //categories: [1,2,3,4,5,6,7,8,9,10],
-                allowDecimals: false,
-                    title: {
-                       text: 'Rodadas'
-                    },
-                    min: 0,
-                },
-
-            yAxis: {
-                title: {
-                    text: 'Quantidade de vida'
-                },
-                min: 0,
-                max: 100,
-            },
+            yAxis: {title:{text: 'Quantidade de vida'}, min: 0, max: 100,},
             //legend: {
             //    layout: 'vertical',
             //   align: 'right',
@@ -147,44 +71,21 @@ $.ajax({
             },
 
             series: [
-                {name: 'Usuário', data: dashboard_distribuicao_probabilidades['personagem']},
-                {name: 'Boss',data: dashboard_distribuicao_probabilidades['boss']},
+                {name: 'Usuário', data: data['vida']['personagem']},
+                {name: 'Boss', data: data['vida']['boss']},
             ],
 
             responsive: {
                 rules: [{
-                    condition: {
-                        maxWidth: 500
-                    },
+                    condition: {maxWidth: 500},
                     chartOptions: {
-                        legend: {
-                            layout: 'horizontal',
-                            align: 'center',
-                            verticalAlign: 'top'
-                        }
+                        legend: {layout: 'horizontal', align: 'center', verticalAlign: 'top'}
                     }
                 }]
             }
+        });
 
-        }
-        );
-    },
-    complete:function(){},
-    error:function (xhr, textStatus, thrownError){}
-});
-
-
-// Gráficos de distribuição de probabilidades do personagem e do boss
-$.ajax({
-    url:'/dashboard/probabilidades/',
-    type: "GET",
-    data: {id_jogo: 1, csrfmiddlewaretoken: '{{ csrf_token }}'},
-    dataType: 'json',
-    success: function (data) {
-        dashboard_distribuicao_probabilidades = data;
-        console.log('Exibindo a distribuição de probabilidade por rodadas\n');
-        console.log(dashboard_distribuicao_probabilidades);
-
+        // Gráficos de distribuição de probabilidades do personagem e do boss
         Highcharts.chart('distribuicao_probabilidades', {
             title: { text: 'Probabilidades do personagem no decorrer do jogo' },
             //subtitle: {
@@ -206,15 +107,9 @@ $.ajax({
 
             responsive: {
                 rules: [{
-                    condition: {
-                        maxWidth: 500
-                    },
+                    condition: {maxWidth: 500},
                     chartOptions: {
-                        legend: {
-                            layout: 'horizontal',
-                            align: 'center',
-                            verticalAlign: 'top'
-                        }
+                        legend: {layout: 'horizontal', align: 'center', verticalAlign: 'top'}
                     }
                 }]
             }

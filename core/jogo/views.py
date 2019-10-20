@@ -4,6 +4,7 @@ from jogo.models import Rodada, Jogo, Jogador
 from jogo.forms import NovoJogadorForm
 from django.shortcuts import HttpResponseRedirect, redirect
 from django.urls import reverse
+from django.contrib import messages
 
 # https://simpleisbetterthancomplex.com/tutorial/2016/08/29/how-to-work-with-ajax-request-with-django.html
 from django.http import JsonResponse
@@ -22,10 +23,6 @@ def index(request):
 
 def index_old(request):
     return render(request, 'jogo/index_old.html')
-
-
-def dashboard(request):
-    return render(request, 'jogo/dashboard.html')
 
 
 def novoJogo(request, id_jogador):
@@ -112,47 +109,39 @@ def get_todas_rodadas(request):
         return Http404('Erro, método inválido')
 
 
-############################
-# Dashboard ajax functions #
-############################
+#############################
+#     Dashboard section     #
+#############################
+def dashboard(request, uuid):
+    try:
+        jogo = Jogo.objects.get(id_jogo=uuid)
+    except ObjectDoesNotExist:
+        messages.warning(request, 'O jogo solicitado ainda não foi cadastrado')
+        return render(request, 'jogo/dashboard.html')
+
+    jogos = jogo.pk_rodada.all()
+
+    return render(request, 'jogo/dashboard.html', {'jogos': jogos, 'jogo': jogo})
 
 
 def dashboard_vidaJogadorBoss(request):
     if request.method == 'GET':
-        id_jogo = request.GET['id_jogo']
+        id_jogo = str(request.GET['id_jogo'])
         try:
-            jogo = Jogo.objects.get(id=id_jogo)
+            jogo = Jogo.objects.get(id_jogo=id_jogo)
         except ObjectDoesNotExist:
             return Http404(request, 'O jogo não existe')
 
         jogos = jogo.pk_rodada.all()
-        data = {'personagem': [], 'boss': []}
+        data = {'vida': {'personagem': [], 'boss': []}, 'probabilidades': {'personagem': [], 'boss': []}}
 
         for j in jogos:
             if j.personagem_atacou:
-                data['personagem'].append(j.vida_personagem)
+                data['vida']['personagem'].append(j.vida_personagem)
+                data['probabilidades']['personagem'].append(j.probabilidade_ataque)
             else:
-                data['boss'].append(j.vida_personagem)
-
-        return JsonResponse(data, safe=False)
-
-
-def dashboard_probabilidadesJogadorBoss(request):
-    if request.method == 'GET':
-        id_jogo = request.GET['id_jogo']
-        try:
-            jogo = Jogo.objects.get(id=id_jogo)
-        except ObjectDoesNotExist:
-            return Http404(request, 'O jogo não existe')
-
-        jogos = jogo.pk_rodada.all()
-        data = {'personagem': [], 'boss': []}
-
-        for j in jogos:
-            if j.personagem_atacou:
-                data['personagem'].append(j.probabilidade_ataque)
-            else:
-                data['boss'].append(j.probabilidade_ataque)
+                data['vida']['boss'].append(j.vida_personagem)
+                data['probabilidades']['boss'].append(j.probabilidade_ataque)
 
         return JsonResponse(data, safe=False)
 

@@ -17,19 +17,17 @@ var personagem_atacou;
 
 // Teste
 function resetarJogo(){
-    const min = 0, max = 20;
     // uuid_jogo = gerarNumeroIntervalo(min, max);
     // ult_rodada = gerarNumeroIntervalo(min, max);
     // pk_jogador = gerarNumeroIntervalo(min, max);
-    vida_personagem = gerarNumeroIntervalo(min, max);
-    vida_boss = gerarNumeroIntervalo(min, max);
-    dano_atacante = gerarNumeroIntervalo(min, max);
-    probabilidade_ataque = gerarNumeroIntervalo(0, 1);
-    probabilidade_defesa = gerarNumeroIntervalo(0, 1);
-    numero_dado = gerarNumeroIntervalo(min, 6);
-    numero_rodada = gerarNumeroIntervalo(min, max);
-    tempo_rodada = gerarNumeroIntervalo(min, max);
-    numero_fase = gerarNumeroIntervalo(min, max);
+    vida_personagem = 100;
+    vida_boss = 100;
+    dano_atacante = 0;
+    probabilidade_ataque = Math.random();
+    probabilidade_defesa = Math.random();
+    numero_dado = gerarNumeroIntervalo(0, 6);
+    numero_rodada = 0;
+    numero_fase = 1;
     personagem_atacou = true;
 }
 
@@ -57,6 +55,24 @@ function inicializarGame(){
     // aplicando mudanças no painel de visualização
     atualizarPainel();
 }
+
+function acao() {
+    // get_ult_rodada();
+
+    vida_personagem = 100 - gerarNumeroIntervalo(0, 20);
+    vida_boss = 100 - gerarNumeroIntervalo(0, 20);
+    dano_atacante = 14;
+    probabilidade_ataque = gerarNumeroIntervalo(0, 1);
+    probabilidade_defesa = gerarNumeroIntervalo(0, 1);
+    numero_dado = gerarNumeroIntervalo(0, 6);
+    numero_rodada += 1;
+    numero_fase = 1;
+
+    personagem_atacou = personagem_atacou !== true;
+
+    atualizarPainel();
+}
+
 
 function criarGrafico(var_grafico, id_canvas){
     ctx = document.getElementById(id_canvas).getContext('2d');

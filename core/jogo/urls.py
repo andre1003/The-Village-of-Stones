@@ -16,7 +16,7 @@ urlpatterns = [
     path('old/', index_old),
 
     # dashboard ajax functions
-    path('dashboard/', dashboard),
+    path('dashboard/<str:uuid>', dashboard),
+    # Arrumar o nome desta url abaixo p/ uma generica de obtenção de dados
     path('dashboard/vida/', dashboard_vidaJogadorBoss),
-    path('dashboard/probabilidades/', dashboard_probabilidadesJogadorBoss),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
