@@ -39,123 +39,117 @@ $.ajax({
     dataType: 'json',
     success: function (data) {
         dashboard_vida = data;
-        console.log('Exibindo a distribuição de vida por rodadas\n');
+        console.log('Exibindo a distribuição de vida por rodadas');
         console.log(data);
 
+        // Gráfico de distribuição de probabilidades do personagem e do boss
         Highcharts.chart('vida_personagem_boss', {
             title: { text: 'Vida do personagem no decorrer do jogo' },
-            //subtitle: {
-            //    text: 'Source: thesolarfoundation.com'
-            //},
-
-            xAxis: {
-                allowDecimals: false, // impedindo que as rodadas sejas números reais
-                // categories: [0,1,2,3,4,5,6,7,8,9,10],
-                title: { text: 'Rodadas'}, min: 0,
-            },
-
-            yAxis: {title:{text: 'Quantidade de vida'}, min: 0, max: 100,},
-            //legend: {
-            //    layout: 'vertical',
-            //   align: 'right',
-            //    verticalAlign: 'middle'
-            //},
-
-            plotOptions: {
-                series: {
-                    label: {
-                        connectorAllowed: true
-                    },
-                    pointStart: 0
-                }
-            },
-
+            xAxis: { title: { text: 'Rodadas'}, min: 0, allowDecimals: false, },
+            yAxis: { title:{ text: 'Quantidade de vida'}, min: 0, max: 100,},
+            // legend: { layout: 'vertical', align: 'right', verticalAlign: 'middle'},
+            plotOptions: { series: { label: { connectorAllowed: false }, pointStart: 0 } },
             series: [
-                {name: 'Usuário', data: data['vida']['personagem']},
-                {name: 'Boss', data: data['vida']['boss']},
+                {name: 'Usuário', data: dashboard_vida['vida']['personagem']},
+                {name: 'Boss', data: dashboard_vida['vida']['boss']},
             ],
-
             responsive: {
-                rules: [{
-                    chartOptions: {
-                        legend: {layout: 'horizontal', align: 'center', verticalAlign: 'top'}
-                    }
+                rules: [{ condition: { maxWidth: 1024 },
+                    chartOptions: { legend: { layout: 'horizontal', align: 'center', verticalAlign: 'bottom' } }
                 }]
             }
         });
 
-
+        // Gráfico de distribuição de probabilidades do personagem e do boss
         Highcharts.chart('distribuicao_probabilidades', {
-            title: { text: 'Vida do personagem no decorrer do jogo' },
-            //subtitle: {
-            //    text: 'Source: thesolarfoundation.com'
-            //},
-            xAxis: {
-                allowDecimals: false, // impedindo que as rodadas sejas números reais
-                // categories: [0,1,2,3,4,5,6,7,8,9,10],
-                title: { text: 'Rodadas'}, min: 0,
-            },
-
-            yAxis: {title:{text: 'Quantidade de vida'}, min: 0, max: 100,},
-            //legend: {
-            //    layout: 'vertical',
-            //   align: 'right',
-            //    verticalAlign: 'middle'
-            //},
-
-            plotOptions: {
-                series: {
-                    label: {
-                        connectorAllowed: true
-                    },
-                    pointStart: 0
-                }
-            },
-
+            title: { text: 'Probabilidades do personagem no decorrer do jogo' },
+            xAxis: { title: { text: 'Rodadas' }, min: 0, },
+            yAxis: { title: { text: 'Probabilidade' }, min: 0, max: 1, },
+            // legend: { layout: 'vertical', align: 'right', verticalAlign: 'middle'},
+            plotOptions: { series: { label: { connectorAllowed: false }, pointStart: 0 } },
             series: [
-                {name: 'Usuário', data: data['vida']['personagem']},
-                {name: 'Boss', data: data['vida']['boss']},
+                { name: 'Usuário', data: dashboard_vida['probabilidades']['personagem']},
+                { name: 'Boss', data: dashboard_vida['probabilidades']['boss']},
             ],
-
             responsive: {
                 rules: [{
+                    condition: {
+                        maxWidth: 500
+                    },
                     chartOptions: {
-                        legend: {layout: 'horizontal', align: 'center', verticalAlign: 'top'}
+                        legend: {
+                            layout: 'horizontal',
+                            align: 'center',
+                            verticalAlign: 'bottom'
+                        }
                     }
                 }]
             }
         });
 
-        // Gráficos de distribuição de probabilidades do personagem e do boss
-        // Highcharts.chart('distribuicao_probabilidades', {
-        //     title: { text: 'Probabilidades do personagem no decorrer do jogo' },
-        //     //subtitle: {
-        //     //    text: 'Source: thesolarfoundation.com'
-        //     //},´
-        //     xAxis: { title: { text: 'Rodadas' }, min: 0, },
-        //     yAxis: { title: { text: 'Probabilidade' }, min: 0, max: 1, },
-        //     //legend: {
-        //     //    layout: 'vertical',
-        //     //   align: 'right',
-        //     //    verticalAlign: 'middle'
-        //     //},
-        //     plotOptions: { series: { label: { connectorAllowed: true }, pointStart: 0 } },
-        //
-        //     series: [
-        //         { name: 'Usuário', data: data['probabilidades']['personagem']},
-        //         { name: 'Boss', data: data['probabilidades']['boss']},
-        //     ],
-        //
-        //     responsive: {
-        //         rules: [{
-        //             chartOptions: {
-        //                 legend: {layout: 'horizontal', align: 'center', verticalAlign: 'top'}
-        //             }
-        //         }]
-        //     }
-        //
-        // });
+        Highcharts.chart('distribuicao_probabilidades0', {
+            title: { text: 'Probabilidades do personagem no decorrer do jogo' },
+            xAxis: { title: { text: 'Rodadas' }, min: 0, },
+            yAxis: { title: { text: 'Probabilidade' }, min: 0, max: 1, },
+            // legend: { layout: 'vertical', align: 'right', verticalAlign: 'middle'},
+            plotOptions: { series: { label: { connectorAllowed: false }, pointStart: 0 }, },
+            series: [
+                { name: 'Usuário', data: dashboard_vida['probabilidades']['personagem']},
+                { name: 'Boss', data: dashboard_vida['probabilidades']['boss']},
+            ],
+            responsive: {
+                rules: [{
+                    condition: {
+                        maxWidth: 500
+                    },
+                    chartOptions: {
+                        legend: {
+                            layout: 'horizontal',
+                            align: 'center',
+                            verticalAlign: 'bottom'
+                        }
+                    }
+                }]
+            }
+        });
     },
     complete:function(){},
     error:function (xhr, textStatus, thrownError){}
 });
+
+
+
+// temas
+Highcharts.theme = {
+    colors: ['#08AEEA', '#89A54E', '#2AF598', '#3D96AE', '#E20473', '#FF4D43'],
+    chart: {
+        backgroundColor: {
+            color: 'rgba(28,28,41,0.8)',
+        },
+    },
+    title: {
+        style: {
+            color: 'rgba(255, 255, 255, 0.9)',
+            font: 'bold 16px "Montserrat", Verdana, sans-serif'
+        }
+    },
+    xAxis: {
+        title: { style: { color: 'rgba(255, 255, 255, 1)'}},
+        labels: { style: { color: 'rgba(255, 255, 255, 1)'}}
+    },
+    yAxis: {
+        title: { style: { color: 'rgba(255, 255, 255, 1)'}},
+        labels: { style: { color: 'rgba(255, 255, 255, 1)'}}
+    },
+    legend: {
+        itemStyle: {
+            font: '9pt "Montserrat", Verdana, sans-serif',
+            color: 'rgba(255, 255, 255, 1)'
+        },
+        itemHoverStyle:{
+            color: 'rgba(255, 255, 255, 0.6)'
+        }
+    }
+};
+// Apply the theme
+Highcharts.setOptions(Highcharts.theme);

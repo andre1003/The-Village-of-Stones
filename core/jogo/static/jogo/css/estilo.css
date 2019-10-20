@@ -23,10 +23,10 @@ svg.icon {
 
 .dash-card {
     margin-top: 15px;
-    margin-bottom: 15px;
+    /*margin-bottom: 15px;*/
+    padding-bottom: 10px;
     color: rgba(255, 255, 255, 0.8);
     padding-top: 20px;
-    padding-bottom: 20px;
     background-color: #27293d;
     box-shadow: 0 1px 20px 0 rgba(0, 0, 0, 0.1);
     border-radius: 0.2857rem;
@@ -42,6 +42,7 @@ svg.icon {
 
 .dash-card-header {
     padding-left: 15px;
+    padding-right: 15px;
 }
 
 .dash-card-header h4 {
@@ -73,7 +74,6 @@ table.dash-table tr:hover {
 }
 
 /* Paulo */
-
 body {
     color: rgba(255, 255, 255, 0.8);
     background-color: #1c1c29;
@@ -82,7 +82,6 @@ body {
 .navbar {
     background-color: #27293d !important;
     color: rgba(255, 255, 255, 0.8);
-    background-color: #27293d;
     box-shadow: 0 1px 20px 0 rgba(0, 0, 0, 0.1);
     border: 2px solid rgba(225, 78, 202, 0);
 }
