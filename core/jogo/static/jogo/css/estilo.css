@@ -1,3 +1,11 @@
+/* Importando a fonte */
+/*@import url('https://fonts.googleapis.com/css?family=Montserrat&display=swap');*/
+@import url('https://fonts.googleapis.com/css?family=Montserrat:300,400,500&display=swap');
+
+* {
+    font-family: 'Montserrat', sans-serif !important;
+}
+
 /* dashboard styles */
 section#section-dashboard {
     background-color: #1c1c29;
@@ -8,7 +16,7 @@ section#section-dashboard h1, section#section-dashboard p{
 }
 
 svg.icon {
-    fill: #ffffff;
+    fill: rgba(255, 255, 255, 0.8);
     width: 20px;
     height: 20px;
 }
@@ -19,5 +27,35 @@ table.dash-table {
 }
 
 .dash-card {
-    padding: 30px;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    color: rgba(255, 255, 255, 0.8);
+    padding-top: 20px;
+    padding-bottom: 20px;
+    background-color: #27293d;
+    box-shadow: 0 1px 20px 0 rgba(0, 0, 0, 0.1);
+    border-radius: 0.2857rem;
+    border: 2px solid rgba(225, 78, 202, 0);
+    transition: all 0.3s;
+}
+/*rgba(0, 0, 0, 0.1)*/
+/*225 78 202*/
+.dash-card:hover {
+    /*box-shadow: 0 1px 20px 0 #e14eca;*/
+    border: 2px solid rgba(225, 78, 202, 0.6);
+}
+
+.dash-card-header {
+    padding-left: 15px;
+}
+
+.dash-card-header h4 {
+    font-size: 1.6875rem;
+    font-weight: bold;
+    padding-bottom: 5px;
+}
+
+.dash-card-header p {
+    font-size: 16px;
+    font-weight: lighter;
 }

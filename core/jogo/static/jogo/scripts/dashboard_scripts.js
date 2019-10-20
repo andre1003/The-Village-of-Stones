@@ -77,7 +77,6 @@ $.ajax({
 
             responsive: {
                 rules: [{
-                    condition: {maxWidth: 500},
                     chartOptions: {
                         legend: {layout: 'horizontal', align: 'center', verticalAlign: 'top'}
                     }
@@ -101,13 +100,12 @@ $.ajax({
             plotOptions: { series: { label: { connectorAllowed: true }, pointStart: 0 } },
 
             series: [
-                { name: 'Usuário', data: dashboard_distribuicao_probabilidades['personagem']},
-                { name: 'Boss', data: dashboard_distribuicao_probabilidades['boss']},
+                { name: 'Usuário', data: data['probabilidades']['personagem']},
+                { name: 'Boss', data: data['probabilidades']['boss']},
             ],
 
             responsive: {
                 rules: [{
-                    condition: {maxWidth: 500},
                     chartOptions: {
                         legend: {layout: 'horizontal', align: 'center', verticalAlign: 'top'}
                     }
