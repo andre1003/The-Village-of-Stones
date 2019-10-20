@@ -205,22 +205,41 @@ def cadastro_novo_jogador(request):
 ##########################
 
 def autocomplete(request):
-    if request.is_ajax():
-        apelido = request.GET.get('term', '')
+    '''
+    --> Essa função realiza a busca por apelidos em tempo real e
+    retorna os resultados, de modo a promover um autocomplete.
+    '''
+    if request.is_ajax(): # Se a requisição foi feita por Ajax
+        apelido = request.GET.get('term', '') # Pega o que está sendo escrito
         try:
-            busca = Jogador.objects.filter(apelido__icontains = apelido)
+            busca = Jogador.objects.filter(apelido__icontains = apelido) # Busca no banco
         except:
             return HttpResponse('')
         resultados = []
-        for pessoa in busca:
+        for pessoa in busca: # Cria um dicionário
             apelido_json = {}
             apelido_json['label'] = pessoa.apelido
             apelido_json['value'] = pessoa.apelido
             resultados.append(apelido_json)
-        data = json.dumps(resultados)
+        data = json.dumps(resultados) # Transforma os resultados da busca em um json
     else:
         data = 'fail'
-    return HttpResponse(data, content_type='application/json; charset=utf8')
+    return HttpResponse(data, content_type='application/json; charset=utf8') # Retorna os resultados
 
 def pesquisar_jogo(request):
-    return render(request, 'jogo/pesquisar_jogo.html')
+    '''
+    --> Função para buscar um jogador e redirecioná-lo para a dashboard, através
+    do seu UUID, referente à última pk. Sendo assim, irá ser feita uma busca pelo
+    apelido e em seguida o último jogo.
+    '''
+    pesquisa = request.GET.get('search')
+    if pesquisa: # Se houver pesquisa
+        try:
+            jogador = Jogador.objects.get(apelido=pesquisa) # Tenta buscar o jogador por apelido          
+        except:
+            return Http404(request, 'O jogador não existe!') # Se não existir o jogador, retorna 404
+
+        jogos = jogador.pk_jogos.all() # Pega todas as chaves de todos os jogos
+        i = len(jogos) - 1 # Pega a última chave
+        return redirect(dashboard, jogos[i]) # Redireciona para a página do dashboard com a última chave
+    return render(request, 'jogo/pesquisar_jogo.html') # Se não houver pesquisa, permanece na página de busca

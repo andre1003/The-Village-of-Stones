@@ -1,20 +1,13 @@
-{% load static %}
-<head>
-    
-    <link rel="stylesheet" href=" {% static 'jogo/css/jquery_ui.css' %}">   
-    <script src="{% static 'jogo/scripts/jquery-3.4.1.min.js' %}"></script>
-    <script src="{% static 'jogo/scripts/script.js' %}"></script>
+{% extends 'jogo/base.html' %}
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
-</head>
-<h1>Aqui você vai pesquisar um jogo:</h1>
-
-
-<body>
-    <form action="." method="GET">
-        <label>Apelido:</label>
+{% block body %}
+    <h1>Aqui você vai pesquisar um jogo:</h1>
+    <label style="color: white;">Apelido:</label>
+    <form action="." method="GET" class="form-inline">
+        
         <div class="ui-widget">
             <input type="text" id="search" name="search" required>
         </div>
+        <input type="submit" class="btn btn-outline-success my-2 my-sm-0" value="Buscar">
     </form>
-</body>
+{% endblock %}

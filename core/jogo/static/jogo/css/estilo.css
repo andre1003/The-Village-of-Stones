@@ -71,3 +71,28 @@ table.dash-table tr {
 table.dash-table tr:hover {
     background-color: rgba(255, 255, 255, 0.1);
 }
+
+/* Paulo */
+
+body {
+    color: rgba(255, 255, 255, 0.8);
+    background-color: #1c1c29;
+}
+
+.navbar {
+    background-color: #27293d !important;
+    color: rgba(255, 255, 255, 0.8);
+    background-color: #27293d;
+    box-shadow: 0 1px 20px 0 rgba(0, 0, 0, 0.1);
+    border: 2px solid rgba(225, 78, 202, 0);
+}
+
+.branco a {
+    color: rgba(255, 255, 255, 0.8) !important;
+    border-bottom: 2px solid #27293d;
+    transition: 0.5s;
+}
+
+.branco a:hover {
+    border-bottom: 2px solid rgba(225, 78, 202, 0.6);
+}
