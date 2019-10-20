@@ -1,7 +1,20 @@
+{% load static %}
+<head>
+    
+    <link rel="stylesheet" href=" {% static 'jogo/css/jquery_ui.css' %}">   
+    <script src="{% static 'jogo/scripts/jquery-3.4.1.min.js' %}"></script>
+    <script src="{% static 'jogo/scripts/script.js' %}"></script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+</head>
 <h1>Aqui você vai pesquisar um jogo:</h1>
 
 
-<form method="POST">
-    <label>Apelido:</label>
-    <input type="text" required>
-</form>
+<body>
+    <form action="." method="GET">
+        <label>Apelido:</label>
+        <div class="ui-widget">
+            <input type="text" id="search" name="search" required>
+        </div>
+    </form>
+</body>

@@ -15,6 +15,9 @@ urlpatterns = [
     path('novojogo/<int:id_jogador>', novoJogo),
     path('old/', index_old),
 
+    path('pesquisar_jogo/', pesquisar_jogo), # Paulo
+    path('autocomplete/',autocomplete), # Paulo
+
     # dashboard ajax functions
     path('dashboard/<str:uuid>', dashboard),
     # Arrumar o nome desta url abaixo p/ uma generica de obtenção de dados

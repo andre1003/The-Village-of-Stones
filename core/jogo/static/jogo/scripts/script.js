@@ -148,3 +148,16 @@ function rolarDado(){
 function gerarNumeroIntervalo(min, max) {
     return Math.floor(Math.random() * max + min);
 }
+
+
+
+////////////////////////////////////////////////////////////////////////////
+//                   ESSA É A TAL DA PARTE DO PAULO                       //
+////////////////////////////////////////////////////////////////////////////
+
+$(function() {
+    $("#search").autocomplete ({
+        minLength: 2,
+        source: "/autocomplete/"
+    })
+})

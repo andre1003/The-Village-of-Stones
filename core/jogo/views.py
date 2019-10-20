@@ -16,6 +16,9 @@ from django.http import JsonResponse
 from django.core.serializers import serialize
 from django.core.serializers.json import DjangoJSONEncoder
 
+# Json
+import json
+
 
 def index(request):
     return render(request, 'jogo/index.html')
@@ -195,3 +198,29 @@ def cadastro_novo_jogador(request):
     else:
         form = NovoJogadorForm()
         return render(request, 'jogo/novo_jogo.html', {'form': form})
+
+
+##########################
+# Ajax para autocomplete #
+##########################
+
+def autocomplete(request):
+    if request.is_ajax():
+        apelido = request.GET.get('term', '')
+        try:
+            busca = Jogador.objects.filter(apelido__icontains = apelido)
+        except:
+            return HttpResponse('')
+        resultados = []
+        for pessoa in busca:
+            apelido_json = {}
+            apelido_json['label'] = pessoa.apelido
+            apelido_json['value'] = pessoa.apelido
+            resultados.append(apelido_json)
+        data = json.dumps(resultados)
+    else:
+        data = 'fail'
+    return HttpResponse(data, content_type='application/json; charset=utf8')
+
+def pesquisar_jogo(request):
+    return render(request, 'jogo/pesquisar_jogo.html')
