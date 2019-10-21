@@ -216,11 +216,13 @@ def autocomplete(request):
     """
     if request.is_ajax():  # Se a requisição foi feita por Ajax
         apelido = request.GET.get('term', '')  # Pega o que está sendo escrito
+
         try:
-            busca = Jogador.objects.filter(apelido__icontains=apelido)  # Busca no banco
+            busca = Jogador.objects.filter(apelido__icontains=apelido)[:5]  # Busca no banco
         except ObjectDoesNotExist:
             return HttpResponse('')
         resultados = []
+
         for pessoa in busca:  # Cria um dicionário
             apelido_json = {}
             apelido_json['label'] = pessoa.apelido
@@ -229,7 +231,9 @@ def autocomplete(request):
         data = json.dumps(resultados)  # Transforma os resultados da busca em um json
     else:
         data = 'fail'
-    return HttpResponse(data, content_type='application/json; charset=utf8')  # Retorna os resultados
+
+    mimetype = 'application/json; charset=utf8'
+    return HttpResponse(data, content_type=mimetype)  # Retorna os resultados
 
 
 def pesquisar_jogo(request):
