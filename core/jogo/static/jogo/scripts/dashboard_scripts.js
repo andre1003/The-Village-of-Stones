@@ -44,6 +44,7 @@ $.ajax({
 
         // Gráfico de distribuição de probabilidades do personagem e do boss
         Highcharts.chart('vida_personagem_boss', {
+            // chart: { type: 'spline', }, // suaviza as curvas do gráfico
             title: { text: 'Vida do personagem no decorrer do jogo' },
             xAxis: { title: { text: 'Rodadas'}, min: 0, allowDecimals: false, },
             yAxis: { title:{ text: 'Quantidade de vida'}, min: 0, max: 100,},
@@ -62,14 +63,15 @@ $.ajax({
 
         // Gráfico de distribuição de probabilidades do personagem e do boss
         Highcharts.chart('distribuicao_probabilidades', {
+            // chart: { type: 'spline', }, // suaviza as curvas do gráfico
             title: { text: 'Probabilidades do personagem no decorrer do jogo' },
-            xAxis: { title: { text: 'Rodadas' }, min: 0, },
+            xAxis: { title: { text: 'Rodadas' }, min: 0, allowDecimals: false },
             yAxis: { title: { text: 'Probabilidade' }, min: 0, max: 1, },
             // legend: { layout: 'vertical', align: 'right', verticalAlign: 'middle'},
             plotOptions: { series: { label: { connectorAllowed: false }, pointStart: 0 } },
             series: [
-                { name: 'Usuário', data: dashboard_vida['probabilidades']['personagem']},
-                { name: 'Boss', data: dashboard_vida['probabilidades']['boss']},
+                {name: 'Usuário', data: dashboard_vida['probabilidades']['personagem']},
+                {name: 'Boss', data: dashboard_vida['probabilidades']['boss']},
             ],
             responsive: {
                 rules: [{ condition: { maxWidth: 1024 },
@@ -79,6 +81,7 @@ $.ajax({
         });
 
         Highcharts.chart('distribuicao_probabilidades0', {
+            chart: { type: 'spline', }, // suaviza as curvas do gráfico
             title: { text: 'Probabilidades do personagem no decorrer do jogo' },
             xAxis: { title: { text: 'Rodadas' }, min: 0, },
             yAxis: { title: { text: 'Probabilidade' }, min: 0, max: 1, },

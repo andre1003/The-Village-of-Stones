@@ -10,11 +10,12 @@
                         <p>Pesquise um ou mais jogos, pelo apelido do usuário.</p>
                     </div>
                     <div class="dash-card-body">
-                        <form action="#" method="GET">
+                        <form action="." method="GET">
                             {% csrf_token %}
                             <div class="form-group">
+                                <label for="search" class="white-color">Apelido:</label>
                                 <div class="ui-widget">
-                                    <label for="search" class="white-color">Apelido:</label>
+                                    
                                     <input type="text" id="search" name="search" required>
                                 </div>
                             </div>

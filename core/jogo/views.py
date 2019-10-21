@@ -144,11 +144,11 @@ def dashboard_vidaJogadorBoss(request):
 
         for j in jogos:
             if j.personagem_atacou:
-                data['vida']['personagem'].append(j.vida_personagem)
-                data['probabilidades']['personagem'].append(j.probabilidade_ataque)
+                data['vida']['personagem'].append(float(j.vida_personagem))
+                data['probabilidades']['personagem'].append(float(j.probabilidade_ataque))
             else:
-                data['vida']['boss'].append(j.vida_personagem)
-                data['probabilidades']['boss'].append(j.probabilidade_ataque)
+                data['vida']['boss'].append(float(j.vida_personagem))
+                data['probabilidades']['boss'].append(float(j.probabilidade_ataque))
 
         return JsonResponse(data, safe=False)
 
