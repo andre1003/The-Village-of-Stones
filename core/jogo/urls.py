@@ -14,9 +14,11 @@ urlpatterns = [
     path('cadastro_jogador/', cadastro_novo_jogador, name='cadastrar-jogador'),
     path('novojogo/<int:id_jogador>', novoJogo),
     path('old/', index_old),
+    path('sobre', sobre, name='sobre'),
 
-    path('pesquisar_jogo/', pesquisar_jogo, name='pesquisar_jogo'), # Url para pesquisar jogos
-    path('autocomplete/',autocomplete), # Url apenas para requisições em Ajax, para o autocomplete
+    # pesquisar jogo
+    path('pesquisar_jogo/', pesquisar_jogo, name='pesquisar_jogo'),  # Url para pesquisar jogos
+    path('autocomplete/', autocomplete),  # Url apenas para requisições em Ajax, para o autocomplete
 
     # dashboard ajax functions
     path('dashboard/<str:uuid>', dashboard),

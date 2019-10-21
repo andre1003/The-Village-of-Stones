@@ -1,13 +1,29 @@
 {% extends 'jogo/base.html' %}
 
 {% block body %}
-    <h1>Aqui você vai pesquisar um jogo:</h1>
-    <label style="color: white;">Apelido:</label>
-    <form action="." method="GET" class="form-inline">
-        
-        <div class="ui-widget">
-            <input type="text" id="search" name="search" required>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-10 offset-md-1">
+                <div class="dash-card">
+                    <div class="dash-card-header">
+                        <h4>Pesquisar jogo&nbsp;<span class="icon-search"></span></h4>
+                        <p>Pesquise um ou mais jogos, pelo apelido do usuário.</p>
+                    </div>
+                    <div class="dash-card-body">
+                        <form action="#" method="GET">
+                            {% csrf_token %}
+                            <div class="form-group">
+                                <div class="ui-widget">
+                                    <label for="search" class="white-color">Apelido:</label>
+                                    <input type="text" id="search" name="search" required>
+                                </div>
+                            </div>
+                            <input type="submit" class="btn btn-outline-success my-2 my-sm-0" value="Buscar">
+                            <input type="reset" class="btn btn-light">
+                        </form>
+                    </div>
+                </div>
+            </div>
         </div>
-        <input type="submit" class="btn btn-outline-success my-2 my-sm-0" value="Buscar">
-    </form>
+    </div>
 {% endblock %}

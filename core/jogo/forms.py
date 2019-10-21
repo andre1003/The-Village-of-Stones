@@ -14,5 +14,30 @@ class NovoJogadorForm(forms.ModelForm):
         model = Jogador
         fields = ['nome_completo', 'apelido', 'data_nascimento', 'genero']
         widgets = {
-            'data_nascimento': DatePicker
+            # 'data_nascimento': DatePicker,
+            'nome_completo': forms.TextInput(
+                attrs={
+                    'class': 'form-control',
+                    'placeholder': 'Digite o seu nome completo'
+                }
+            ),
+            'apelido': forms.TextInput(
+                attrs={
+                    'class': 'form-control',
+                    'placeholder': 'Digite o seu apelido'
+                }
+            ),
+            'genero': forms.Select(
+                attrs={
+                    'class': 'form-control'
+                }
+            ),
+            'data_nascimento': DatePicker(
+                attrs={
+                    'class': 'form-control'
+                }
+            )
+
         }
+
+        # https://getbootstrap.com/docs/4.3/components/forms/#switches # para quando for fazer o aceito os termos

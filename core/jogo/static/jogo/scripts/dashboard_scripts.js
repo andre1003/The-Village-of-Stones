@@ -72,17 +72,8 @@ $.ajax({
                 { name: 'Boss', data: dashboard_vida['probabilidades']['boss']},
             ],
             responsive: {
-                rules: [{
-                    condition: {
-                        maxWidth: 500
-                    },
-                    chartOptions: {
-                        legend: {
-                            layout: 'horizontal',
-                            align: 'center',
-                            verticalAlign: 'bottom'
-                        }
-                    }
+                rules: [{ condition: { maxWidth: 1024 },
+                    chartOptions: { legend: { layout: 'horizontal', align: 'center', verticalAlign: 'bottom' } }
                 }]
             }
         });
@@ -99,16 +90,8 @@ $.ajax({
             ],
             responsive: {
                 rules: [{
-                    condition: {
-                        maxWidth: 500
-                    },
-                    chartOptions: {
-                        legend: {
-                            layout: 'horizontal',
-                            align: 'center',
-                            verticalAlign: 'bottom'
-                        }
-                    }
+                    condition: { maxWidth: 1024 },
+                    chartOptions: { legend: { layout: 'horizontal', align: 'center', verticalAlign: 'bottom' } }
                 }]
             }
         });
@@ -118,20 +101,13 @@ $.ajax({
 });
 
 
-
-// temas
+// Them ByGates :DDDD
 Highcharts.theme = {
+    // Cores dos gráficos (possíveis cores para as linhas
     colors: ['#08AEEA', '#89A54E', '#2AF598', '#3D96AE', '#E20473', '#FF4D43'],
-    chart: {
-        backgroundColor: {
-            color: 'rgba(28,28,41,0.8)',
-        },
-    },
+    chart: { backgroundColor: { color: 'rgba(28,28,41,0.8)', }, },
     title: {
-        style: {
-            color: 'rgba(255, 255, 255, 0.9)',
-            font: 'bold 16px "Montserrat", Verdana, sans-serif'
-        }
+        style: { color: 'rgba(255, 255, 255, 0.9)', font: 'bold 16px "Montserrat", Verdana, sans-serif' }
     },
     xAxis: {
         title: { style: { color: 'rgba(255, 255, 255, 1)'}},
@@ -143,12 +119,8 @@ Highcharts.theme = {
     },
     legend: {
         itemStyle: {
-            font: '9pt "Montserrat", Verdana, sans-serif',
-            color: 'rgba(255, 255, 255, 1)'
-        },
-        itemHoverStyle:{
-            color: 'rgba(255, 255, 255, 0.6)'
-        }
+            font: '9pt "Montserrat", Verdana, sans-serif', color: 'rgba(255, 255, 255, 1)' },
+            itemHoverStyle: { color: 'rgba(255, 255, 255, 0.6)' }
     }
 };
 // Apply the theme

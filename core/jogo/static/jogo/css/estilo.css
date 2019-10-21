@@ -6,6 +6,10 @@
     font-family: 'Montserrat', sans-serif !important;
 }
 
+.white-color {
+    color: rgba(255, 255, 255, 0.8) !important;
+}
+
 /* dashboard styles */
 section#section-dashboard {
     background-color: #1c1c29;
@@ -57,7 +61,7 @@ svg.icon {
 }
 
 table.dash-table {
-    color: rgba(255, 255, 255, 0.8);
+    /*color: rgba(255, 255, 255, 0.8);*/
     padding-left: 15px;
     padding-right: 15px;
     /* tirando conflitos com o bootstrap */
@@ -73,7 +77,7 @@ table.dash-table tr:hover {
     background-color: rgba(255, 255, 255, 0.1);
 }
 
-/* Paulo */
+/* Pesquisar jogo form */
 body {
     color: rgba(255, 255, 255, 0.8);
     background-color: #1c1c29;
@@ -94,4 +98,16 @@ body {
 
 .branco a:hover {
     border-bottom: 2px solid rgba(225, 78, 202, 0.6);
+}
+
+div.dash-card-body form{
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+
+/* sobre */
+div.dash-card-body p{
+    padding-left: 15px;
+    padding-right: 15px;
 }

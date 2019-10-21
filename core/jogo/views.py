@@ -28,6 +28,10 @@ def index_old(request):
     return render(request, 'jogo/index_old.html')
 
 
+def sobre(request):
+    return render(request, 'jogo/sobre.html')
+
+
 def novoJogo(request, id_jogador):
     try:
         jogador = Jogador.objects.get(id=id_jogador)
@@ -203,43 +207,47 @@ def cadastro_novo_jogador(request):
 ##########################
 # Ajax para autocomplete #
 ##########################
-
 def autocomplete(request):
-    '''
-    --> Essa função realiza a busca por apelidos em tempo real e
+    """
+    ---> Essa função realiza a busca por apelidos em tempo real e
     retorna os resultados, de modo a promover um autocomplete.
-    '''
-    if request.is_ajax(): # Se a requisição foi feita por Ajax
-        apelido = request.GET.get('term', '') # Pega o que está sendo escrito
+    :param request:
+    :return:
+    """
+    if request.is_ajax():  # Se a requisição foi feita por Ajax
+        apelido = request.GET.get('term', '')  # Pega o que está sendo escrito
         try:
-            busca = Jogador.objects.filter(apelido__icontains = apelido) # Busca no banco
-        except:
+            busca = Jogador.objects.filter(apelido__icontains=apelido)  # Busca no banco
+        except ObjectDoesNotExist:
             return HttpResponse('')
         resultados = []
-        for pessoa in busca: # Cria um dicionário
+        for pessoa in busca:  # Cria um dicionário
             apelido_json = {}
             apelido_json['label'] = pessoa.apelido
             apelido_json['value'] = pessoa.apelido
             resultados.append(apelido_json)
-        data = json.dumps(resultados) # Transforma os resultados da busca em um json
+        data = json.dumps(resultados)  # Transforma os resultados da busca em um json
     else:
         data = 'fail'
-    return HttpResponse(data, content_type='application/json; charset=utf8') # Retorna os resultados
+    return HttpResponse(data, content_type='application/json; charset=utf8')  # Retorna os resultados
+
 
 def pesquisar_jogo(request):
-    '''
+    """
     --> Função para buscar um jogador e redirecioná-lo para a dashboard, através
     do seu UUID, referente à última pk. Sendo assim, irá ser feita uma busca pelo
     apelido e em seguida o último jogo.
-    '''
+    :param request:
+    :return:
+    """
     pesquisa = request.GET.get('search')
-    if pesquisa: # Se houver pesquisa
+    if pesquisa:  # Se houver pesquisa
         try:
-            jogador = Jogador.objects.get(apelido=pesquisa) # Tenta buscar o jogador por apelido          
-        except:
-            return Http404(request, 'O jogador não existe!') # Se não existir o jogador, retorna 404
+            jogador = Jogador.objects.get(apelido=pesquisa)  # Tenta buscar o jogador por apelido
+        except ObjectDoesNotExist:
+            return Http404(request, 'O jogador não existe!')  # Se não existir o jogador, retorna 404
 
-        jogos = jogador.pk_jogos.all() # Pega todas as chaves de todos os jogos
-        i = len(jogos) - 1 # Pega a última chave
-        return redirect(dashboard, jogos[i]) # Redireciona para a página do dashboard com a última chave
-    return render(request, 'jogo/pesquisar_jogo.html') # Se não houver pesquisa, permanece na página de busca
+        jogos = jogador.pk_jogos.all()  # Pega todas as chaves de todos os jogos
+        i = len(jogos) - 1  # Pega a última chave
+        return redirect(dashboard, jogos[i])  # Redireciona para a página do dashboard com a última chave
+    return render(request, 'jogo/pesquisar_jogo.html')  # Se não houver pesquisa, permanece na página de busca
