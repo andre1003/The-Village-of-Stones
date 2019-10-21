@@ -152,12 +152,26 @@ function gerarNumeroIntervalo(min, max) {
 
 
 ////////////////////////////////////////////////////////////////////////////
-//                   ESSA É A TAL DA PARTE DO PAULO                       //
+//                   MODELOS E FUNÇÕES MATEMÁTICAS                        //
 ////////////////////////////////////////////////////////////////////////////
 
-$(function() {
-    $("#search").autocomplete ({
-        minLength: 2,
-        source: "/autocomplete/"
-    })
-})
+// Esta função calcula o fatorial de um número
+function fat(num) {
+    var result = num;
+    if (num === 0 || num === 1)
+        return 1;
+    while (num > 1) {
+        num--;
+        result *= num;
+    }
+    return result;
+}
+
+function poisson(k, media) {
+    var v1 = Math.exp(media * (-1)); // exp^(-media)
+    var v2 = Math.pow(media, k);        // media^k
+    v1 = v1 * v2; // parte de cima
+    v2 = fat(k);
+
+    return v1 / v2;
+}
