@@ -140,11 +140,12 @@ function resetGrafico(chart){
     chart.destroy();
 }
 
-// esta função é responsável por gerar um valor aleatório de [1, 6]
+// esta função é responsável por gerar um valor aleatório entre [1, 6]
 function rolarDado(){
     return Math.floor(Math.random() * 6 + 1);
 }
 
+// Esta função é capaz de gerar um valor aleatório dentro de [min,max]
 function gerarNumeroIntervalo(min, max) {
     return Math.floor(Math.random() * max + min);
 }
@@ -167,11 +168,109 @@ function fat(num) {
     return result;
 }
 
+// Modelo binomial apresentado pela professora
 function poisson(k, media) {
     var v1 = Math.exp(media * (-1)); // exp^(-media)
     var v2 = Math.pow(media, k);        // media^k
     v1 = v1 * v2; // parte de cima
-    v2 = fat(k);
+    v2 = fat(k);  // parte de baixo
 
     return v1 / v2;
+}
+
+// esta função é onde definimos as probabilidades
+function p_acerto_erro(tipo_ataque, tipo_defesa) {
+    if (tipo_ataque === 'ar') {
+        if (tipo_defesa === 'fogo')       // (ar, fogo)
+            return 0.5;
+        else if (tipo_defesa === 'terra') // (ar, terra)
+            return 0.85;
+        else if (tipo_defesa === 'agua')  // (ar, agua)
+            return 0.2;
+        else
+            return 0.7;                   // (ar, basico)
+    }
+    else if (tipo_ataque === 'basico' && tipo_defesa === 'basico')
+        return 0.3;                       // (basico, basico)
+    else
+        return 0.7;
+}
+
+
+function danoDefesa(tipo_ataque) {
+    var dano = 0;
+
+    if (tipo_ataque === 'basico')
+        dano = gerarNumeroIntervalo(1, 4);
+    else if (tipo_ataque === 'magico')
+        dano = gerarNumeroIntervalo(1, 6);
+    // else if (tipo_ataque === 'nenhum')
+        // return dano;
+    return dano;
+}
+
+function Defesa(dano, tipo_ataque, tipo_defesa) {
+    var p = 0, resultado, minimo;
+
+    if (tipo_defesa === 'nenhum')
+        return dano;
+
+    p = (1 - p_acerto_erro(tipo_ataque, tipo_defesa)) * 100; // pegando o complemento, em porcentagem
+    resultado = gerarNumeroIntervalo(1, 100);
+    minimo = 100 - p;
+
+    if (resultado >= 95) // Defesa crítica
+        dano = 0;
+    else if (resultado <= minimo)
+        return dano;
+    else {
+        if (p >= 70)
+            dano -= 3;
+        else if (dano >= 40 && dano < 70)
+            dano -= 2;
+        else
+            dano -= 1;
+    }
+
+    return dano;
+}
+
+function ataqueCritico(personagem) {
+    var p = 0;
+
+    if (personagem === 'heroi')
+        p = poisson(n_partida, media)
+    else {
+        p = poisson(n_partida, 10);
+        var minimo = 100 - (p * 100);
+        var resultado = gerarNumeroIntervalo(1, 100);
+
+        if (resultado <= minimo)
+            return false;
+        else
+            return true;
+    }
+}
+
+function calculoAtaque(tipo_ataque, resultado) {
+    var dano = danoDefesa(tipo_ataque);
+
+    if (ataqueCritico == true || resultado >= 95)
+        dano += danoDefesa(tipo_ataque);
+
+    return dano;
+}
+
+function DefinicaoAcertoErro(tipo_ataque, tipo_defesa) {
+    var p = (p_acerto_erro(tipo_ataque, tipo_ataque)) * 100; // em %
+    var minimo = 100 - p;
+    var resultado = gerarNumeroIntervalo(1, 100);
+    var dano;
+
+    if (resultado <= minimo)
+        dano = 0;
+    else
+        dano = calculoAtaque(tipo_ataque, resultado);
+
+    return dano;
 }
