@@ -32,6 +32,8 @@ class JogadorAdmin(admin.ModelAdmin): # Paulo fazendo cagada
 
     JOGOU.boolean = True
 
+    filter_horizontal = ('pk_jogos',)
+
 # Register your models here.
 admin.site.register(Jogo, JogoAdmin)
 admin.site.register(Rodada)

@@ -178,10 +178,10 @@ def exibir_resultados_jogo(request, id_jogo):
     return render(request, 'jogo/resultados_jogo.html', context, status=200)
 
 
-def index_jogo(request, id):
+def index_jogo(request, uuid):
     # procurar jogador no BD com este UUID
     try:
-        jogador = Jogador.objects.get(id=id)
+        jogador = Jogador.objects.get(id=uuid)
     except ObjectDoesNotExist:  # não encontrei o jogador no BD, redirecionar para o cadastro
         return redirect('/cadastro')
 
