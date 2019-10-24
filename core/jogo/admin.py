@@ -15,7 +15,24 @@ class JogoAdmin(admin.ModelAdmin):
         return str(obj.id_jogo)
 
 
+class JogadorAdmin(admin.ModelAdmin): # Paulo fazendo cagada
+    list_display = ('NOME', 'SEXO', 'JOGOU')
+
+    def NOME(self, obj):
+        return str(obj.nome_completo)
+
+    def SEXO(self, obj):
+        return str(obj.genero)
+
+    def JOGOU(self, obj):
+        if obj.pk_jogos:
+            return True
+        else:
+            return False
+
+    JOGOU.boolean = True
+
 # Register your models here.
 admin.site.register(Jogo, JogoAdmin)
 admin.site.register(Rodada)
-admin.site.register(Jogador)
+admin.site.register(Jogador, JogadorAdmin)

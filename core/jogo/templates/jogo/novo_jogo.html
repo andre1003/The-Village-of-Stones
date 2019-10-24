@@ -10,7 +10,7 @@
                         <p>Antes de jogar, você precisa fazer um pequeno cadastro no nosso site. Preencha o formulário abaixo para poder jogar.</p>
                     </div>
                     <div class="dash-card-body">
-                        <form method="GET">
+                        <form method="POST">
                             {% csrf_token %}
                             <div class="form-group">
                                 {{ form.non_field_errors }}
