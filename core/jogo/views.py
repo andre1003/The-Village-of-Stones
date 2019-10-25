@@ -217,8 +217,8 @@ def autocomplete(request):
     :param request: django url params
     :return:
     """
-    if request.is_ajax():  # Se a requisição foi feita por Ajax
-        apelido = request.GET.get('term', '')  # Pega o que está sendo escrito
+    if request.is_ajax():                                                   # Se a requisição foi feita por Ajax
+        apelido = request.GET.get('term', '')                               # Pega o que está sendo escrito
 
         try:
             busca = Jogador.objects.filter(apelido__icontains=apelido)[:5]  # Busca no banco
@@ -226,17 +226,17 @@ def autocomplete(request):
             return HttpResponse('')
         resultados = []
 
-        for pessoa in busca:  # Cria um dicionário
+        for pessoa in busca:                                                # Cria um dicionário
             apelido_json = {}
             apelido_json['label'] = pessoa.apelido
             apelido_json['value'] = pessoa.apelido
             resultados.append(apelido_json)
-        data = json.dumps(resultados)  # Transforma os resultados da busca em um json
+        data = json.dumps(resultados)                                       # Transforma os resultados da busca em um json
     else:
         data = 'fail'
 
     mimetype = 'application/json; charset=utf8'
-    return HttpResponse(data, content_type=mimetype)  # Retorna os resultados
+    return HttpResponse(data, content_type=mimetype)                        # Retorna os resultados
 
 
 def pesquisar_jogo(request):
@@ -248,16 +248,20 @@ def pesquisar_jogo(request):
     :return:
     """
     pesquisa = request.GET.get('search')
-    if pesquisa:  # Se houver pesquisa
+    if pesquisa:                                              # Se houver pesquisa
         try:
-            jogador = Jogador.objects.get(apelido=pesquisa)  # Tenta buscar o jogador por apelido
+            jogador = Jogador.objects.get(apelido=pesquisa)   # Tenta buscar o jogador por apelido
         except ObjectDoesNotExist:
             return Http404(request, 'O jogador não existe!')  # Se não existir o jogador, retorna 404
 
-        jogos = jogador.pk_jogos.all()  # Pega todas as chaves de todos os jogos
-        i = len(jogos) - 1  # Pega a última chave
-        return redirect(dashboard, jogos[i])  # Redireciona para a página do dashboard com a última chave
-    return render(request, 'jogo/pesquisar_jogo.html')  # Se não houver pesquisa, permanece na página de busca
+        jogos = jogador.pk_jogos.all()                        # Pega todas as chaves de todos os jogos
+        if not jogos:                                         # Se não houver nenhum jogo relacionado
+            return redirect(f'/index_jogo/{jogador.id}')      # Renderiza a página de erro
+        else:
+            i = len(jogos) - 1                                # Pega a última chave
+            return redirect(dashboard, jogos[0])              # Redireciona para a página do dashboard com a última chave
+    else:
+        return render(request, 'jogo/pesquisar_jogo.html')    # Se não houver pesquisa, permanece na página de busca
 
 
 def get_csv_dashboard(request, uuid):

@@ -193,3 +193,14 @@ function definicaoAtaqueFinal(tipo_ataque, tipo_defesa, personagem) {
 
     return dano;
 }
+
+////////////////////////////////////////////////////////////////
+//              FUNÇÃO AUTOCOMPLETE, NÃO APAGAR               //
+////////////////////////////////////////////////////////////////
+
+$(function() {
+    $("#search").autocomplete ({
+        minLength: 2,
+        source: "/autocomplete/"
+    })
+})
