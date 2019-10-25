@@ -35,20 +35,6 @@ def sobre(request):
     return render(request, 'jogo/sobre.html')
 
 
-def novoJogo(request, id_jogador):
-    try:
-        jogador = Jogador.objects.get(id=id_jogador)
-    except ObjectDoesNotExist:
-        return redirect('/cadastro_jogador')
-
-    jogo = Jogo()
-    jogo.save()
-
-    jogador.pk_jogos.add(jogo)
-
-    return HttpResponse('Cadastrei um novo jogo')
-
-
 def salvarRodada(request):
     """
     --> Salva uma nova rodada no BD. Esta função é ativada via AJAX por depender dos parâmetros passados via POST
@@ -119,6 +105,40 @@ def get_todas_rodadas(request):
         return Http404('Erro, método inválido')
 
 
+# Interface por onde o jogador pode ver todos os seus jogos
+def index_jogo(request, apelido):
+    # procurar jogador no BD com este UUID
+    try:
+        jogador = Jogador.objects.get(apelido=apelido)
+    except ObjectDoesNotExist:  # não encontrei o jogador no BD, redirecionar para o cadastro
+        return redirect('/cadastro_jogador')
+
+    jogos = jogador.pk_jogos.all()
+
+    return render(request, 'jogo/index_jogo.html', {'jogos': jogos, 'jogador': jogador})
+
+
+# esta função cadastra um novo jogador no BD
+def novoJogo(request, id_jogador):
+    max_jogos = 4
+    try:
+        jogador = Jogador.objects.get(id=id_jogador)
+    except ObjectDoesNotExist:
+        return redirect('/cadastro_jogador')
+
+    # limitando apenas 2 jogos por jogador
+    if jogador.pk_jogos.count() >= max_jogos:
+        messages.error(request, f'Você só pode ter no máximo {max_jogos} jogos, entre em contato para mais informações.')
+        return redirect(f'/index_jogo/{jogador.apelido}')
+    else:
+        # criando um novo jogo
+        jogo = Jogo()
+        jogo.save()
+        jogador.pk_jogos.add(jogo)
+
+        return redirect('/')  # começar jogo!
+
+
 #############################
 #     Dashboard section     #
 #############################
@@ -165,32 +185,6 @@ def buscarJogos(request):
     data = serialize('json', jogador.pk_jogos.all())
     # return JsonResponse(data)
     return HttpResponse(data,  content_type='application/json')
-
-
-def exibir_resultados_jogo(request, id_jogo):
-    try:
-        jogo = Jogo.objects.get(id_jogo=id_jogo)
-    except ObjectDoesNotExist:
-        return render(request, 'jogo/resultados_jogo.html', status=404)
-
-    context = {
-        'jogo': jogo,
-        'rodadas': jogo.jogo.all().order_by('tempo_rodada')
-    }
-
-    return render(request, 'jogo/resultados_jogo.html', context, status=200)
-
-
-def index_jogo(request, uuid):
-    # procurar jogador no BD com este UUID
-    try:
-        jogador = Jogador.objects.get(id=uuid)
-    except ObjectDoesNotExist:  # não encontrei o jogador no BD, redirecionar para o cadastro
-        return redirect('/cadastro')
-
-    jogos = jogador.pk_jogos.all()
-
-    return render(request, 'jogo/index_jogo.html', {'jogos': jogos})
 
 
 def cadastro_novo_jogador(request):
@@ -252,11 +246,13 @@ def pesquisar_jogo(request):
         try:
             jogador = Jogador.objects.get(apelido=pesquisa)   # Tenta buscar o jogador por apelido
         except ObjectDoesNotExist:
-            return Http404(request, 'O jogador não existe!')  # Se não existir o jogador, retorna 404
+            messages.warning(request, 'O jogador não cadastrado, por favor, realize o cadastro.')
+            return redirect('/cadastro_jogador')  # Se não existir o jogador, retorna 404
 
         jogos = jogador.pk_jogos.all()                        # Pega todas as chaves de todos os jogos
         if not jogos:                                         # Se não houver nenhum jogo relacionado
-            return redirect(f'/index_jogo/{jogador.id}')      # Renderiza a página de erro
+            messages.warning(request, 'Ops, você não tinha nenhum jogo cadastrado.')
+            return redirect(f'/index_jogo/{jogador.apelido}')      # Renderiza a página de erro
         else:
             i = len(jogos) - 1                                # Pega a última chave
             return redirect(dashboard, jogos[0])              # Redireciona para a página do dashboard com a última chave

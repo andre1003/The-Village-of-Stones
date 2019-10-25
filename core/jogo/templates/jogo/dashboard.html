@@ -11,15 +11,6 @@
 
 {%  endblock %}
 {% block body %}
-
-    {% if messages %}
-        <ul class="messages">
-            {% for message in messages %}
-            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
-            {% endfor %}
-        </ul>
-
-    {% else %}
         <!-- <p>Veja os resultados do jogo {{ jogo.id_jogo }}</p> -->
         <section id="section-dashboard">
             <div class="container-fluid">
@@ -109,6 +100,5 @@
                 </div>
             </div>
         </section>
-    {% endif %}
 
 {% endblock %}

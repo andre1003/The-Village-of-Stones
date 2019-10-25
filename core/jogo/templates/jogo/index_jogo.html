@@ -1,1 +1,63 @@
-<h1>Deu certo!</h1>
+{% extends 'jogo/base.html' %}
+{% load static %}
+
+
+{% block body %}
+    <section id="section-dashboard">
+            <div class="container-fluid">
+                <div class="row">
+                        <div class="col-md-10 offset-1">
+                            <div class="dash-card">
+                                <div class="dash-card-header">
+                                    <h4>Bem vindo(a): {{ jogador.apelido }}</h4>
+                                    <p>Aqui vocề pode ver todos os jogos realizados até o momento e, caso queira, iniciar um novo.</p>
+                                </div>
+
+                                <div class="dash-card-body">
+                                    <table class="table dash-table white-color">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col"><span class="icon-file-text"></span>&nbsp;Identificador jogo</th>
+                                                <th scope="col"><span class="icon-fire"></span>&nbsp;Data</th>
+                                                <th scope="col"><span class="icon-dice"></span>&nbsp;Consultar dashboard</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {% for j in jogos %}
+                                                <tr>
+                                                    <th scope="row">{{j.numero_rodada}}</th>
+                                                    <td>{{ j.dano_atacante }}</td>
+                                                    <td>{{ j.numero_dado }}</td>
+                                                    <td>
+                                                        {% if j.personagem_atacou %}
+                                                            <span class="icon-eyedropper"></span>
+                                                        {% else %}
+                                                            <span class="icon-shield"></span>
+                                                        {% endif %}
+                                                    </td>
+                                                </tr>
+                                            {% empty %}
+                                                <tr>
+                                                    <td colspan="3">
+                                                        Ops! parece que você não tem nenhum jogo cadastrado!
+                                                    </td>
+                                                </tr>
+                                            {% endfor %}
+                                        </tbody>
+                                        <tfoot>
+                                            <tr>
+                                                <td colspan="3">
+                                                    <a href="{% url 'novo-jogo' jogador.id %}" class="btn btn-light">Iniciar um novo jogo!</a>
+                                                </td>
+                                            </tr>
+                                        </tfoot>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+{% endblock %}
