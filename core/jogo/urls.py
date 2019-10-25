@@ -24,4 +24,5 @@ urlpatterns = [
     path('dashboard/<str:uuid>', dashboard),
     # Arrumar o nome desta url abaixo p/ uma generica de obtenção de dados
     path('dashboard/vida/', dashboard_vidaJogadorBoss),
+    path('get_csv_dashboard/<str:uuid>', get_csv_dashboard),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

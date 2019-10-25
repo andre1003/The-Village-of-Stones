@@ -10,7 +10,8 @@
                         <p>Antes de jogar, você precisa fazer um pequeno cadastro no nosso site. Preencha o formulário abaixo para poder jogar.</p>
                     </div>
                     <div class="dash-card-body">
-                        <form method="POST">
+                        <div class="col-md-6">
+                            <form method="POST">
                             {% csrf_token %}
                             <div class="form-group">
                                 {{ form.non_field_errors }}
@@ -36,6 +37,7 @@
                             <input type="submit" class="btn btn-outline-success my-2 my-sm-0" value="Buscar">
                             <input type="reset" class="btn btn-light">
                         </form>
+                        </div>
                     </div>
                 </div>
             </div>

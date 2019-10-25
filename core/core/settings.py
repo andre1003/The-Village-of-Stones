@@ -39,6 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     # my apps
     'jogo',
+    # https://django-import-export.readthedocs.io/en/latest/installation.html
+    'import_export',
 ]
 
 MIDDLEWARE = [

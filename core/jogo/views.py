@@ -19,6 +19,9 @@ from django.core.serializers.json import DjangoJSONEncoder
 # Json
 import json
 
+# csv
+import csv
+
 
 def index(request):
     return render(request, 'jogo/index.html')
@@ -211,7 +214,7 @@ def autocomplete(request):
     """
     ---> Essa função realiza a busca por apelidos em tempo real e
     retorna os resultados, de modo a promover um autocomplete.
-    :param request:
+    :param request: django url params
     :return:
     """
     if request.is_ajax():  # Se a requisição foi feita por Ajax
@@ -241,7 +244,7 @@ def pesquisar_jogo(request):
     --> Função para buscar um jogador e redirecioná-lo para a dashboard, através
     do seu UUID, referente à última pk. Sendo assim, irá ser feita uma busca pelo
     apelido e em seguida o último jogo.
-    :param request:
+    :param request: django url params
     :return:
     """
     pesquisa = request.GET.get('search')
@@ -255,3 +258,30 @@ def pesquisar_jogo(request):
         i = len(jogos) - 1  # Pega a última chave
         return redirect(dashboard, jogos[i])  # Redireciona para a página do dashboard com a última chave
     return render(request, 'jogo/pesquisar_jogo.html')  # Se não houver pesquisa, permanece na página de busca
+
+
+def get_csv_dashboard(request, uuid):
+    """
+    --> Esta função gera um arquivo csv de todas as rodadas relacionadas ao jogo identificado pelo seu uuid.
+    :param request: django url params
+    :param uuid:
+    :return: retorna o csv para que o usuário possa baixar
+    """
+    # procurar jogador no BD com este UUID
+    try:
+        jogo = Jogo.objects.get(id_jogo=uuid)
+    except ObjectDoesNotExist:  # não encontrei o jogador no BD, redirecionar para o cadastro
+        return redirect('/pesquisar_jogo/')
+
+    rodadas = jogo.pk_rodada.all().order_by('tempo_rodada')
+
+    response = HttpResponse(content_type='text/csv')
+    response['Content-Disposition'] = 'attachment; filename="contact.csv"'
+
+    writer = csv.writer(response, delimiter=',')
+    writer.writerow(['vida_personagem', 'vida_boss', 'dano_atacante', 'probabilidade_ataque', 'probabilidade_defesa', 'numero_dado', 'numero_rodada', 'tempo_rodada', 'numero_fase', 'personagem_atacou'])
+
+    for obj in rodadas:
+        writer.writerow([obj.vida_personagem, obj.vida_boss, obj.dano_atacante, obj.probabilidade_ataque, obj.probabilidade_defesa, obj.numero_dado, obj.numero_rodada, obj.tempo_rodada, obj.numero_fase, obj.personagem_atacou])
+
+    return response
