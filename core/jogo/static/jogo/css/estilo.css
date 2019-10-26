@@ -105,9 +105,28 @@ div.dash-card-body form{
     padding-right: 15px;
 }
 
+div.dash-card-footer {
+    margin-top: 10px;
+    margin-left: 15px;
+}
+
 
 /* sobre */
 div.dash-card-body p{
     padding-left: 15px;
     padding-right: 15px;
+}
+
+/* Btn's */
+.btn-azul-1 {
+    color: #fff;
+    background-image: linear-gradient(to right, #017EC1, #08AEEA);
+    border-color: #151128;
+    /*transition: all 0.2s ease-in-out;*/
+}
+
+.btn-azul-1:hover {
+    color: #ffffff;
+    background-image: linear-gradient(to right, #08AEEA, #017EC1);
+    border-color: #212121;
 }

@@ -19,7 +19,7 @@ urlpatterns = [
     path('autocomplete/', autocomplete),  # Url apenas para requisições em Ajax, para o autocomplete
 
     # dashboard ajax functions
-    path('dashboard/<str:uuid>', dashboard),
+    path('dashboard/<str:uuid>', dashboard, name='dashboard'),
     # Arrumar o nome desta url abaixo p/ uma generica de obtenção de dados
     path('dashboard/vida/', dashboard_vidaJogadorBoss),
     path('get_csv_dashboard/<str:uuid>', get_csv_dashboard),

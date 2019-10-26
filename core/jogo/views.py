@@ -12,6 +12,9 @@ from django.http import JsonResponse
 # Sobre redirects
 # https://realpython.com/django-redirects/#django-redirects-a-super-simple-example
 
+# https://docs.djangoproject.com/en/2.2/topics/auth/default/#the-login-required-decorator
+from django.contrib.auth.decorators import login_required
+
 # https://docs.djangoproject.com/en/2.2/topics/serialization/#serialization-formats-json
 from django.core.serializers import serialize
 from django.core.serializers.json import DjangoJSONEncoder
@@ -260,6 +263,7 @@ def pesquisar_jogo(request):
         return render(request, 'jogo/pesquisar_jogo.html')    # Se não houver pesquisa, permanece na página de busca
 
 
+@login_required
 def get_csv_dashboard(request, uuid):
     """
     --> Esta função gera um arquivo csv de todas as rodadas relacionadas ao jogo identificado pelo seu uuid.

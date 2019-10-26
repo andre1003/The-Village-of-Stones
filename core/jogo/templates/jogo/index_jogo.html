@@ -18,23 +18,16 @@
                                         <thead>
                                             <tr>
                                                 <th scope="col"><span class="icon-file-text"></span>&nbsp;Identificador jogo</th>
-                                                <th scope="col"><span class="icon-fire"></span>&nbsp;Data</th>
+                                                <th scope="col"><span class="icon-fire"></span>&nbsp;Data início</th>
                                                 <th scope="col"><span class="icon-dice"></span>&nbsp;Consultar dashboard</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             {% for j in jogos %}
                                                 <tr>
-                                                    <th scope="row">{{j.numero_rodada}}</th>
-                                                    <td>{{ j.dano_atacante }}</td>
-                                                    <td>{{ j.numero_dado }}</td>
-                                                    <td>
-                                                        {% if j.personagem_atacou %}
-                                                            <span class="icon-eyedropper"></span>
-                                                        {% else %}
-                                                            <span class="icon-shield"></span>
-                                                        {% endif %}
-                                                    </td>
+                                                    <td>{{ j }}</td>
+                                                    <td>{{ j.data_jogo }}</td>
+                                                    <td><a href="{% url 'dashboard' j %}" class="btn btn-azul-1">Conferir resultados</a></td>
                                                 </tr>
                                             {% empty %}
                                                 <tr>
@@ -44,14 +37,11 @@
                                                 </tr>
                                             {% endfor %}
                                         </tbody>
-                                        <tfoot>
-                                            <tr>
-                                                <td colspan="3">
-                                                    <a href="{% url 'novo-jogo' jogador.id %}" class="btn btn-light">Iniciar um novo jogo!</a>
-                                                </td>
-                                            </tr>
-                                        </tfoot>
                                     </table>
+                                </div>
+
+                                <div class="dash-card-footer">
+                                    <a href="{% url 'novo-jogo' jogador.id %}" class="btn btn-success">Iniciar um novo jogo!</a>
                                 </div>
                             </div>
                         </div>
