@@ -71,7 +71,37 @@
 
     {% block footer %}
         <section class="rodape">
-            <p>About us</p>
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-5 offset-1 text-center">
+                        <img src="{% static 'jogo/img/jogo-logo.jpeg' %}" alt="" width="200px" height="200px">
+                    </div>
+
+                    <div class="offset-3 col-md-2">
+                         <ul class="rodape-list list-unstyled list-inline">
+                            <li>
+                                <a href="{% url 'index'%}">Home<span class="sr-only">(current)</span></a>
+                            </li>
+
+                            <li>
+                                <a href="{% url 'pesquisar_jogo'%}">Pesquisar Jogo</a>
+                            </li>
+
+                            <li>
+                                <a href="{% url 'cadastrar-jogador'%}">Cadastro</a>
+                            </li>
+
+                            <li>
+                                <a href="{% url 'sobre' %}">Sobre</a>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="col-md-12 text-center" style="margin-top: 30px">
+                        <p>&copy; 2019 Todos os Direitos Reservados.</p>
+                    </div>
+                </div>
+            </div>
         </section>
     {% endblock %}
 

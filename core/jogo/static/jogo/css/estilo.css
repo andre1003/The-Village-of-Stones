@@ -130,3 +130,30 @@ div.dash-card-body p{
     background-image: linear-gradient(to right, #08AEEA, #017EC1);
     border-color: #212121;
 }
+
+/* Rodape */
+section.rodape {
+    margin-top: 100px;
+    padding-top: 24px;
+    color: rgba(255, 255, 255, 0.8);
+    background-color: #27293d;
+}
+
+ul.rodape-list {
+    margin-top: 15px;
+}
+
+ul.rodape-list li {
+    padding-bottom: 8px;
+    padding-top: 8px;
+}
+
+ul.rodape-list li a{
+    color: rgba(255, 255, 255, .8);
+    transition: color 0.25s;
+}
+
+ul.rodape-list li a:hover {
+    color: rgba(225, 78, 202, 0.6);
+    text-decoration: none;
+}
