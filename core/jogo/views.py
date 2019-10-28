@@ -30,6 +30,10 @@ def index(request):
     return render(request, 'jogo/index.html')
 
 
+def jogar(request):
+    return render(request, 'jogo/jogar.html')
+
+
 def index_old(request):
     return render(request, 'jogo/index_old.html')
 
@@ -110,6 +114,12 @@ def get_todas_rodadas(request):
 
 # Interface por onde o jogador pode ver todos os seus jogos
 def index_jogo(request, apelido):
+    """
+    -->
+    :param request:
+    :param apelido:
+    :return:
+    """
     # procurar jogador no BD com este UUID
     try:
         jogador = Jogador.objects.get(apelido=apelido)
@@ -123,6 +133,12 @@ def index_jogo(request, apelido):
 
 # esta função cadastra um novo jogador no BD
 def novoJogo(request, id_jogador):
+    """
+    -->
+    :param request:
+    :param id_jogador:
+    :return:
+    """
     max_jogos = 4
     try:
         jogador = Jogador.objects.get(id=id_jogador)
@@ -139,13 +155,19 @@ def novoJogo(request, id_jogador):
         jogo.save()
         jogador.pk_jogos.add(jogo)
 
-        return redirect('/')  # começar jogo!
+        return redirect('/')  # começar jogo! ARRUMAR ISSO AQUI QUANDO FOR FAZER O MERGE COM O LEANDRIN
 
 
 #############################
 #     Dashboard section     #
 #############################
 def dashboard(request, uuid):
+    """
+    -->
+    :param request:
+    :param uuid:
+    :return:
+    """
     try:
         jogo = Jogo.objects.get(id_jogo=uuid)
     except ObjectDoesNotExist:
@@ -158,6 +180,11 @@ def dashboard(request, uuid):
 
 
 def dashboard_vidaJogadorBoss(request):
+    """
+    -->
+    :param request:
+    :return:
+    """
     if request.method == 'GET':
         id_jogo = str(request.GET['id_jogo'])
         try:
@@ -180,6 +207,11 @@ def dashboard_vidaJogadorBoss(request):
 
 
 def buscarJogos(request):
+    """
+    -->
+    :param request:
+    :return:
+    """
     apelido = request.GET['apelido']
     # jogador = Jogo.objects.filter(jogador__apelido__icontains=apelido)
     jogador = Jogador.objects.get(apelido=apelido)
@@ -191,6 +223,11 @@ def buscarJogos(request):
 
 
 def cadastro_novo_jogador(request):
+    """
+    -->
+    :param request:
+    :return:
+    """
     if request.method == 'POST':
         form = NovoJogadorForm(request.POST)
         if form.is_valid():
@@ -198,10 +235,10 @@ def cadastro_novo_jogador(request):
             # return HttpResponseRedirect('/index-jogos')
             return redirect(f'/index_jogo/{novo_usuario.id}')
         else:
-            return render(request, 'jogo/novo_jogo.html', {'form': form})
+            return render(request, 'jogo/novo_jogador.html', {'form': form})
     else:
         form = NovoJogadorForm()
-        return render(request, 'jogo/novo_jogo.html', {'form': form})
+        return render(request, 'jogo/novo_jogador.html', {'form': form})
 
 
 ##########################
@@ -249,7 +286,8 @@ def pesquisar_jogo(request):
         try:
             jogador = Jogador.objects.get(apelido=pesquisa)   # Tenta buscar o jogador por apelido
         except ObjectDoesNotExist:
-            messages.warning(request, 'O jogador não cadastrado, por favor, realize o cadastro.')
+            messages.error(request, 'Jogador não cadastrado, por favor, tente novamente.')
+            messages.info(request, 'Dica: Tente cadastrar este apelido como um novo jogador!')
             return redirect('/cadastro_jogador')  # Se não existir o jogador, retorna 404
 
         jogos = jogador.pk_jogos.all()                        # Pega todas as chaves de todos os jogos

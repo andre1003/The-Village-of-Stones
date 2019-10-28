@@ -8,34 +8,37 @@
                     <div class="dash-card-header">
                         <h4><span class="icon-user"></span> Cadastrar novo jogador&nbsp</h4>
                         <p>Antes de jogar, você precisa fazer um pequeno cadastro no nosso site. Preencha o formulário abaixo para poder jogar.</p>
+                        <hr/>
                     </div>
                     <div class="dash-card-body">
                         <div class="col-md-6">
                             <form method="POST">
-                            {% csrf_token %}
-                            <div class="form-group">
+                                {% csrf_token %}
                                 {{ form.non_field_errors }}
-                                {{ form.nome_completo.errors }}
+                            <div class="form-group">
                                 <label for="{{ form.nome_completo.id_for_label }}">Nome Completo:</label>
                                 {{ form.nome_completo }}
+                                {{ form.nome_completo.errors }}
                             </div>
                             <div class="form-group">
-                                {{ form.apelido.errors }}
                                 <label for="{{ form.apelido.id_for_label }}">Apelido:</label>
                                 {{ form.apelido }}
+                                {{ form.apelido.errors }}
                             </div>
                             <div class="form-group">
-                                {{ form.data_nascimento.errors }}
                                 <label for="{{ form.data_nascimento.id_for_label }}">Data de Nascimento:</label>
                                 {{ form.data_nascimento }}
+                                {{ form.data_nascimento.errors }}
                             </div>
                             <div class="form-group">
-                                {{ form.genero.errors }}
                                 <label for="{{ form.genero.id_for_label }}">Gênero</label>
                                 {{ form.genero }}
+                                {{ form.genero.errors }}
                             </div>
-                            <input type="submit" class="btn btn-outline-success my-2 my-sm-0" value="Buscar">
-                            <input type="reset" class="btn btn-light">
+                            <div class="form-group" style="margin-top: 20px">
+                                <input type="submit" class="btn btn-outline-success my-2 my-sm-0" value="Buscar">
+                                <input type="reset" class="btn btn-light">
+                            </div>
                         </form>
                         </div>
                     </div>

@@ -1,0 +1,23 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<style type="text/css">
+		canvas {    
+			display: block;
+    		margin: 0 auto;   
+    	}
+	</style>
+	<script src="{% static '/jogo/scripts/phaser.js' %}"></script>
+</head>
+<body bgcolor="#000000">
+	<script src="{% static '/jogo/scripts/boot.js' %}"></script>
+	<script src="{% static '/jogo/scripts/load.js' %}"></script>
+	<script src="{% static '/jogo/scripts/menu.js' %}"></script>
+	<script src="{% static '/jogo/scripts/stage1.js' %}"></script>
+	<script src="{% static '/jogo/scripts/game.js' %}"></script>
+
+</body>
+</html>

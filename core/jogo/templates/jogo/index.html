@@ -1,23 +1,47 @@
+{% extends 'jogo/base.html' %}
 {% load static %}
 
-<!DOCTYPE html>
-<html>
-<head>
-	<title></title>
-	<style type="text/css">
-		canvas {    
-			display: block;
-    		margin: 0 auto;   
-    	}
-	</style>
-	<script src="{% static '/jogo/scripts/phaser.js' %}"></script>
-</head>
-<body bgcolor="#000000">
-	<script src="{% static '/jogo/scripts/boot.js' %}"></script>
-	<script src="{% static '/jogo/scripts/load.js' %}"></script>
-	<script src="{% static '/jogo/scripts/menu.js' %}"></script>
-	<script src="{% static '/jogo/scripts/stage1.js' %}"></script>
-	<script src="{% static '/jogo/scripts/game.js' %}"></script>
+{% block body %}
+    <section id="section-apresentacao">
+            <div class="container-fluid">
 
-</body>
-</html>
+                <!-- Apresentação Skyrim :) -->
+                <div class="row">
+                    <div class="col-md-10 offset-1">
+                        <div class="dash-card">
+                            <div class="dash-card-header">
+                                <h4>Ei, você finalmente chegou!&nbsp;<span class="icon icon-heart"></span></h4>
+                                <hr/>
+                            </div>
+                            <div class="dash-card-body">
+                                <p>Você estava procurando um jogo de rpg, certo? Então você encontrou!</p>
+                                <p>Basta ler a introdução abaixo para conhecer um pouco mais sobre o projeto e como jogar.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sobre o que se trata o projeto -->
+                <div class="row">
+                    <div class="col-md-10 offset-1">
+                        <div class="dash-card">
+                            <div class="dash-card-header">
+                                <h4>Guia rápido</h4>
+                                <hr/>
+                            </div>
+                            <div class="dash-card-body">
+                                <p>Para jogar uma partida primeiramente você precisa criar uma conta, este processo é obrigatório para todos os usuários.</p>
+                                <p>Caso você queira pesquisar o resultado de uma partida, um resumo rápido do que aconteceu.</p>
+                                <p>Caso queira saber um pouco mais sobre este projeto.</p>
+                                <div class="dash-list text-center">
+                                    <a href="{% url 'cadastrar-jogador' %}" class="btn btn-azul-1"><span class="icon icon-user"></span>&nbsp;Criar uma conta</a>
+                                    <a href="{% url 'pesquisar_jogo' %}" class="btn btn-azul-1"><span class="icon icon-search"></span>&nbsp;Pesquisar jogo</a>
+                                    <a href="{% url 'sobre' %}" class="btn btn-azul-1"><span class="icon icon-info"></span>&nbsp;Sobre este projeto</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+{% endblock %}
