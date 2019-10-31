@@ -231,8 +231,7 @@ def cadastro_novo_jogador(request):
     if request.method == 'POST':
         form = NovoJogadorForm(request.POST)
         if form.is_valid():
-            novo_usuario = form.save()
-            # return HttpResponseRedirect('/index-jogos')
+            novo_usuario = form.save()  # consegui cadastrar o jogador
             return redirect(f'/index_jogo/{novo_usuario.id}')
         else:
             return render(request, 'jogo/novo_jogador.html', {'form': form})
@@ -288,15 +287,15 @@ def pesquisar_jogo(request):
         except ObjectDoesNotExist:
             messages.error(request, 'Jogador não cadastrado, por favor, tente novamente.')
             messages.info(request, 'Dica: Tente cadastrar este apelido como um novo jogador!')
-            return redirect('/cadastro_jogador')  # Se não existir o jogador, retorna 404
+            return redirect('/cadastro_jogador')  # Se não existir o jogador, redirecionar cadastro
 
         jogos = jogador.pk_jogos.all()                        # Pega todas as chaves de todos os jogos
+
         if not jogos:                                         # Se não houver nenhum jogo relacionado
             messages.warning(request, 'Ops, você não tinha nenhum jogo cadastrado.')
-            return redirect(f'/index_jogo/{jogador.apelido}')      # Renderiza a página de erro
-        else:
-            i = len(jogos) - 1                                # Pega a última chave
-            return redirect(dashboard, jogos[0])              # Redireciona para a página do dashboard com a última chave
+
+        return redirect(f'/index_jogo/{jogador.apelido}')  # Renderiza a página de erro
+
     else:
         return render(request, 'jogo/pesquisar_jogo.html')    # Se não houver pesquisa, permanece na página de busca
 

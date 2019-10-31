@@ -13,6 +13,9 @@
     <link rel="stylesheet" href="{% static 'jogo/css/icones.css' %}">
     <link rel="stylesheet" href="{% static 'jogo/css/jquery_ui.css' %}">
 
+    {% block css_externo %}
+    {% endblock %}
+
     <script src="{% static 'jogo/scripts/jquery-3.4.1.min.js' %}"></script>
     <script src="{% static 'jogo/scripts/bootstrap.min.js' %}" ></script>
     <script src="{% static 'jogo/scripts/chart.min.js' %}"></script>

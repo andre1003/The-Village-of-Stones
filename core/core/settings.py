@@ -14,6 +14,8 @@ import os
 # django messages level role adjust
 from django.contrib.messages import constants as messages
 
+import variaveis
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -90,14 +92,11 @@ WSGI_APPLICATION = 'core.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'db_proba01',
-        # 'NAME': 'mydatabase',
-        'USER': 'victorpg',
-        # 'USER': 'mydatabaseuser',
-        'PASSWORD': 'Teste1',
-        # 'PASSWORD': 'mypassword',
-        'HOST': '127.0.0.1',
-        'PORT': '5432',
+        'NAME': variaveis.db_name,
+        'USER': variaveis.db_user,
+        'PASSWORD': variaveis.db_pass,
+        'HOST': variaveis.db_host,
+        'PORT': variaveis.db_port,
     }
 }
 

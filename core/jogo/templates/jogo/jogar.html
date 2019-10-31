@@ -1,23 +1,35 @@
+{% extends 'jogo/base.html' %}
 {% load static %}
 
-<!DOCTYPE html>
-<html>
-<head>
-	<title></title>
-	<style type="text/css">
-		canvas {    
-			display: block;
-    		margin: 0 auto;   
-    	}
-	</style>
-	<script src="{% static '/jogo/scripts/phaser.js' %}"></script>
-</head>
-<body bgcolor="#000000">
-	<script src="{% static '/jogo/scripts/boot.js' %}"></script>
-	<script src="{% static '/jogo/scripts/load.js' %}"></script>
-	<script src="{% static '/jogo/scripts/menu.js' %}"></script>
-	<script src="{% static '/jogo/scripts/stage1.js' %}"></script>
-	<script src="{% static '/jogo/scripts/game.js' %}"></script>
+{% block titulo_pagina %}Game{% endblock %}
 
-</body>
-</html>
+
+    {% block css_externo %}
+		<link rel="stylesheet" href="{% static 'jogo/css/estilo_jogo.css' %}">
+    {% endblock %}
+
+
+{% block scripts %}
+	<script src="{% static 'jogo/scripts/phaser.js' %}"></script>
+{% endblock %}
+
+
+{% block body %}
+
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-md-10 offset-md-1">
+				<div id="game-section"></div>
+			</div>
+		</div>
+	</div>
+
+
+	<script src="{% static 'jogo/scripts/boot.js' %}"></script>
+	<script src="{% static 'jogo/scripts/load.js' %}"></script>
+	<script src="{% static 'jogo/scripts/menu.js' %}"></script>
+	<script src="{% static 'jogo/scripts/stage1.js' %}"></script>
+	<script src="{% static 'jogo/scripts/end.js' %}"></script>
+	<script src="{% static 'jogo/scripts/game.js' %}"></script>
+{% endblock %}
+

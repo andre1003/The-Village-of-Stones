@@ -1,0 +1,13 @@
+@font-face {
+	font-family: pixel_arial_r;
+	src: url('fonts/pixel_arial_r.ttf');
+	font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+	font-family: pixel_arial_b;
+	src: url('fonts/pixel_arial_b.ttf');
+	font-weight: normal;
+    font-style: normal;
+}

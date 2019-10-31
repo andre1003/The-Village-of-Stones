@@ -13,6 +13,7 @@ urlpatterns = [
     path('cadastro_jogador/', cadastro_novo_jogador, name='cadastrar-jogador'),  # cadastro novo jogador
     path('novojogo/<int:id_jogador>', novoJogo, name='novo-jogo'),  # Cadastrar um novo jogo no Banco de dados
     path('sobre', sobre, name='sobre'),
+    path('jogar/', jogar, name='jogar'),
 
     # pesquisar jogo
     path('pesquisar_jogo/', pesquisar_jogo, name='pesquisar_jogo'),  # Url para pesquisar jogos

@@ -1,6 +1,8 @@
 /* Importando a fonte */
 /*@import url('https://fonts.googleapis.com/css?family=Montserrat&display=swap');*/
 @import url('https://fonts.googleapis.com/css?family=Montserrat:300,400,500&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Press+Start+2P&display=swap');
+
 
 * {
     font-family: 'Montserrat', sans-serif !important;
@@ -148,7 +150,7 @@ div.dash-card-body p{
 
 /* Rodape */
 section.rodape {
-    margin-top: 100px;
+    margin-top: 40px;
     padding-top: 24px;
     color: rgba(255, 255, 255, 0.8);
     background-color: #27293d;
@@ -171,4 +173,12 @@ ul.rodape-list li a{
 ul.rodape-list li a:hover {
     color: rgba(225, 78, 202, 0.6);
     text-decoration: none;
+}
+
+
+/* JOGO SECTION STYLES */
+.pixel-title {
+    font-size: 28px !important;
+    letter-spacing: -1px;
+    font-family: 'Press Start 2P', cursive !important;
 }

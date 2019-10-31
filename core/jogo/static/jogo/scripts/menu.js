@@ -1,17 +1,27 @@
-var menuState = {
+var menuState = { // Objeto do Menu
 	create: function(){
-		this.music = game.add.audio('teste_1');
-		this.music.loop = true;
-		this.music.volume = .5;
-		this.music.play();
+		// Música
+		var opcao_musica = Math.floor(Math.random() * 2);
+
+		if(opcao_musica == 0) 
+			this.musica_menu = game.add.audio('musica_menu_1');
+		else 
+			this.musica_menu = game.add.audio('musica_menu_2');
 		
-		var txt_nome_game = game.add.text(game.world.centerX,150,"RPG Battle Dev",{font:'40px emulogic',fill:'#fff'});
-		txt_nome_game.anchor.set(.5);
+		this.musica_menu.loop = true;
+		this.musica_menu.volume = .5;
+		this.musica_menu.play();
+		
+		// Inserindo logo texto
+		var logo = game.add.sprite(515, 40, 'logo');
+		logo.smoothed = false;
+		logo.scale.setTo(0.2,0.2)
+
+		// Inserindo o texto 'PRESSIONE ENTER'	
+		var txt_pressione_enter = game.add.text(game.world.centerX,550,'PRESSIONE ENTER',{font:'30px pixel_arial_r',fill:'#fff'});
+		txt_pressione_enter.anchor.set(.5);
 			
-		var txt_press_start = game.add.text(game.world.centerX,550,'PRESS START',{font:'20px emulogic',fill:'#fff'});
-		txt_press_start.anchor.set(.5);
-			
-		game.add.tween(txt_press_start).to({y:250},1000).start();
+		game.add.tween(txt_pressione_enter).to({y:250},1000).start();
 		
 		game.time.events.add(1000,function(){		
 			var enter_key = game.input.keyboard.addKey(Phaser.Keyboard.ENTER);
@@ -20,7 +30,8 @@ var menuState = {
 	},
 	
 	startGame: function(){
-		this.music.stop();
+		this.musica_menu.stop();
+		// Iniciando o estado da fase 1
 		game.state.start('stage1');
 	}
 };
