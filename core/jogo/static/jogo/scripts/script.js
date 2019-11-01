@@ -104,15 +104,44 @@ function p_acerto_erro(tipo_ataque, tipo_defesa) {
 }
 
 
-function danoDefesa(tipo_ataque) {
+function danoDefesa(tipo_ataque, personagem) {
     let dano = 0;
 
-    if (tipo_ataque === 'basico')
-        dano = gerarNumeroIntervalo(1, 4);
-    else if (tipo_ataque === 'magico')
-        dano = gerarNumeroIntervalo(1, 6);
-    // else if (tipo_ataque === 'nenhum')
-        // return dano;
+    if(personagem === 'heroi') {
+        if (tipo_ataque === 'basico')
+            dano = gerarNumeroIntervalo(1, 4);
+        else if (tipo_ataque === 'magico')
+            dano = gerarNumeroIntervalo(1, 6);
+        // else if (tipo_ataque === 'nenhum')
+    }
+    else if(personagem === 'plox') {
+        if (tipo_ataque === 'basico')
+            dano = gerarNumeroIntervalo(1, 2);
+        else if (tipo_ataque === 'magico')
+            dano = gerarNumeroIntervalo(1, 4);
+        // else if (tipo_ataque === 'nenhum')
+    }
+    else if(personagem === 'zayin') {
+        if (tipo_ataque === 'basico')
+            dano = gerarNumeroIntervalo(1, 4);
+        else if (tipo_ataque === 'magico')
+            dano = gerarNumeroIntervalo(1, 6);
+        // else if (tipo_ataque === 'nenhum')
+    }
+    else if(personagem === 'magus') {
+        if (tipo_ataque === 'basico')
+            dano = gerarNumeroIntervalo(1, 4);
+        else if (tipo_ataque === 'magico')
+            dano = gerarNumeroIntervalo(1, 6);
+        // else if (tipo_ataque === 'nenhum')
+    }
+    else if(personagem === 'voss') {
+        if (tipo_ataque === 'basico')
+            dano = gerarNumeroIntervalo(1, 5);
+        else if (tipo_ataque === 'magico')
+            dano = gerarNumeroIntervalo(1, 7);
+        // else if (tipo_ataque === 'nenhum')
+    }
 
     return dano;
 }
@@ -170,11 +199,11 @@ function ataqueCritico(personagem) {
 
 // Ataque bruto
 function calculoAtaque(tipo_ataque, resultado, personagem) {
-    let dano = danoDefesa(tipo_ataque); // tenho o dano do ataque
+    let dano = danoDefesa(tipo_ataque, personagem); // tenho o dano do ataque
 
     // se o personagem vai dar ataque critico ou se o valor do dado for mt alto, ele vai dar atk critico
     if (ataqueCritico(personagem) === true || resultado >= 95)
-        dano += danoDefesa(tipo_ataque); // dano + dano critico
+        dano += danoDefesa(tipo_ataque, personagem); // dano + dano critico
 
     return dano;
 }
