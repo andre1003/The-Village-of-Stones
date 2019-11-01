@@ -1,3 +1,6 @@
 venv*
 .idea
 variaveis.py
+static
+env-proba
+*settings.py
