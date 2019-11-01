@@ -2,51 +2,68 @@ from django.shortcuts import render, HttpResponse, Http404
 from django.core.exceptions import ObjectDoesNotExist
 from jogo.models import Rodada, Jogo, Jogador
 from jogo.forms import NovoJogadorForm
-from django.shortcuts import HttpResponseRedirect, redirect
-from django.urls import reverse
+from django.shortcuts import redirect
 from django.contrib import messages
 
 # https://simpleisbetterthancomplex.com/tutorial/2016/08/29/how-to-work-with-ajax-request-with-django.html
 from django.http import JsonResponse
 
-# Sobre redirects
+# Artigo para compreender melhor as funções redirects do Django
 # https://realpython.com/django-redirects/#django-redirects-a-super-simple-example
 
 # https://docs.djangoproject.com/en/2.2/topics/auth/default/#the-login-required-decorator
 from django.contrib.auth.decorators import login_required
 
 # https://docs.djangoproject.com/en/2.2/topics/serialization/#serialization-formats-json
-from django.core.serializers import serialize
-from django.core.serializers.json import DjangoJSONEncoder
+from django.core.serializers import serialize               # Função que auxilia a serializar o model
 
-# Json
+# Biblioteca python que ajuda a manipular json
 import json
 
-# csv
+# Biblioteca python que ajuda a manipular csv
 import csv
 
 
 def index(request):
+    """
+    --> Esta função é responsável por renderizar a página de apresentação do jogo
+    :param request: requisição do usuário
+    :return: renderiza a página index.html
+    """
     return render(request, 'jogo/index.html')
 
 
-def jogar(request):
-    return render(request, 'jogo/jogar.html')
+def jogar(request, uuid):
+    """
+    --> Esta função é responsável por renderizar a página de jogo
+    :param uuid: uuid jogo do usuário (para buscar no banco)
+    :param request: requisição do usuário
+    :return: renderiza a página de jogo do usuário
+    """
+    # verificando se o jogo está cadastrado
+    try:
+       jogo = Jogo.objects.get(id_jogo=uuid)
+    except ObjectDoesNotExist:
+        messages.warning(request, 'Jogo não cadastrado')
+        redirect('buscarJogos/')
 
-
-def index_old(request):
-    return render(request, 'jogo/index_old.html')
+    return render(request, 'jogo/jogar.html', {'jogo': jogo})  # renderizar a tela de jogo
 
 
 def sobre(request):
+    """
+    --> Esta função é responsável por renderizar a página sobre.html
+    :param request: requisição do usuário
+    :return: renderiza a página sobre.html
+    """
     return render(request, 'jogo/sobre.html')
 
 
 def salvarRodada(request):
     """
     --> Salva uma nova rodada no BD. Esta função é ativada via AJAX por depender dos parâmetros passados via POST
-    :param request: este param armazena os dados da int. do usuário
-    :return: retorna http status
+    :param request: este param armazena os dados da interação do usuário (variáveis do jogo)
+    :return: retorna http status (200, 400, 404)
     """
     if request.method == 'POST':
         id = request.POST['id_jogo']
@@ -77,18 +94,17 @@ def salvarRodada(request):
                              probabilidade_ataque=probabilidade_ataque, probabilidade_defesa=probabilidade_defesa,
                              numero_dado=numero_dado, numero_rodada=numero_rodada, numero_fase=numero_fase,
                              personagem_atacou=personagem_atacou)
-        nova_rodada.save()
+        nova_rodada.save()  # salvando a nova rodada no banco de dados
 
         # Relacionando as tabelas
         jogo.pk_rodada.add(nova_rodada)
-        # jogo.jogo.add(nova_rodada)
 
-        # Salvando no banco
+        # Salvando no banco (jogo - nova relação)
         jogo.save()
 
-        return HttpResponse('Oi, deu certo!')
+        return HttpResponse('Oi, deu certo!')  # valores salvos no BD
     else:
-        return Http404('Erro, método inválido!')
+        return Http404('Erro, método inválido!')  # http != 'POST' é recusado
 
 
 def get_todas_rodadas(request):
@@ -115,10 +131,10 @@ def get_todas_rodadas(request):
 # Interface por onde o jogador pode ver todos os seus jogos
 def index_jogo(request, apelido):
     """
-    -->
-    :param request:
-    :param apelido:
-    :return:
+    --> Esta view é responsável por renderizar a página onde o usuário vê todos os seus jogos e acessa a dashboard
+    :param request: requisito do usuário
+    :param apelido: apelido do usuário que será utilizado para realizar a consulta
+    :return: retorna cadastro do jogador (caso não tenha sido encontrado no BD), senão é retornada a página de index
     """
     # procurar jogador no BD com este UUID
     try:
@@ -131,12 +147,11 @@ def index_jogo(request, apelido):
     return render(request, 'jogo/index_jogo.html', {'jogos': jogos, 'jogador': jogador})
 
 
-# esta função cadastra um novo jogador no BD
 def novoJogo(request, id_jogador):
     """
-    -->
-    :param request:
-    :param id_jogador:
+    --> Esta função cadastra um novo jogo no BD
+    :param request: requisição do usuário
+    :param id_jogador: chave utilizada para identificar o jogador (primary_key)
     :return:
     """
     max_jogos = 4
@@ -145,17 +160,18 @@ def novoJogo(request, id_jogador):
     except ObjectDoesNotExist:
         return redirect('/cadastro_jogador')
 
-    # limitando apenas 2 jogos por jogador
+    # limitando apenas 4 jogos por jogador (teste, estado inicial)
     if jogador.pk_jogos.count() >= max_jogos:
-        messages.error(request, f'Você só pode ter no máximo {max_jogos} jogos, entre em contato para mais informações.')
+        messages.warning(request, f'Você só pode ter no máximo {max_jogos} jogos, entre em contato com a nossa equipe '
+                                  f'para mais informações.')
         return redirect(f'/index_jogo/{jogador.apelido}')
     else:
-        # criando um novo jogo
+        # criando um novo jogo no BD
         jogo = Jogo()
         jogo.save()
         jogador.pk_jogos.add(jogo)
 
-        return redirect('/')  # começar jogo! ARRUMAR ISSO AQUI QUANDO FOR FAZER O MERGE COM O LEANDRIN
+        return redirect(f'/jogar/{jogo.id_jogo}')  # começar jogo
 
 
 #############################
@@ -163,10 +179,10 @@ def novoJogo(request, id_jogador):
 #############################
 def dashboard(request, uuid):
     """
-    -->
-    :param request:
-    :param uuid:
-    :return:
+    --> Esta função é responsável por renderizar a página de resultados do jogo
+    :param request: requisição do jogador
+    :param uuid: identificador uuid do jogo (utilizado para consulta)
+    :return: retorna a renderização da página em questão
     """
     try:
         jogo = Jogo.objects.get(id_jogo=uuid)
@@ -181,9 +197,9 @@ def dashboard(request, uuid):
 
 def dashboard_vidaJogadorBoss(request):
     """
-    -->
-    :param request:
-    :return:
+    --> Esta função prepara o JSON que irá preencher os gráficos da seção de dashboard
+    :param request: requisição do jogador
+    :return: JSON com os dados do BD
     """
     if request.method == 'GET':
         id_jogo = str(request.GET['id_jogo'])

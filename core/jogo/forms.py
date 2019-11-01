@@ -14,7 +14,6 @@ class NovoJogadorForm(forms.ModelForm):
         model = Jogador
         fields = ['nome_completo', 'apelido', 'data_nascimento', 'genero']
         widgets = {
-            # 'data_nascimento': DatePicker,
             'nome_completo': forms.TextInput(
                 attrs={
                     'class': 'form-control',

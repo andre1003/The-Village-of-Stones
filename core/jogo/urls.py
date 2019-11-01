@@ -5,15 +5,20 @@ from django.conf import settings
 from jogo.views import *
 
 urlpatterns = [
+    # páginas simples
     path('', index, name='index'),  # apresentação do projeto
+    path('sobre', sobre, name='sobre'),
+
+    # páginas jogo
+    path('jogar/<str:uuid>', jogar, name='jogar'),
     path('salvarrodada/', salvarRodada),  # Salva uma nova rodada no BD
     path('get_todas_rodadas/', get_todas_rodadas),  # Retorna um json com as rodadas salvas no BD
+
+    # páginas usuário
     path('buscarJogos/', buscarJogos),
     path('index_jogo/<str:apelido>', index_jogo, name='index-jogos'),  # view onde o usr pode ver todos os seus jogos
     path('cadastro_jogador/', cadastro_novo_jogador, name='cadastrar-jogador'),  # cadastro novo jogador
     path('novojogo/<int:id_jogador>', novoJogo, name='novo-jogo'),  # Cadastrar um novo jogo no Banco de dados
-    path('sobre', sobre, name='sobre'),
-    path('jogar/', jogar, name='jogar'),
 
     # pesquisar jogo
     path('pesquisar_jogo/', pesquisar_jogo, name='pesquisar_jogo'),  # Url para pesquisar jogos
