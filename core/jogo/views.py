@@ -1,5 +1,5 @@
 from django.shortcuts import render, HttpResponse, Http404
-from django.core.exceptions import ObjectDoesNotExist
+from django.core.exceptions import ObjectDoesNotExist, ValidationError
 from jogo.models import Rodada, Jogo, Jogador
 from jogo.forms import NovoJogadorForm
 from django.shortcuts import redirect
@@ -33,7 +33,7 @@ def index(request):
     return render(request, 'jogo/index.html')
 
 
-def jogar(request, uuid):
+def jogar(request, apelido, uuid):
     """
     --> Esta função é responsável por renderizar a página de jogo
     :param uuid: uuid jogo do usuário (para buscar no banco)
@@ -41,13 +41,17 @@ def jogar(request, uuid):
     :return: renderiza a página de jogo do usuário
     """
     # verificando se o jogo está cadastrado
+    jogo = None
     try:
        jogo = Jogo.objects.get(id_jogo=uuid)
     except ObjectDoesNotExist:
         messages.warning(request, 'Jogo não cadastrado')
-        redirect('buscarJogos/')
-
-    return render(request, 'jogo/jogar.html', {'jogo': jogo})  # renderizar a tela de jogo
+        return redirect(f'/index_jogo/{apelido}')
+    except ValidationError:
+        messages.warning(request, 'Identificador de jogo inválido.')
+        return redirect(f'/index_jogo/{apelido}')
+    else:
+        return render(request, 'jogo/jogar.html', {'jogo': jogo})  # renderizar a tela de jogo
 
 
 def sobre(request):
@@ -171,7 +175,7 @@ def novoJogo(request, id_jogador):
         jogo.save()
         jogador.pk_jogos.add(jogo)
 
-        return redirect(f'/jogar/{jogo.id_jogo}')  # começar jogo
+        return redirect(f'/jogar/{jogador.apelido}/{jogo.id_jogo}')  # começar jogo
 
 
 #############################
@@ -224,31 +228,36 @@ def dashboard_vidaJogadorBoss(request):
 
 def buscarJogos(request):
     """
-    -->
-    :param request:
-    :return:
+    --> Esta função busca e retorna os todos os dados dos jogos do jogador via JSON
+    :param request: informações do usuário
+    :return: jogos do usuário via JSON
     """
-    apelido = request.GET['apelido']
-    # jogador = Jogo.objects.filter(jogador__apelido__icontains=apelido)
-    jogador = Jogador.objects.get(apelido=apelido)
-    # data = {'jogos': jogador.pk_jogos.all()}
-    # data = jogador.pk_jogos.all()
-    data = serialize('json', jogador.pk_jogos.all())
-    # return JsonResponse(data)
-    return HttpResponse(data,  content_type='application/json')
+    if request.method == 'GET':
+        apelido = request.GET['apelido']
+        # jogador = Jogo.objects.filter(jogador__apelido__icontains=apelido)
+        jogador = Jogador.objects.get(apelido=apelido)
+        # data = {'jogos': jogador.pk_jogos.all()}
+        # data = jogador.pk_jogos.all()
+        data = serialize('json', jogador.pk_jogos.all())
+        # return JsonResponse(data)
+        return HttpResponse(data,  content_type='application/json')
+    else:
+        return HttpResponse(status=404)  # erro, método inválido!
 
 
 def cadastro_novo_jogador(request):
     """
-    -->
-    :param request:
-    :return:
+    --> Esta função cadastra um novo jogador no BD
+    :param request: dados do jogador
+    :return: renderiza a página de jogos do jogador ou renderiza a mesma página caso não tenha conseguido
+             completar o cadastro
     """
     if request.method == 'POST':
         form = NovoJogadorForm(request.POST)
         if form.is_valid():
+            messages.success(request, 'Obrigado por se cadastrar no nosso jogo.')
             novo_usuario = form.save()  # consegui cadastrar o jogador
-            return redirect(f'/index_jogo/{novo_usuario.id}')
+            return redirect(f'/index_jogo/{novo_usuario.apelido}')
         else:
             return render(request, 'jogo/novo_jogador.html', {'form': form})
     else:

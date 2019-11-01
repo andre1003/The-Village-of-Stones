@@ -10,7 +10,7 @@ urlpatterns = [
     path('sobre', sobre, name='sobre'),
 
     # páginas jogo
-    path('jogar/<str:uuid>', jogar, name='jogar'),
+    path('jogar/<str:apelido>/<str:uuid>', jogar, name='jogar'),
     path('salvarrodada/', salvarRodada),  # Salva uma nova rodada no BD
     path('get_todas_rodadas/', get_todas_rodadas),  # Retorna um json com as rodadas salvas no BD
 
