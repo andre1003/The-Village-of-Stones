@@ -156,7 +156,7 @@ var stage1State = { // Objeto da Fase 1
 	},
 	
 	update: function(){	
-		if(this.tempo_turno == 0)
+		/*if(this.tempo_turno == 0)
 			this.executar = true;
 
 		if(this.executar == true) {
@@ -180,7 +180,7 @@ var stage1State = { // Objeto da Fase 1
 			}
 			
 			this.executar = false;
-		}
+		}*/
 	},
 
 	atualizaTempo: function() {

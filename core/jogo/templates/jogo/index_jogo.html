@@ -27,7 +27,14 @@
                                                 <tr>
                                                     <td>{{ j }}</td>
                                                     <td>{{ j.data_jogo }}</td>
-                                                    <td><a href="{% url 'dashboard' j %}" class="btn btn-azul-1">Conferir resultados</a></td>
+                                                    <td>
+                                                        <a href="{% url 'dashboard' j %}" class="btn btn-azul-1">Conferir resultados</a>
+                                                        {% if user.is_authenticated %}
+                                                            <a href="{% url 'baixar_csv_jogo' j.id_jogo %}" class="btn btn-azul-1">Baixar resultados (CSV)</a>
+                                                        {% else %}
+                                                            <a href="#" class="btn btn-azul-1 disabled">Precisa de administrador para baixar csv</a>
+                                                        {% endif %}
+                                                    </td>
                                                 </tr>
                                             {% empty %}
                                                 <tr>

@@ -86,67 +86,38 @@ function poisson(k, media) {
 }
 
 // esta função é onde definimos as probabilidades
-function p_acerto_erro(tipo_ataque, tipo_defesa) {
-    if (tipo_ataque === 'ar') {
-        if (tipo_defesa === 'fogo')       // (ar, fogo)
+function p_acerto_erro(tipo_ataque) {
+    if (tipo_ataque === 'magico') {
+        /*if (tipo_defesa === 'fogo')       // (ar, fogo)
             return 0.5;
         else if (tipo_defesa === 'terra') // (ar, terra)
             return 0.85;
         else if (tipo_defesa === 'agua')  // (ar, agua)
             return 0.2;
         else
-            return 0.7;                   // (ar, basico)
+            return 0.7;                   // (ar, basico)*/
+        return 0.6;
     }
-    else if (tipo_ataque === 'basico' && tipo_defesa === 'basico')
-        return 0.3;                       // (basico, basico)
-    else
-        return 0.7;
+    else if (tipo_ataque === 'basico')
+        return 0.8;                       // (basico, basico)
 }
-
 
 function danoDefesa(tipo_ataque, personagem) {
     let dano = 0;
-
     if(personagem === 'heroi') {
         if (tipo_ataque === 'basico')
             dano = gerarNumeroIntervalo(1, 4);
         else if (tipo_ataque === 'magico')
             dano = gerarNumeroIntervalo(1, 6);
-        // else if (tipo_ataque === 'nenhum')
     }
     else if(personagem === 'plox') {
-        if (tipo_ataque === 'basico')
-            dano = gerarNumeroIntervalo(1, 2);
-        else if (tipo_ataque === 'magico')
-            dano = gerarNumeroIntervalo(1, 4);
-        // else if (tipo_ataque === 'nenhum')
-    }
-    else if(personagem === 'zayin') {
-        if (tipo_ataque === 'basico')
-            dano = gerarNumeroIntervalo(1, 4);
-        else if (tipo_ataque === 'magico')
-            dano = gerarNumeroIntervalo(1, 6);
-        // else if (tipo_ataque === 'nenhum')
-    }
-    else if(personagem === 'magus') {
-        if (tipo_ataque === 'basico')
-            dano = gerarNumeroIntervalo(1, 4);
-        else if (tipo_ataque === 'magico')
-            dano = gerarNumeroIntervalo(1, 6);
-        // else if (tipo_ataque === 'nenhum')
-    }
-    else if(personagem === 'voss') {
-        if (tipo_ataque === 'basico')
-            dano = gerarNumeroIntervalo(1, 5);
-        else if (tipo_ataque === 'magico')
-            dano = gerarNumeroIntervalo(1, 7);
-        // else if (tipo_ataque === 'nenhum')
+        dano = gerarNumeroIntervalo(1, 3);
     }
 
     return dano;
 }
 
-function Defesa(dano, tipo_ataque, tipo_defesa) {
+/*function Defesa(dano, tipo_ataque, tipo_defesa) {
     let p = 0, resultado, minimo;
 
     if (tipo_defesa === 'nenhum')
@@ -173,7 +144,7 @@ function Defesa(dano, tipo_ataque, tipo_defesa) {
         dano = 0;
 
     return dano;
-}
+}*/
 
 function ataqueCritico(personagem) {
     let p = 0;
@@ -183,9 +154,6 @@ function ataqueCritico(personagem) {
     else {
         p = poisson(numero_rodada, 10); // media vilão = 10
     }
-
-    // aplicando a função teto
-    p = Math.ceil(p);
 
     let minimo = 100 - (p * 100); // complemento da probabilidade em %
     let resultado = gerarNumeroIntervalo(1, 100); // gerar valor aleatório entre 1-100
@@ -205,12 +173,13 @@ function calculoAtaque(tipo_ataque, resultado, personagem) {
     if (ataqueCritico(personagem) === true || resultado >= 95)
         dano += danoDefesa(tipo_ataque, personagem); // dano + dano critico
 
+
     return dano;
 }
 
 // Cálculo do dano final do personagem, esse valor sera tirado da defesa
-function definicaoAtaqueFinal(tipo_ataque, tipo_defesa, personagem) {
-    let p = (p_acerto_erro(tipo_ataque, tipo_ataque)) * 100; // em %
+function definicaoAtaqueFinal(tipo_ataque, personagem) {
+    let p = (p_acerto_erro(tipo_ataque)) * 100; // em %
     let minimo = 100 - p;
     let resultado = gerarNumeroIntervalo(1, 100);
     let dano;

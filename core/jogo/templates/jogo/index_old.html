@@ -8,11 +8,6 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Probabilidade</title>
 
-    <link rel="stylesheet" href="{% static 'jogo/css/estilo.css' %}">
-
-    <script src="{% static 'jogo/scripts/chart.min.js' %}"></script>
-    <script src="{% static 'jogo/scripts/script.js' %}"></script>
-
     {% csrf_token %}
     <script>
         // https://docs.djangoproject.com/en/2.2/ref/csrf/
@@ -104,6 +99,7 @@
             });
         }
     </script>
+    <script src="{% static 'jogo/scripts/jquery-3.4.1.min.js' %}" ></script>
 
 </head>
 
@@ -125,60 +121,13 @@
         <p>personagem_atacou: <span id="personagem_atacou"></span></p>
     </div>
 
-    <div>
+<!--    <div>
         <b>Teste links:</b>
         {# $('#mudar-url').attr('href', 'www.127.0.0.1:800/old') #}
         <a href="#" id="mudar-url">Teste</a>
-    </div>
-    
-
-<!--
-        <div class="main-container" style="margin-top: 100px; height: 350px; width: 350px;">
-        <canvas id="myChart"></canvas>
-        <script>
-            var ctx = document.getElementById('myChart').getContext('2d');
-            var myLineChart = new Chart(ctx, {
-                type: 'line',
-                data: {
-                    // eixo x
-                    labels: rodada_atual,
-                    // eixo y
-                    datasets: [
-                        {
-                            data: lista_dados,
-                            backgroundColor: ['rgba(255, 99, 132, 0.7)']
-                        }
-                    ],
-                },
-                options: {
-                    scales: {
-                        yAxes: [{
-                            ticks: {
-                                beginAtZero: true
-                            }
-                        }],
-                        xAxes: [{
-                            ticks: {
-                                beginAtZero: false
-                            }
-                        }]
-                    }
-                }
-            });
-        </script>
-    </div>
- -->
-
-    <hr>
-    <button onclick="enviarDados();">Enviar Dados (POST)</button>
-
-{#    <button onclick="enviarDados();">Nova rodada</button>#}
-
-    <button onclick="acao();">Atualizar dados</button>
-
-    <button onclick="buscarJogos();">buscarJogos</button>
+    </div>-->
 
 
-    <script src="{% static 'jogo/scripts/jquery-3.4.1.min.js' %}" ></script>
+        <button>Executar mil jogos</button>
 </body>
 </html>
