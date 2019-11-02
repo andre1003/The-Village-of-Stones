@@ -351,3 +351,7 @@ def get_csv_dashboard(request, uuid):
         writer.writerow([obj.vida_personagem, obj.vida_boss, obj.dano_atacante, obj.probabilidade_ataque, obj.probabilidade_defesa, obj.numero_dado, obj.numero_rodada, obj.tempo_rodada, obj.numero_fase, obj.personagem_atacou])
 
     return response
+
+
+def teste(request):
+    return render(request, 'jogo/testes.html')
