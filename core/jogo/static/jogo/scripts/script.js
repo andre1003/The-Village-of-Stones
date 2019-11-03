@@ -106,12 +106,12 @@ function danoDefesa(tipo_ataque, personagem) {
     let dano = 0;
     if(personagem === 'heroi') {
         if (tipo_ataque === 'basico')
-            dano = gerarNumeroIntervalo(1, 4);
+            dano = gerarNumeroIntervalo(1, 5);
         else if (tipo_ataque === 'magico')
-            dano = gerarNumeroIntervalo(1, 6);
+            dano = gerarNumeroIntervalo(1, 7);
     }
     else if(personagem === 'plox') {
-        dano = gerarNumeroIntervalo(1, 3);
+        dano = gerarNumeroIntervalo(1, 4.3);
     }
 
     return dano;

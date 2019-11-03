@@ -4,7 +4,7 @@
 <html>
 
 <head>
-    
+    <script src="{% static 'jogo/scripts/script.js' %}"></script>
 
     <script>
     	function rodarDado() {
@@ -44,10 +44,74 @@
     		document.getElementById('diferenca').value = vet[5] - vet[0];
     		document.getElementById('percent_diferenca').value = (vet[5] - vet[0]) / 1000000;
     	}
+
+		function simularJogos() {
+			let vitorias = 0, derrotas = 0;
+			for(let i = 0; i < 1000; i++) {
+				// Simulando 1000 jogos
+				let vidaHeroi = 100, vidaVilao = 100;
+				while(vidaHeroi > 0 || vidaVilao > 0) {
+					vidaVilao -= definicaoAtaqueFinal('basico', 'heroi');
+					if(vidaVilao <= 0)
+						break;
+					vidaHeroi -= definicaoAtaqueFinal('basico', 'plox');
+				}
+				if(vidaHeroi <= 0)
+					derrotas++;
+				else if(vidaVilao <= 0)
+					vitorias++;
+			}
+			/*console.log(derotas);
+			console.log(vitorias);*/
+			let percent_vitorias = vitorias / 1000;
+			document.getElementById('basico-basico').value = percent_vitorias;
+
+			/*vitorias = 0;
+			derrotas = 0;
+
+			for(let i = 0; i < 1000; i++) {
+				// Simulando 1000 jogos
+				let vidaHeroi = 100, vidaVilao = 100;
+				while(vidaHeroi > 0 || vidaVilao > 0) {
+					vidaVilao -= definicaoAtaqueFinal('magico', 'heroi');
+					if(vidaVilao <= 0)
+						break;
+					vidaHeroi -= definicaoAtaqueFinal('magico', 'plox');
+				}
+				if(vidaHeroi <= 0)
+					derrotas++;
+				else if(vidaVilao <= 0)
+					vitorias++;
+			}
+
+			percent_vitorias = vitorias / 1000;
+			document.getElementById('magico-magico').value = percent_vitorias;*/
+
+			vitorias = 0;
+			derrotas = 0;
+
+			for(let i = 0; i < 1000; i++) {
+				// Simulando 1000 jogos
+				let vidaHeroi = 100, vidaVilao = 100;
+				while(vidaHeroi > 0 || vidaVilao > 0) {
+					vidaVilao -= definicaoAtaqueFinal('magico', 'heroi');
+					if(vidaVilao <= 0)
+						break;
+					vidaHeroi -= definicaoAtaqueFinal('basico', 'plox');
+				}
+				if(vidaHeroi <= 0)
+					derrotas++;
+				else if(vidaVilao <= 0)
+					vitorias++;
+			}
+
+			percent_vitorias = vitorias / 1000;
+			document.getElementById('magico-basico').value = percent_vitorias;
+		}
     </script>
 </head>
 	
-	Valor 1: <input type="text" id="resultado1" value="" readonly="true"> <br>
+	<!--Valor 1: <input type="text" id="resultado1" value="" readonly="true"> <br>
 	Valor 2: <input type="text" id="resultado2" value="" readonly="true"> <br>
 	Valor 3: <input type="text" id="resultado3" value="" readonly="true"> <br>
 	Valor 4: <input type="text" id="resultado4" value="" readonly="true"> <br>
@@ -58,6 +122,13 @@
 	Diferença: <input type="text" id="diferenca" value="" readonly="true"> <br>
 	% Difereça: <input type="text" id="percent_diferenca" value="" readonly="true"> <br>
 
-	<input type="button" name="" onclick="rodarDado();" value="Rodar">
+	<input type="button" name="" onclick="rodarDado();" value="Rodar">-->
+
+	Com 100 de vida, somente ataque básico e contra o Plox com ataque básico, a chance de vitória é: <input type="text" id="basico-basico" value="" readonly="true"> <br>
+	<!--Com 100 de vida, somente ataque mágico e contra o Plox com ataque mágico, a chance de vitória é: <input type="text" id="magico-magico" value="" readonly="true"> <br>-->
+	Com 100 de vida, somente ataque mágico e contra o Plox com ataque básico, a chance de vitória é: <input type="text" id="magico-basico" value="" readonly="true"> <br>
+	<input type="button" name="" onclick="simularJogos();" value="Rodar">
+
+
 
 </html>
