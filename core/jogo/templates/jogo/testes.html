@@ -46,21 +46,36 @@
     	}
 
 		function simularJogos() {
-			let vitorias = 0, derrotas = 0;
+			let vitorias = 0, derrotas = 0, duracaoTurno = [], vidaRestante = [], j = 0;
 			for(let i = 0; i < 1000; i++) {
 				// Simulando 1000 jogos
-				let vidaHeroi = 100, vidaVilao = 100;
+				let vidaHeroi = 50, vidaVilao = 50, cont = 0;
 				while(vidaHeroi > 0 || vidaVilao > 0) {
+					cont++;
 					vidaVilao -= definicaoAtaqueFinal('basico', 'heroi');
 					if(vidaVilao <= 0)
 						break;
+					cont++;
 					vidaHeroi -= definicaoAtaqueFinal('basico', 'plox');
 				}
+				duracaoTurno[i] = cont;
 				if(vidaHeroi <= 0)
 					derrotas++;
-				else if(vidaVilao <= 0)
+				else if(vidaVilao <= 0) {
+					vidaRestante[j] = vidaHeroi;
+					j++;
 					vitorias++;
+				}
 			}
+			let auxCont = 0, mediaVida = 0;
+			for(let i = 0; i < 1000; i++)
+				auxCont += duracaoTurno[i];
+
+			for(let i = 0; i < j; i++)
+				mediaVida += vidaRestante[i];
+
+			console.log('Média vida basico-basico: ' + mediaVida / j);
+			console.log('basico-basico: ' + auxCont / 1000);
 			/*console.log(derotas);
 			console.log(vitorias);*/
 			let percent_vitorias = vitorias / 1000;
@@ -89,21 +104,37 @@
 
 			vitorias = 0;
 			derrotas = 0;
+			j = 0;
 
 			for(let i = 0; i < 1000; i++) {
 				// Simulando 1000 jogos
-				let vidaHeroi = 100, vidaVilao = 100;
+				let vidaHeroi = 50, vidaVilao = 50, cont = 0;
 				while(vidaHeroi > 0 || vidaVilao > 0) {
+					cont++;
 					vidaVilao -= definicaoAtaqueFinal('magico', 'heroi');
 					if(vidaVilao <= 0)
 						break;
+					cont++;
 					vidaHeroi -= definicaoAtaqueFinal('basico', 'plox');
 				}
+				duracaoTurno[i] = cont;
 				if(vidaHeroi <= 0)
 					derrotas++;
-				else if(vidaVilao <= 0)
+				else if(vidaVilao <= 0) {
+					vidaRestante[j] = vidaHeroi;
+					j++;
 					vitorias++;
+				}
 			}
+			auxCont = 0;
+			for(let i = 0; i < 1000; i++)
+				auxCont += duracaoTurno[i];
+
+			for(let i = 0; i < j; i++)
+				mediaVida += vidaRestante[i];
+
+			console.log('Média vida magico-basico: ' + mediaVida / j);
+			console.log('magico-basico: ' + auxCont / 1000);
 
 			percent_vitorias = vitorias / 1000;
 			document.getElementById('magico-basico').value = percent_vitorias;
