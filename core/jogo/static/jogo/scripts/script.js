@@ -88,20 +88,13 @@ function poisson(k, media) {
 // esta função é onde definimos as probabilidades
 function p_acerto_erro(tipo_ataque) {
     if (tipo_ataque === 'magico') {
-        /*if (tipo_defesa === 'fogo')       // (ar, fogo)
-            return 0.5;
-        else if (tipo_defesa === 'terra') // (ar, terra)
-            return 0.85;
-        else if (tipo_defesa === 'agua')  // (ar, agua)
-            return 0.2;
-        else
-            return 0.7;                   // (ar, basico)*/
         return 0.6;
     }
     else if (tipo_ataque === 'basico')
-        return 0.8;                       // (basico, basico)
+        return 0.8;                   
 }
 
+// esta função calcula o dano
 function danoDefesa(tipo_ataque, personagem) {
     let dano = 0;
     if(personagem === 'heroi') {
@@ -116,35 +109,6 @@ function danoDefesa(tipo_ataque, personagem) {
 
     return dano;
 }
-
-/*function Defesa(dano, tipo_ataque, tipo_defesa) {
-    let p = 0, resultado, minimo;
-
-    if (tipo_defesa === 'nenhum')
-        return dano;
-
-    p = (1 - p_acerto_erro(tipo_ataque, tipo_defesa)) * 100; // pegando o complemento, em porcentagem
-    resultado = gerarNumeroIntervalo(1, 100);
-    minimo = 100 - p;
-
-    if (resultado >= 95) // Defesa crítica
-        dano = 0;
-    else if (resultado <= minimo)
-        return dano;
-    else {
-        if (p >= 70)
-            dano -= 3;
-        else if (dano >= 40 && dano < 70)
-            dano -= 2;
-        else
-            dano -= 1;
-    }
-
-    if (dano < 0)
-        dano = 0;
-
-    return dano;
-}*/
 
 function ataqueCritico(personagem) {
     let p = 0;
