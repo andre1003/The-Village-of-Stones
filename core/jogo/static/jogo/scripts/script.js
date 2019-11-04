@@ -114,9 +114,9 @@ function ataqueCritico(personagem) {
     let p = 0;
 
     if (personagem === 'heroi')
-        p = poisson(numero_rodada, 5); // passa a rodada atual (media heroi = 5)
+        p = poisson(numero_rodada, 2); // passa a rodada atual (media heroi = 2)
     else {
-        p = poisson(numero_rodada, 10); // media vilão = 10
+        p = poisson(numero_rodada, 5); // media vilão = 5
     }
 
     let minimo = 100 - (p * 100); // complemento da probabilidade em %
@@ -156,9 +156,9 @@ function definicaoAtaqueFinal(tipo_ataque, personagem) {
     return dano;
 }
 
-////////////////////////////////////////////////////////////////
-//              FUNÇÃO AUTOCOMPLETE, NÃO APAGAR               //
-////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////
+//              FUNÇÃO AUTOCOMPLETE              //
+///////////////////////////////////////////////////
 
 $(function() {
     $("#search").autocomplete ({
