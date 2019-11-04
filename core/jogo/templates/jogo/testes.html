@@ -1,0 +1,165 @@
+{% load static %}
+
+<!DOCTYPE>
+<html>
+
+<head>
+    <script src="{% static 'jogo/scripts/script.js' %}"></script>
+
+    <script>
+    	function rodarDado() {
+    		let d1 = 0, d2 = 0, d3 = 0, d4 = 0, d5 = 0, d6 = 0;
+    		let valor = 0;
+    		for (let i = 0; i < 1000000; i++) {
+    			valor = Math.floor(Math.random() * 6 + 1);
+
+    			if(valor == 1) {
+    				d1++;
+    			}
+    			else if(valor == 2)
+    				d2++;
+    			else if(valor == 3)
+    				d3++;
+    			else if(valor == 4)
+    				d4++;
+    			else if(valor == 5)
+    				d5++;
+    			else
+    				d6++;
+    		}
+
+    		//console.log(d1);
+    		document.getElementById('resultado1').value = d1;
+    		document.getElementById('resultado2').value = d2;
+    		document.getElementById('resultado3').value = d3;
+    		document.getElementById('resultado4').value = d4;
+    		document.getElementById('resultado5').value = d5;
+    		document.getElementById('resultado6').value = d6;
+
+    		let vet = [d1, d2, d3, d4, d5, d6];
+    		vet.sort();
+    		document.getElementById('maior').value = vet[5];
+    		document.getElementById('menor').value = vet[0];
+
+    		document.getElementById('diferenca').value = vet[5] - vet[0];
+    		document.getElementById('percent_diferenca').value = (vet[5] - vet[0]) / 1000000;
+    	}
+
+		function simularJogos() {
+			let vitorias = 0, derrotas = 0, duracaoTurno = [], vidaRestante = [], j = 0;
+			for(let i = 0; i < 1000; i++) {
+				// Simulando 1000 jogos
+				let vidaHeroi = 50, vidaVilao = 50, cont = 0;
+				while(vidaHeroi > 0 || vidaVilao > 0) {
+					cont++;
+					vidaVilao -= definicaoAtaqueFinal('basico', 'heroi');
+					if(vidaVilao <= 0)
+						break;
+					cont++;
+					vidaHeroi -= definicaoAtaqueFinal('basico', 'plox');
+				}
+				duracaoTurno[i] = cont;
+				if(vidaHeroi <= 0)
+					derrotas++;
+				else if(vidaVilao <= 0) {
+					vidaRestante[j] = vidaHeroi;
+					j++;
+					vitorias++;
+				}
+			}
+			let auxCont = 0, mediaVida = 0;
+			for(let i = 0; i < 1000; i++)
+				auxCont += duracaoTurno[i];
+
+			for(let i = 0; i < j; i++)
+				mediaVida += vidaRestante[i];
+
+			console.log('Média vida basico-basico: ' + mediaVida / j);
+			console.log('basico-basico: ' + auxCont / 1000);
+			/*console.log(derotas);
+			console.log(vitorias);*/
+			let percent_vitorias = vitorias / 1000;
+			document.getElementById('basico-basico').value = percent_vitorias;
+
+			/*vitorias = 0;
+			derrotas = 0;
+
+			for(let i = 0; i < 1000; i++) {
+				// Simulando 1000 jogos
+				let vidaHeroi = 100, vidaVilao = 100;
+				while(vidaHeroi > 0 || vidaVilao > 0) {
+					vidaVilao -= definicaoAtaqueFinal('magico', 'heroi');
+					if(vidaVilao <= 0)
+						break;
+					vidaHeroi -= definicaoAtaqueFinal('magico', 'plox');
+				}
+				if(vidaHeroi <= 0)
+					derrotas++;
+				else if(vidaVilao <= 0)
+					vitorias++;
+			}
+
+			percent_vitorias = vitorias / 1000;
+			document.getElementById('magico-magico').value = percent_vitorias;*/
+
+			vitorias = 0;
+			derrotas = 0;
+			j = 0;
+
+			for(let i = 0; i < 1000; i++) {
+				// Simulando 1000 jogos
+				let vidaHeroi = 50, vidaVilao = 50, cont = 0;
+				while(vidaHeroi > 0 || vidaVilao > 0) {
+					cont++;
+					vidaVilao -= definicaoAtaqueFinal('magico', 'heroi');
+					if(vidaVilao <= 0)
+						break;
+					cont++;
+					vidaHeroi -= definicaoAtaqueFinal('basico', 'plox');
+				}
+				duracaoTurno[i] = cont;
+				if(vidaHeroi <= 0)
+					derrotas++;
+				else if(vidaVilao <= 0) {
+					vidaRestante[j] = vidaHeroi;
+					j++;
+					vitorias++;
+				}
+			}
+			auxCont = 0;
+			for(let i = 0; i < 1000; i++)
+				auxCont += duracaoTurno[i];
+
+			for(let i = 0; i < j; i++)
+				mediaVida += vidaRestante[i];
+
+			console.log('Média vida magico-basico: ' + mediaVida / j);
+			console.log('magico-basico: ' + auxCont / 1000);
+
+			percent_vitorias = vitorias / 1000;
+			document.getElementById('magico-basico').value = percent_vitorias;
+		}
+    </script>
+</head>
+	
+	<!--Valor 1: <input type="text" id="resultado1" value="" readonly="true"> <br>
+	Valor 2: <input type="text" id="resultado2" value="" readonly="true"> <br>
+	Valor 3: <input type="text" id="resultado3" value="" readonly="true"> <br>
+	Valor 4: <input type="text" id="resultado4" value="" readonly="true"> <br>
+	Valor 5: <input type="text" id="resultado5" value="" readonly="true"> <br>
+	Valor 6: <input type="text" id="resultado6" value="" readonly="true"> <br> <br>
+	Maior: <input type="text" id="maior" value="" readonly="true"> <br>
+	Menor: <input type="text" id="menor" value="" readonly="true"> <br> <br>
+	Diferença: <input type="text" id="diferenca" value="" readonly="true"> <br>
+	% Difereça: <input type="text" id="percent_diferenca" value="" readonly="true"> <br>
+
+	<input type="button" name="" onclick="rodarDado();" value="Rodar">-->
+
+	Com 100 de vida, somente ataque básico e contra o Plox com ataque básico, a chance de vitória é: <input type="text" id="basico-basico" value="" readonly="true"> <br>
+	<!--Com 100 de vida, somente ataque mágico e contra o Plox com ataque mágico, a chance de vitória é: <input type="text" id="magico-magico" value="" readonly="true"> <br>-->
+	Com 100 de vida, somente ataque mágico e contra o Plox com ataque básico, a chance de vitória é: <input type="text" id="magico-basico" value="" readonly="true"> <br>
+	<input type="button" name="" onclick="simularJogos();" value="Rodar">
+
+
+
+</html>

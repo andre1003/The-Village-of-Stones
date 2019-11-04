@@ -4,4 +4,5 @@ variaveis.py
 static
 env-proba
 *settings.py
-*.pyc
+*.cpython-36.pyc
+

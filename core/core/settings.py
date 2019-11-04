@@ -29,7 +29,7 @@ SECRET_KEY = 'fxdhbfb(hk#&(z7*b4i&l2@1_u+o2$wo9op^l_h302i1p3ilda'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['34.95.135.55']
+ALLOWED_HOSTS = ['127.0.0.1']
 
 
 # Application definition

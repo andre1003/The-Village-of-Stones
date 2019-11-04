@@ -273,7 +273,7 @@ def autocomplete(request):
     ---> Essa função realiza a busca por apelidos em tempo real e
     retorna os resultados, de modo a promover um autocomplete.
     :param request: django url params
-    :return:
+    :return: busca banco para o autocomplete
     """
     if request.is_ajax():                                                   # Se a requisição foi feita por Ajax
         apelido = request.GET.get('term', '')                               # Pega o que está sendo escrito
@@ -303,7 +303,7 @@ def pesquisar_jogo(request):
     do seu UUID, referente à última pk. Sendo assim, irá ser feita uma busca pelo
     apelido e em seguida o último jogo.
     :param request: django url params
-    :return:
+    :return: redireciona pro cadastro do jogador ou renderiza a pesquisa do jogo
     """
     pesquisa = request.GET.get('search')
     if pesquisa:                                              # Se houver pesquisa
@@ -351,3 +351,12 @@ def get_csv_dashboard(request, uuid):
         writer.writerow([obj.vida_personagem, obj.vida_boss, obj.dano_atacante, obj.probabilidade_ataque, obj.probabilidade_defesa, obj.numero_dado, obj.numero_rodada, obj.tempo_rodada, obj.numero_fase, obj.personagem_atacou])
 
     return response
+
+
+def teste(request):
+    """
+    --> Esta função é dedicada para testes internos.
+    :param request: requisição do browser
+    :return: renderiza o template de testes
+    """
+    return render(request, 'jogo/testes.html')

@@ -1,13 +1,7 @@
 var menuState = { // Objeto do Menu
 	create: function(){
 		// Música
-		var opcao_musica = Math.floor(Math.random() * 2);
-
-		if(opcao_musica == 0) 
-			this.musica_menu = game.add.audio('musica_menu_1');
-		else 
-			this.musica_menu = game.add.audio('musica_menu_2');
-		
+		this.musica_menu = game.add.audio('musica_menu');	
 		this.musica_menu.loop = true;
 		this.musica_menu.volume = .5;
 		this.musica_menu.play();
@@ -31,7 +25,7 @@ var menuState = { // Objeto do Menu
 	
 	startGame: function(){
 		this.musica_menu.stop();
-		// Iniciando o estado da fase 1
-		game.state.start('stage1');
+		// Iniciando o estado da introdução da história
+		game.state.start('story_screen1');
 	}
 };
