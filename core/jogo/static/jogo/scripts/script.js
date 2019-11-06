@@ -156,6 +156,20 @@ function definicaoAtaqueFinal(tipo_ataque, personagem) {
     return dano;
 }
 
+// Essa função deve ser chamada quando o jogador optar por defender o ataque (botão defesa)
+function CalculoDefesa(dano_total, num_fase){
+    let defesa = gerarNumeroIntervalo(1, 100);
+    if (defesa >= 95)
+        dano_total = 0; // defesa absoluta!
+    else if (defesa > (num_fase * 10) && defesa <= (20 * num_fase))
+        dano_total -= num_fase;
+
+    if (dano_total < 0)
+        dano_total = 0;
+
+    return dano_total;
+}
+
 ///////////////////////////////////////////////////
 //              FUNÇÃO AUTOCOMPLETE              //
 ///////////////////////////////////////////////////
