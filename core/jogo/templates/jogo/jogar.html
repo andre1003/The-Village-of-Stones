@@ -8,6 +8,29 @@
 		<link rel="stylesheet" href="{% static 'jogo/css/estilo_jogo.css' %}">
     {% endblock %}
 
+{% block estilo %}
+    <style>
+        /* Este estilo muda a cor do fundo do jogo*/
+        body {
+            -webkit-animation-name: example; /* Safari 4.0 - 8.0 */
+            -webkit-animation-duration: 2s; /* Safari 4.0 - 8.0 */
+            animation-name: example;
+            animation-duration: 2s;
+            animation-iteration-count: 1;
+            background-color: black;
+        }
+        /* Safari 4.0 - 8.0
+        @-webkit-keyframes example {
+          0%   {background-color: black;}
+          100% {background-color: green;}
+        }*/
+        /* Standard syntax */
+        @keyframes example {
+          0%   {background-color: #1c1c29;}
+          100% {background-color: black;}
+        }
+    </style>
+{% endblock %}
 
 {% block scripts %}
 	<script src="{% static 'jogo/scripts/phaser.js' %}"></script>
