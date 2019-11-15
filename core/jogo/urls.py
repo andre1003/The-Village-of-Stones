@@ -15,6 +15,7 @@ urlpatterns = [
     path('get_todas_rodadas/', get_todas_rodadas),  # Retorna um json com as rodadas salvas no BD
 
     # páginas usuário
+    path('pre-cadastro/', pre_cadastro, name='pre-cadastro'),
     path('buscarJogos/', buscarJogos),
     path('index_jogo/<str:apelido>', index_jogo, name='index-jogos'),  # view onde o usr pode ver todos os seus jogos
     path('cadastro_jogador/', cadastro_novo_jogador, name='cadastrar-jogador'),  # cadastro novo jogador
@@ -23,6 +24,7 @@ urlpatterns = [
     # pesquisar jogo
     path('pesquisar_jogo/', pesquisar_jogo, name='pesquisar_jogo'),  # Url para pesquisar jogos
     path('autocomplete/', autocomplete),  # Url apenas para requisições em Ajax, para o autocomplete
+    path('somar_morte/<str:uuid>', somar_morte),
 
     # dashboard ajax functions
     path('dashboard/<str:uuid>', dashboard, name='dashboard'),

@@ -40,6 +40,10 @@
     color: rgba(255, 255, 255, 0.8) !important;
 }
 
+form label, form input {
+    font-size: 1.2rem;
+}
+
 /* dashboard styles */
 section#section-dashboard {
     background-color: #1c1c29;
@@ -96,13 +100,33 @@ svg.icon {
     /*color: rgba(255, 255, 255, 0.6) solid;*/
 }
 
+.dash-card-header hr.hr-centro {
+    display: block;
+    height: 1px;
+    width: 100%;
+    border: 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.6);
+    /*margin: 1em 0 30px;*/
+    padding: 0;
+    /*color: rgba(255, 255, 255, 0.6) solid;*/
+}
+
 .dash-card-header p {
-    font-size: 16px;
+    font-size: 1.25rem;
     font-weight: lighter;
 }
 
 .dash-card-body p {
     text-indent: 1.5em;
+    font-size: 1.125rem;
+}
+
+ul.dash-list {
+    margin-left: 30px;
+}
+
+ul.dash-list li {
+    font-size: 1.25rem;
 }
 
 table.dash-table {
@@ -155,8 +179,6 @@ div.dash-card-footer {
     margin-left: 15px;
 }
 
-
-/* sobre */
 div.dash-card-body p{
     padding-left: 15px;
     padding-right: 15px;
@@ -164,6 +186,7 @@ div.dash-card-body p{
 
 /* Btn's */
 .btn-azul-1 {
+    font-size: 1.125rem;
     color: #fff;
     background-image: linear-gradient(to right, #017EC1, #08AEEA);
     border-color: #151128;
@@ -202,7 +225,6 @@ ul.rodape-list li a:hover {
     color: rgba(225, 78, 202, 0.6);
     text-decoration: none;
 }
-
 
 /* JOGO SECTION STYLES */
 .pixel-title {

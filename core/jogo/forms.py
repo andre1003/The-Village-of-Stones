@@ -12,18 +12,18 @@ class DatePicker(forms.DateInput):
 class NovoJogadorForm(forms.ModelForm):
     class Meta:
         model = Jogador
-        fields = ['nome_completo', 'apelido', 'data_nascimento', 'genero']
+        fields = ['apelido', 'data_nascimento', 'genero']
         widgets = {
-            'nome_completo': forms.TextInput(
-                attrs={
-                    'class': 'form-control',
-                    'placeholder': 'Digite o seu nome completo'
-                }
-            ),
+            # 'nome_completo': forms.TextInput(
+            #     attrs={
+            #         'class': 'form-control',
+            #         'placeholder': 'Digite o seu nome completo'
+            #     }
+            # ),
             'apelido': forms.TextInput(
                 attrs={
                     'class': 'form-control',
-                    'placeholder': 'Digite o seu apelido'
+                    'placeholder': 'Digite seu nome ou apelido'
                 }
             ),
             'genero': forms.Select(

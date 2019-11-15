@@ -32,6 +32,8 @@ def index(request):
     """
     return render(request, 'jogo/index.html')
 
+def pre_cadastro(request):
+    return render(request, 'jogo/pre-cadastro.html')
 
 def jogar(request, apelido, uuid):
     """
@@ -324,6 +326,18 @@ def pesquisar_jogo(request):
     else:
         return render(request, 'jogo/pesquisar_jogo.html')    # Se não houver pesquisa, permanece na página de busca
 
+
+def somar_morte(request, uuid):
+    if request.method == 'PATCH':
+        try:
+            jogo = Jogo.objects.get(id_jogo=uuid)
+        except ObjectDoesNotExist:
+            return Http404(request, 'O jogo não existe')
+
+        # jogo encontrado!
+        jogo.total_mortes += 1
+        jogo.save(update_fields=['total_mortes'])
+        return HttpResponse(request, status=200)
 
 @login_required
 def get_csv_dashboard(request, uuid):

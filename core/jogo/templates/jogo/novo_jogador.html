@@ -15,13 +15,13 @@
                             <form method="POST">
                                 {% csrf_token %}
                                 {{ form.non_field_errors }}
+<!--                            <div class="form-group">-->
+<!--                                <label for="{{ form.nome_completo.id_for_label }}">Nome Completo:</label>-->
+<!--                                {{ form.nome_completo }}-->
+<!--                                {{ form.nome_completo.errors }}-->
+<!--                            </div>-->
                             <div class="form-group">
-                                <label for="{{ form.nome_completo.id_for_label }}">Nome Completo:</label>
-                                {{ form.nome_completo }}
-                                {{ form.nome_completo.errors }}
-                            </div>
-                            <div class="form-group">
-                                <label for="{{ form.apelido.id_for_label }}">Apelido:</label>
+                                <label for="{{ form.apelido.id_for_label }}">Nome ou Apelido:</label>
                                 {{ form.apelido }}
                                 {{ form.apelido.errors }}
                             </div>

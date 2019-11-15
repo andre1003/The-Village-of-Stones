@@ -11,12 +11,13 @@
                         <hr/>
                     </div>
                     <div class="dash-card-body">
-                        <form action="." method="GET">
+                        <div class="col-6">
+                            <form action="." method="GET">
                             {% csrf_token %}
                             <div class="form-group">
                                 <label for="search" class="white-color">Apelido:</label>
                                 <div class="ui-widget">
-                                    <input type="text" id="search" name="search" placeholder="Apelido do jogador" required>
+                                    <input class="form-control" type="text" id="search" name="search" placeholder="Apelido do jogador" required>
                                 </div>
                             </div>
                             <div class="form-group">
@@ -24,6 +25,7 @@
                                 <input type="reset" class="btn btn-outline-light" value="Limpar pesquisa">
                             </div>
                         </form>
+                        </div>
                     </div>
                 </div>
             </div>

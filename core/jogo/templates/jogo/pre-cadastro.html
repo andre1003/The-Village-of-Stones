@@ -1,0 +1,32 @@
+{% extends 'jogo/base.html' %}
+
+{% block body%}
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-10 offset-md-1">
+                <div class="dash-card text-center">
+                    <div class="dash-card-header">
+                        <h4 class="pixel-title"><span class="icon-user"></span> Projeto de Probabilidade e Estatística:&nbsp</h4>
+                        <p>Antes de se cadastrar no nosso site, tome as seguintes notas a respeito deste projeto.</p>
+                        <hr class="hr-centro"/>
+                    </div>
+                    <div class="dash-card-body">
+                        <div class="col-12">
+                            <p class="text-justify">Notas:</p>
+
+                            <ul class="dash-list text-justify">
+                                <li>Esse é um projeto realizado por alunos de graduação do Campus da UNESP de São José do Rio Preto.</li>
+                                <li>A seriedade no teste do jogo é imprescindível para a análise e seu refinamento.</li>
+                                <li>Por favor, ao final, responda o questionário para encerrar a pesquisa.</li>
+                            </ul>
+
+                            <div class="text-center">
+                                <a class="btn btn-success" href="{% url 'cadastrar-jogador'%}">Li e concordo com as notas</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

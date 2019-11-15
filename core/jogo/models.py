@@ -36,7 +36,7 @@ class Jogador(models.Model):
         ('MASC', 'Masculino'),
         ('FEMI', 'Feminino'),
     ]
-    nome_completo = models.CharField(max_length=100)                             # nome completo do jogador
+    # nome_completo = models.CharField(max_length=100)                             # nome completo do jogador
     apelido = models.CharField(max_length=32, unique=True)                       # apelido do jogador
     data_nascimento = models.DateField()                                         # para o cálculo da idade
     data_cadastro = models.DateField(auto_now_add=True)                          # cada que o jogador se cadastrou
