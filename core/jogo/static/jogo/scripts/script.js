@@ -170,6 +170,14 @@ function CalculoDefesa(dano_total, num_fase){
     return dano_total;
 }
 
+// Essa função utiliza a pedra do ar (único item ativo)
+function usarPedra(vida, podeUsar) {
+    if(podeUsar === true)
+        return vida + 15;
+    else
+        return vida;
+}
+
 ///////////////////////////////////////////////////
 //              FUNÇÃO AUTOCOMPLETE              //
 ///////////////////////////////////////////////////
