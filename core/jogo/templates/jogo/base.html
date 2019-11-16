@@ -47,7 +47,7 @@
     {% endblock %}
 </head>
 
-<body>
+<body class="d-flex flex-column">
     <nav class="navbar navbar-expand-lg branco bg-light navbar-dark">
         <a class="navbar-brand" href="{% url 'index' %}">
 <!--            <img src="{% static 'jogo/img/jogo-logo.jpeg' %}" width="30" height="30" alt="">-->
@@ -91,12 +91,14 @@
         </div>
     </div>
 
+    <div style=" flex: 1 0 auto;">
     {% block body %}
     {% endblock %}
+        </div>
 
 
     {% block footer %}
-        <section class="rodape">
+        <footer class="rodape">
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-md-5 offset-1 text-center">
@@ -128,8 +130,10 @@
                     </div>
                 </div>
             </div>
-        </section>
+        </footer>
     {% endblock %}
 
+
+    {# P/ o rodapé sticker: https://startbootstrap.com/snippets/sticky-footer-flexbox/ #}
 </body>
 </html>

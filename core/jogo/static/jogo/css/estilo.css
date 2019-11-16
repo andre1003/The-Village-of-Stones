@@ -36,6 +36,10 @@
     font-family: 'Montserrat', sans-serif !important;
 }
 
+html, body {
+  height: 100%;
+}
+
 .white-color {
     color: rgba(255, 255, 255, 0.8) !important;
 }
@@ -200,11 +204,13 @@ div.dash-card-body p{
 }
 
 /* Rodape */
-section.rodape {
+footer.rodape {
     margin-top: 40px;
     padding-top: 24px;
     color: rgba(255, 255, 255, 0.8);
     background-color: #27293d;
+
+    flex-shrink: none;
 }
 
 ul.rodape-list {
