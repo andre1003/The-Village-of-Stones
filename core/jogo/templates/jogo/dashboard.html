@@ -15,14 +15,29 @@
         <!-- <p>Veja os resultados do jogo {{ jogo.id_jogo }}</p> -->
         <section id="section-dashboard">
             <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-10 offset-1">
+                        <div class="dash-card">
+                            <div class="dash-card-header">
+                                <h4><span class="icon-user"></span>&nbsp;{{ jogador.apelido }}</h4>
+                                <p>Descrição do jogador.</p>
+                                <hr/>
+                            </div>
+                            <div class="dash-card-body">
+                                <!-- Pegar esse rating do banco -->
+                                <div id="vitorias-derrotas-rating"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
                 <!-- Gráfico da vida dos personagens -->
                 <div class="row">
                     <div class="col-md-10 offset-1">
                         <div class="dash-card">
                             <div class="dash-card-header">
-                                <h4><span class="icon-stats-dots"></span>&nbsp;Vida do personagem</h4>
-                                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting.</p>
+                                <h4><span class="icon-stats-dots"></span>&nbsp;Faça uma figura</h4>
+                                <p>Número de vitórias e derrotas.</p>
                                 <hr/>
                             </div>
                             <div class="dash-card-body">
@@ -37,8 +52,8 @@
                     <div class="col-md-5 offset-1">
                         <div class="dash-card">
                             <div class="dash-card-header">
-                                <h4>Distribuição de probabilidades</h4>
-                                <p>Vestibulum vitae cursus orci. Sed erat mi, venenatis id lacinia non, pretium sed velit. In sollicitudin varius velit sit amet maximus. Fusce lacus diam, placerat id porta ut, dictum non turpis.</p>
+                                <h4>Faça uma figura</h4>
+                                <p>Dano total em cada fase, comparado com a média armazenada.</p>
                                 <hr/>
                             </div>
                             <div class="dash-card-body">
@@ -51,8 +66,8 @@
                     <div class="col-md-5">
                         <div class="dash-card">
                             <div class="dash-card-header">
-                                <h4>Algum outro gráfico ;-;</h4>
-                                <p>Vestibulum vitae cursus orci. Sed erat mi, venenatis id lacinia non, pretium sed velit. In sollicitudin varius velit sit amet maximus. Fusce lacus diam, placerat id porta ut, dictum non turpis.</p>
+                                <h4>Faça uma figura</h4>
+                                <p>Vestibulum vitae cursus orci. Sed erat mi, venenatis id lacinia non, pretium sed velit.</p>
                                 <hr/>
                             </div>
                             <div class="dash-card-body">
@@ -67,7 +82,7 @@
                             <div class="dash-card">
                                 <div class="dash-card-header">
                                     <h4>Simple Table</h4>
-                                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting.</p>
+                                    <p>Vestibulum vitae cursus orci. Sed erat mi, venenatis id lacinia non, pretium sed velit.</p>
                                     <hr/>
                                 </div>
                                 <div class="dash-card-body">

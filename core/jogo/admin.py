@@ -19,7 +19,7 @@ class JogoAdmin(admin.ModelAdmin):
     # fields = ('id', 'id_jogo', 'data_jogo', 'total_mortes', 'escolha_final')
     fieldsets = (
         ('Visualizar informações do jogo', {
-            'fields': ('total_mortes', 'escolha_final')
+            'fields': ('total_mortes', 'total_tentativas', 'escolha_final')
         }),
         ('Gerenciar rodadas', {
             'fields': ('pk_rodada',)
@@ -37,22 +37,22 @@ class JogoAdmin(admin.ModelAdmin):
 
 
 class JogadorAdmin(admin.ModelAdmin):  # Paulo fazendo cagada
-    list_display = ('NOME', 'SEXO', 'JOGOU')
+    list_display = ('APELIDO', 'SEXO', 'JOGOU')
     filter_horizontal = ('pk_jogos',)
-    search_fields = ('nome_completo',)
+    search_fields = ('apelido',)
     # readonly_fields = ('id', 'nome_completo', 'data_nascimento', 'genero',)
     fieldsets = (
         ('Visualizar informações do jogador', {
             # 'fields': ('id', 'nome_completo', 'apelido', 'data_nascimento', 'genero',)
-            'fields': ('nome_completo', 'apelido', 'data_nascimento', 'genero',)
+            'fields': ('apelido', 'data_nascimento', 'genero',)
         }),
         ('Gerenciar jogos', {
             'fields': ('pk_jogos',)
         })
     )
 
-    def NOME(self, obj):
-        return str(obj.nome_completo)
+    def APELIDO(self, obj):
+        return str(obj.apelido)
 
     def SEXO(self, obj):
         return str(obj.genero)

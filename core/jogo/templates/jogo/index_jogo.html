@@ -28,7 +28,7 @@
                                                     <td>{{ j }}</td>
                                                     <td>{{ j.data_jogo }}</td>
                                                     <td>
-                                                        <a href="{% url 'dashboard' j %}" title="Conferir dados do jogo" class="btn btn-azul-1">Resultados</a>
+                                                        <a href="{% url 'dashboard' jogador.apelido j %}" title="Conferir dados do jogo" class="btn btn-azul-1">Resultados</a>
                                                         {% if user.is_authenticated %}
                                                             <a href="{% url 'baixar_csv_jogo' j.id_jogo %}" title="Baixar dados da rodada em um CSV" class="btn btn-azul-1">Baixar CSV</a>
                                                         {% else %}

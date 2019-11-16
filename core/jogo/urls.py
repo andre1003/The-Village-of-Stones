@@ -27,9 +27,9 @@ urlpatterns = [
     path('somar_morte/<str:uuid>', somar_morte),
 
     # dashboard ajax functions
-    path('dashboard/<str:uuid>', dashboard, name='dashboard'),
+    path('dashboard/<str:apelido>/<str:uuid>', dashboard, name='dashboard'),
     # Arrumar o nome desta url abaixo p/ uma generica de obtenção de dados
-    path('dashboard/vida/', dashboard_vidaJogadorBoss),
+    path('dashboard/vida/', dashboard_obterDados),
     path('get_csv_dashboard/<str:uuid>', get_csv_dashboard, name='baixar_csv_jogo'),
 
     path('teste/', teste),

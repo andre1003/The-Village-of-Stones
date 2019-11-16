@@ -23,6 +23,7 @@ class Jogo(models.Model):
     id_jogo = models.UUIDField(default=uuid.uuid4, editable=False, unique=True)  # identificador jogo
     data_jogo = models.DateField(auto_now_add=True)                              # data que o jogo foi criado no BD
     total_mortes = models.PositiveIntegerField(default=0)                        # total de mortes do jogador
+    total_tentativas = models.PositiveIntegerField(default=0)                    # Total de vezes que tentou passar a fase
     escolha_final = models.BooleanField(null=True)                               # salvou HumanTown?
     pk_rodada = models.ManyToManyField(Rodada, blank=True)                       # foreign key para rodadas (1~n)
     # fk_jogador = models.ForeignKey(Jogador, on_delete=models.PROTECT)
@@ -44,7 +45,7 @@ class Jogador(models.Model):
     pk_jogos = models.ManyToManyField(Jogo, blank=True)                          # foreign key para jogos (1~n)
 
     def __str__(self):
-        return self.nome_completo
+        return self.apelido
 
     class Meta:
         verbose_name_plural = 'Jogadores'

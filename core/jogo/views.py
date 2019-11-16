@@ -183,7 +183,7 @@ def novoJogo(request, id_jogador):
 #############################
 #     Dashboard section     #
 #############################
-def dashboard(request, uuid):
+def dashboard(request, apelido, uuid):
     """
     --> Esta função é responsável por renderizar a página de resultados do jogo
     :param request: requisição do jogador
@@ -197,11 +197,38 @@ def dashboard(request, uuid):
         return render(request, 'jogo/dashboard.html')
 
     jogos = jogo.pk_rodada.all()
+    jogador = Jogador.objects.get(apelido=apelido)
 
-    return render(request, 'jogo/dashboard.html', {'jogos': jogos, 'jogo': jogo})
+    return render(request, 'jogo/dashboard.html', {'jogos': jogos, 'jogo': jogo, 'jogador': jogador})
 
+def getVitoriaDerrotaRating(jogo):
+    total_sucesso = jogo.total_tentativas - jogo.total_mortes
 
-def dashboard_vidaJogadorBoss(request):
+    if jogo.total_tentativas != 0:
+        return total_sucesso / jogo.total_tentativas
+    return 0
+
+def getNumVitoriaDerrota(rodadas):
+    aux = {'heroi': 0, 'boss': 0}
+    lista = list()
+    level = 1
+
+    for rodada in rodadas:
+        if rodada.numero_fase != level:
+            # prox level, incrementar level e salvar as listas
+            level += 1
+            aux = {'heroi': 0, 'boss': 0}
+
+        if rodada.personagem_atacou:
+            aux['heroi'] += rodada.dano_atacante
+        else:
+            aux['boss'] += rodada.dano_atacante
+
+    lista.append(aux)
+
+    return lista
+
+def dashboard_obterDados(request):
     """
     --> Esta função prepara o JSON que irá preencher os gráficos da seção de dashboard
     :param request: requisição do jogador
@@ -215,15 +242,15 @@ def dashboard_vidaJogadorBoss(request):
             return Http404(request, 'O jogo não existe')
 
         jogos = jogo.pk_rodada.all()
-        data = {'vida': {'personagem': [], 'boss': []}, 'probabilidades': {'personagem': [], 'boss': []}}
 
-        for j in jogos:
-            if j.personagem_atacou:
-                data['vida']['personagem'].append(float(j.vida_personagem))
-                data['probabilidades']['personagem'].append(float(j.probabilidade_ataque))
-            else:
-                data['vida']['boss'].append(float(j.vida_personagem))
-                data['probabilidades']['boss'].append(float(j.probabilidade_ataque))
+        # pegando os dados
+        dano_total = getNumVitoriaDerrota(jogo.pk_rodada.all())
+        perc_vit_derrota = getVitoriaDerrotaRating(jogo)
+
+        data = {
+            'dano_total_causado': dano_total,
+            'perc_vit_derrota': perc_vit_derrota,
+        }
 
         return JsonResponse(data, safe=False)
 

@@ -43,61 +43,85 @@ $.ajax({
         console.log(data);
 
         // Gráfico de distribuição de probabilidades do personagem e do boss
+        // Highcharts.chart('vida_personagem_boss', {
+        //     // chart: { type: 'spline', }, // suaviza as curvas do gráfico
+        //     title: { text: 'Vida do personagem no decorrer do jogo' },
+        //     xAxis: { title: { text: 'Rodadas'}, min: 0, allowDecimals: false, },
+        //     yAxis: { title:{ text: 'Quantidade de vida'}, min: 0, max: 100,},
+        //     // legend: { layout: 'vertical', align: 'right', verticalAlign: 'middle'},
+        //     plotOptions: { series: { label: { connectorAllowed: false }, pointStart: 0 } },
+        //     series: [
+        //         {name: 'Usuário', data: dashboard_vida['vida']['personagem']},
+        //         {name: 'Boss', data: dashboard_vida['vida']['boss']},
+        //     ],
+        //     responsive: {
+        //         rules: [{ condition: { maxWidth: 1024 },
+        //             chartOptions: { legend: { layout: 'horizontal', align: 'center', verticalAlign: 'bottom' } }
+        //         }]
+        //     }
+        // });
+
         Highcharts.chart('vida_personagem_boss', {
-            // chart: { type: 'spline', }, // suaviza as curvas do gráfico
-            title: { text: 'Vida do personagem no decorrer do jogo' },
-            xAxis: { title: { text: 'Rodadas'}, min: 0, allowDecimals: false, },
-            yAxis: { title:{ text: 'Quantidade de vida'}, min: 0, max: 100,},
-            // legend: { layout: 'vertical', align: 'right', verticalAlign: 'middle'},
-            plotOptions: { series: { label: { connectorAllowed: false }, pointStart: 0 } },
+            chart: { type: 'column' },
+            title: { text: undefined },
+            xAxis: { title: { text: 'Fase' }, categories: [1, 2, 3, 4] },
+            credits: { enabled: false },
             series: [
-                {name: 'Usuário', data: dashboard_vida['vida']['personagem']},
-                {name: 'Boss', data: dashboard_vida['vida']['boss']},
+                { name: 'Herói', data: [5, 3, 4, 7], color: '#FF4D43' },
+                { name: 'Boss', data: [2, 2, 3, 2], color: '#08AEEA' }
             ],
-            responsive: {
-                rules: [{ condition: { maxWidth: 1024 },
-                    chartOptions: { legend: { layout: 'horizontal', align: 'center', verticalAlign: 'bottom' } }
-                }]
-            }
+        });
+
+        Highcharts.chart('distribuicao_probabilidades', {
+            chart: { type: 'column' },
+            title: { text: undefined },
+            xAxis: { categories: [1, 2, 3, 4] },
+            credits: { enabled: false },
+            series: [
+                { name: 'Herói', data: [1155, 345, 4546, 756], color: '#FF4D43' },
+                { name: 'Média', data: [2122, 2231, 3546, 2456], color: '#08AEEA' }
+            ],
         });
 
         // Gráfico de distribuição de probabilidades do personagem e do boss
-        Highcharts.chart('distribuicao_probabilidades', {
-            // chart: { type: 'spline', }, // suaviza as curvas do gráfico
-            title: { text: 'Probabilidades do personagem no decorrer do jogo' },
-            xAxis: { title: { text: 'Rodadas' }, min: 0, allowDecimals: false },
-            yAxis: { title: { text: 'Probabilidade' }, min: 0, max: 1, },
-            // legend: { layout: 'vertical', align: 'right', verticalAlign: 'middle'},
-            plotOptions: { series: { label: { connectorAllowed: false }, pointStart: 0 } },
-            series: [
-                {name: 'Usuário', data: dashboard_vida['probabilidades']['personagem']},
-                {name: 'Boss', data: dashboard_vida['probabilidades']['boss']},
-            ],
-            responsive: {
-                rules: [{ condition: { maxWidth: 1024 },
-                    chartOptions: { legend: { layout: 'horizontal', align: 'center', verticalAlign: 'bottom' } }
-                }]
-            }
-        });
+        // Highcharts.chart('distribuicao_probabilidades', {
+        //     // chart: { type: 'spline', }, // suaviza as curvas do gráfico
+        //     // title: { text: 'Probabilidades do personagem no decorrer do jogo' },
+        //     title: { text: undefined },
+        //     xAxis: { title: { text: 'Rodadas' }, min: 0, allowDecimals: false },
+        //     yAxis: { title: { text: 'Probabilidade' }, min: 0, max: 1, },
+        //     // legend: { layout: 'vertical', align: 'right', verticalAlign: 'middle'},
+        //     plotOptions: { series: { label: { connectorAllowed: false }, pointStart: 0 } },
+        //     series: [
+        //         {name: 'Usuário', data: dashboard_vida['probabilidades']['personagem']},
+        //         {name: 'Boss', data: dashboard_vida['probabilidades']['boss']},
+        //     ],
+        //     responsive: {
+        //         rules: [{ condition: { maxWidth: 1024 },
+        //             chartOptions: { legend: { layout: 'horizontal', align: 'center', verticalAlign: 'bottom' } }
+        //         }]
+        //     }
+        // });
 
-        Highcharts.chart('distribuicao_probabilidades0', {
-            chart: { type: 'spline', }, // suaviza as curvas do gráfico
-            title: { text: 'Probabilidades do personagem no decorrer do jogo' },
-            xAxis: { title: { text: 'Rodadas' }, min: 0, },
-            yAxis: { title: { text: 'Probabilidade' }, min: 0, max: 1, },
-            // legend: { layout: 'vertical', align: 'right', verticalAlign: 'middle'},
-            plotOptions: { series: { label: { connectorAllowed: false }, pointStart: 0 }, },
-            series: [
-                { name: 'Usuário', data: dashboard_vida['probabilidades']['personagem']},
-                { name: 'Boss', data: dashboard_vida['probabilidades']['boss']},
-            ],
-            responsive: {
-                rules: [{
-                    condition: { maxWidth: 1024 },
-                    chartOptions: { legend: { layout: 'horizontal', align: 'center', verticalAlign: 'bottom' } }
-                }]
-            }
-        });
+        // Highcharts.chart('distribuicao_probabilidades0', {
+        //     chart: { type: 'spline', }, // suaviza as curvas do gráfico
+        //     // title: { text: 'Probabilidades do personagem no decorrer do jogo' },
+        //     title: { text: undefined },
+        //     xAxis: { title: { text: 'Rodadas' }, min: 0, },
+        //     yAxis: { title: { text: 'Probabilidade' }, min: 0, max: 1, },
+        //     // legend: { layout: 'vertical', align: 'right', verticalAlign: 'middle'},
+        //     plotOptions: { series: { label: { connectorAllowed: false }, pointStart: 0 }, },
+        //     series: [
+        //         { name: 'Usuário', data: dashboard_vida['probabilidades']['personagem']},
+        //         { name: 'Boss', data: dashboard_vida['probabilidades']['boss']},
+        //     ],
+        //     responsive: {
+        //         rules: [{
+        //             condition: { maxWidth: 1024 },
+        //             chartOptions: { legend: { layout: 'horizontal', align: 'center', verticalAlign: 'bottom' } }
+        //         }]
+        //     }
+        // });
     },
     complete:function(){},
     error:function (xhr, textStatus, thrownError){}
@@ -107,7 +131,7 @@ $.ajax({
 // Them ByGates :DDDD
 Highcharts.theme = {
     // Cores dos gráficos (possíveis cores para as linhas
-    colors: ['#08AEEA', '#89A54E', '#2AF598', '#3D96AE', '#E20473', '#FF4D43'],
+    colors: ['#08AEEA', '#2AF598', '#3D96AE', '#E20473', '#FF4D43'],
     chart: { backgroundColor: { color: 'rgba(28,28,41,0.8)', }, },
     title: {
         style: { color: 'rgba(255, 255, 255, 0.9)', font: 'bold 16px "Montserrat", Verdana, sans-serif' }
