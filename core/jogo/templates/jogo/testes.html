@@ -46,8 +46,7 @@
     	}
 
 		function simularJogos() {
-			let vitorias = 0, derrotas = 0, duracaoTurno = [], vidaRestante = [], j = 0;
-			for(let i = 0; i < 1000; i++) {
+			/*for(let i = 0; i < 1000; i++) {
 				// Simulando 1000 jogos
 				let vidaHeroi = 50, vidaVilao = 50, cont = 0;
 				while(vidaHeroi > 0 || vidaVilao > 0) {
@@ -76,12 +75,12 @@
 
 			console.log('Média vida basico-basico: ' + mediaVida / j);
 			console.log('basico-basico: ' + auxCont / 1000);
-			/*console.log(derotas);
-			console.log(vitorias);*/
+			console.log(derotas);
+			console.log(vitorias);
 			let percent_vitorias = vitorias / 1000;
 			document.getElementById('basico-basico').value = percent_vitorias;
 
-			/*vitorias = 0;
+			vitorias = 0;
 			derrotas = 0;
 
 			for(let i = 0; i < 1000; i++) {
@@ -100,7 +99,7 @@
 			}
 
 			percent_vitorias = vitorias / 1000;
-			document.getElementById('magico-magico').value = percent_vitorias;*/
+			document.getElementById('magico-magico').value = percent_vitorias;
 
 			vitorias = 0;
 			derrotas = 0;
@@ -138,7 +137,58 @@
 			console.log('magico-basico: ' + auxCont / 1000);
 
 			percent_vitorias = vitorias / 1000;
-			document.getElementById('magico-basico').value = percent_vitorias;
+			document.getElementById('magico-basico').value = percent_vitorias;*/
+
+			let vitorias = 0, derrotas = 0, duracaoTurno = [], vidaRestante = [], j = 0, basico = 0, magico = 0;
+			for(let i = 0; i < 10000; i++) {
+				// Simulando 1000 jogos
+				let vidaHeroi = 50, vidaVilao = 50, turno = 0;
+				while(vidaHeroi > 0 || vidaVilao > 0) {
+					turno++;
+					let escolhaHeroi = gerarNumeroIntervalo(1, 2); // Define o tipo do ataque do herói
+					if(escolhaHeroi == 1) { // Básico
+						basico++;
+						vidaVilao -= definicaoAtaqueFinal('basico', 'heroi');
+					}
+					else { // Mágico
+						magico++;
+						vidaVilao -= definicaoAtaqueFinal('magico', 'heroi');
+					}
+					if(vidaVilao <= 0)
+						break;
+
+					turno++;
+
+					let escolhaVilao = gerarNumeroIntervalo(1, 2); // Define o tipo do ataque do vilão
+					if(escolhaVilao == 1)
+						vidaHeroi -= definicaoAtaqueFinal('basico', 'voss');
+					else
+						vidaHeroi -= definicaoAtaqueFinal('magico', 'voss');
+					if(vidaHeroi <= 0)
+						break;
+				}
+
+				duracaoTurno[i] = turno;
+				if(vidaHeroi <= 0)
+					derrotas++;
+				else if(vidaVilao <= 0) {
+					vidaRestante[j] = vidaHeroi;
+					j++;
+					vitorias++;
+				}
+			}
+
+			let cont = 0;
+
+			for(let i = 0; i < 10000; i++) {
+				cont += duracaoTurno[i];
+			}
+
+			let percent_vitorias = vitorias / 10000;
+			document.getElementById('basico').value = percent_vitorias;
+			document.getElementById('ataquesBasicos').value = basico;
+			document.getElementById('ataquesMagicos').value = magico;
+			document.getElementById('mediaTurnos').value = (cont / 10000) / 2;
 		}
     </script>
 </head>
@@ -156,9 +206,14 @@
 
 	<input type="button" name="" onclick="rodarDado();" value="Rodar">-->
 
-	Com 100 de vida, somente ataque básico e contra o Plox com ataque básico, a chance de vitória é: <input type="text" id="basico-basico" value="" readonly="true"> <br>
-	<!--Com 100 de vida, somente ataque mágico e contra o Plox com ataque mágico, a chance de vitória é: <input type="text" id="magico-magico" value="" readonly="true"> <br>-->
-	Com 100 de vida, somente ataque mágico e contra o Plox com ataque básico, a chance de vitória é: <input type="text" id="magico-basico" value="" readonly="true"> <br>
+	<!--Com 100 de vida, somente ataque básico e contra o Plox com ataque básico, a chance de vitória é: <input type="text" id="basico-basico" value="" readonly="true"> <br>
+	Com 100 de vida, somente ataque mágico e contra o Plox com ataque mágico, a chance de vitória é: <input type="text" id="magico-magico" value="" readonly="true"> <br>
+	Com 100 de vida, somente ataque mágico e contra o Plox com ataque básico, a chance de vitória é: <input type="text" id="magico-basico" value="" readonly="true"> <br>-->
+
+	Percentual de vitórias, apenas com ataque aleatório: <input type="text" id="basico" value="" readonly="true"> <br>
+	Número de vezes que o herói atacou com ataque básico: <input type="text" id="ataquesBasicos" value="" readonly="true"> <br>
+	Número de vezes que o herói atacou com ataque mágico: <input type="text" id="ataquesMagicos" value="" readonly="true"> <br>
+	Média de turnos que o jogador irá jogar contra Voss: <input type="text" id="mediaTurnos" value="" readonly="true"> <br>
 	<input type="button" name="" onclick="simularJogos();" value="Rodar">
 
 

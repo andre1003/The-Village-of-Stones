@@ -104,7 +104,25 @@ function danoDefesa(tipo_ataque, personagem) {
             dano = gerarNumeroIntervalo(1, 7);
     }
     else if(personagem === 'plox') {
-        dano = gerarNumeroIntervalo(1, 4.3);
+        dano = gerarNumeroIntervalo(1, 2);
+    }
+    else if(personagem === 'zayin') {
+        if(tipo_ataque === 'basico')
+            dano = gerarNumeroIntervalo(1, 4);
+        else if(tipo_ataque === 'magico')
+            dano = gerarNumeroIntervalo(1, 5); 
+    }
+    else if(personagem === 'magus') {
+        if(tipo_ataque === 'basico')
+            dano = gerarNumeroIntervalo(1, 4.5);
+        else if(tipo_ataque === 'magico')
+            dano = gerarNumeroIntervalo(1, 6);
+    }
+    else if(personagem === 'voss') {
+        if(tipo_ataque === 'basico')
+            dano = gerarNumeroIntervalo(2, 3);
+        else if(tipo_ataque == 'magico')
+            dano = gerarNumeroIntervalo(2, 4.5);
     }
 
     return dano;
