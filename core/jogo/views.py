@@ -183,24 +183,6 @@ def novoJogo(request, id_jogador):
 #############################
 #     Dashboard section     #
 #############################
-def dashboard(request, apelido, uuid):
-    """
-    --> Esta função é responsável por renderizar a página de resultados do jogo
-    :param request: requisição do jogador
-    :param uuid: identificador uuid do jogo (utilizado para consulta)
-    :return: retorna a renderização da página em questão
-    """
-    try:
-        jogo = Jogo.objects.get(id_jogo=uuid)
-    except ObjectDoesNotExist:
-        messages.warning(request, 'O jogo solicitado ainda não foi cadastrado')
-        return render(request, 'jogo/dashboard.html')
-
-    jogos = jogo.pk_rodada.all()
-    jogador = Jogador.objects.get(apelido=apelido)
-
-    return render(request, 'jogo/dashboard.html', {'jogos': jogos, 'jogo': jogo, 'jogador': jogador})
-
 def getVitoriaDerrotaRating(jogo):
     total_sucesso = jogo.total_tentativas - jogo.total_mortes
 
@@ -227,6 +209,31 @@ def getNumVitoriaDerrota(rodadas):
     lista.append(aux)
 
     return lista
+
+def dashboard(request, apelido, uuid):
+    """
+    --> Esta função é responsável por renderizar a página de resultados do jogo
+    :param request: requisição do jogador
+    :param uuid: identificador uuid do jogo (utilizado para consulta)
+    :return: retorna a renderização da página em questão
+    """
+    try:
+        jogo = Jogo.objects.get(id_jogo=uuid)
+    except ObjectDoesNotExist:
+        messages.warning(request, 'O jogo solicitado ainda não foi cadastrado')
+        return render(request, 'jogo/dashboard.html')
+
+    jogador = Jogador.objects.get(apelido=apelido)
+
+
+    data = {
+        'jogos': jogo.pk_rodada.all(),
+        'jogador': jogador,
+        'jogo': jogo,
+        'total_jogos': jogador.pk_jogos.count(),
+    }
+
+    return render(request, 'jogo/dashboard.html', data)
 
 def dashboard_obterDados(request):
     """

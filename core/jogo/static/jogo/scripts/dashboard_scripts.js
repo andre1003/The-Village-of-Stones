@@ -61,6 +61,34 @@ $.ajax({
         //     }
         // });
 
+        Highcharts.chart('vitorias-derrotas-rating', {
+            chart: {
+                plotBackgroundColor: null,
+                plotBorderWidth: null,
+                plotShadow: false,
+                type: 'pie',
+                height: 300,
+                width: 300,
+            },
+            title: { text: 'Taxa de vitórias do jogador' },
+            tooltip: { pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>' },
+            plotOptions: {
+                pie: { allowPointSelect: true, cursor: 'pointer',
+                    dataLabels: { enabled: false },
+                    showInLegend: true
+                }
+            },
+            series: [{
+                name: 'Porcentagem',
+                colorByPoint: true,
+                data: [
+                    { name: 'Vitórias', y: 78, },
+                    { name: 'Derrotas', y: 100-78 },
+                ]
+            }]
+        });
+
+
         Highcharts.chart('vida_personagem_boss', {
             chart: { type: 'column' },
             title: { text: undefined },

@@ -20,12 +20,29 @@
                         <div class="dash-card">
                             <div class="dash-card-header">
                                 <h4><span class="icon-user"></span>&nbsp;{{ jogador.apelido }}</h4>
-                                <p>Descrição do jogador.</p>
+                                <p>Descrição do jogador</p>
                                 <hr/>
                             </div>
                             <div class="dash-card-body">
-                                <!-- Pegar esse rating do banco -->
-                                <div id="vitorias-derrotas-rating"></div>
+                                <!-- CONCERTAR TODA ESTA SEÇÃO AQUI -->
+                                <div class="row">
+                                    <div class="col-8">
+                                        <h5>Sobre o jogador:</h5>
+                                        <p>Cadastro realizado  {{ jogador.data_cadastro }}</p>
+                                        <p>Total de jogos: {{ total_jogos }}</p>
+                                        <!-- Concertar isso -->
+
+                                        <hr class="soft-hr"/>
+                                        <h5>Sobre este jogo:</h5>
+                                        <p>Tentativas:
+                                            <b class="bold-green">{{ jogo.total_tentativas }}</b> - <b class="bold-red">{{ jogo.total_mortes }}</b>
+                                        </p>
+                                    </div>
+                                    <!-- Pegar esse rating do banco -->
+                                    <div class="col-4">
+                                        <div id="vitorias-derrotas-rating"></div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>

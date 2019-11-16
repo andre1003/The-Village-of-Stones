@@ -4,3 +4,4 @@ variaveis.py
 env-proba
 *settings.py
 *.pyc
+migrations

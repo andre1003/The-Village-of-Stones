@@ -38,6 +38,9 @@
 
 html, body {
   height: 100%;
+    /* variáveis */
+    --verde: #28a745;
+    --vermelho: #dc3545;
 }
 
 .white-color {
@@ -108,6 +111,18 @@ svg.icon {
     display: block;
     height: 1px;
     width: 100%;
+    border: 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.6);
+    /*margin: 1em 0 30px;*/
+    padding: 0;
+    /*color: rgba(255, 255, 255, 0.6) solid;*/
+}
+
+hr.soft-hr {
+    display: block;
+    right: 0;
+    height: 1px;
+    width: 40%;
     border: 0;
     border-top: 1px solid rgba(255, 255, 255, 0.6);
     /*margin: 1em 0 30px;*/
@@ -201,6 +216,15 @@ div.dash-card-body p{
     color: #ffffff;
     background-image: linear-gradient(to right, #08AEEA, #017EC1);
     border-color: #212121;
+}
+
+/* bold's udasfuhsadf */
+b.bold-green {
+    color: var(--verde);
+}
+
+b.bold-red {
+    color: var(--vermelho);
 }
 
 /* Rodape */
