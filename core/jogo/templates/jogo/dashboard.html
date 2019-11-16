@@ -19,28 +19,31 @@
                     <div class="col-md-10 offset-1">
                         <div class="dash-card">
                             <div class="dash-card-header">
-                                <h4><span class="icon-user"></span>&nbsp;{{ jogador.apelido }}</h4>
+                                <h4><span class="icon-user"></span>&nbsp;Jogador: {{ jogador.apelido }}</h4>
                                 <p>Descrição do jogador</p>
                                 <hr/>
                             </div>
                             <div class="dash-card-body">
                                 <!-- CONCERTAR TODA ESTA SEÇÃO AQUI -->
                                 <div class="row">
-                                    <div class="col-8">
+                                    <div class="col-md-8">
                                         <h5>Sobre o jogador:</h5>
-                                        <p>Cadastro realizado  {{ jogador.data_cadastro }}</p>
-                                        <p>Total de jogos: {{ total_jogos }}</p>
+                                        <ul class="dash-list">
+                                            <li>Cadastro realizado  {{ jogador.data_cadastro }}</li>
+                                            <li>Total de jogos: {{ total_jogos }}</li>
+                                        </ul>
                                         <!-- Concertar isso -->
 
                                         <hr class="soft-hr"/>
                                         <h5>Sobre este jogo:</h5>
-                                        <p>Tentativas:
-                                            <b class="bold-green">{{ jogo.total_tentativas }}</b> - <b class="bold-red">{{ jogo.total_mortes }}</b>
-                                        </p>
+                                        <ul class="dash-list">
+                                            <li>Tentativas: <b class="bold-green">{{ jogo.total_tentativas }}</b></li>
+                                            <li>Mortes: <b class="bold-red">{{ jogo.total_mortes }}</b></li>
+                                        </ul>
                                     </div>
                                     <!-- Pegar esse rating do banco -->
-                                    <div class="col-4">
-                                        <div id="vitorias-derrotas-rating"></div>
+                                    <div class="col-md-4">
+                                        <div class="text-center" id="vitorias-derrotas-rating"></div>
                                     </div>
                                 </div>
                             </div>
@@ -50,7 +53,20 @@
 
                 <!-- Gráfico da vida dos personagens -->
                 <div class="row">
-                    <div class="col-md-10 offset-1">
+                    <div class="col-md-5 offset-1">
+                        <div class="dash-card">
+                            <div class="dash-card-header">
+                                <h4>Faça uma figura</h4>
+                                <p>Dano total em cada fase:</p>
+                                <hr/>
+                            </div>
+                            <div class="dash-card-body">
+                                <div id="distribuicao_probabilidades"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-5">
                         <div class="dash-card">
                             <div class="dash-card-header">
                                 <h4><span class="icon-stats-dots"></span>&nbsp;Faça uma figura</h4>
@@ -64,23 +80,9 @@
                     </div>
                 </div>
 
-                <!-- Gráfico da probabilidade dos personagens -->
                 <div class="row">
-                    <div class="col-md-5 offset-1">
-                        <div class="dash-card">
-                            <div class="dash-card-header">
-                                <h4>Faça uma figura</h4>
-                                <p>Dano total em cada fase, comparado com a média armazenada.</p>
-                                <hr/>
-                            </div>
-                            <div class="dash-card-body">
-                                <div id="distribuicao_probabilidades"></div>
-                            </div>
-                        </div>
-                    </div>
-
                 <!-- Aqui vem outro gráfico, não sei qual -->
-                    <div class="col-md-5">
+                    <div class="col-md-5 offset-1">
                         <div class="dash-card">
                             <div class="dash-card-header">
                                 <h4>Faça uma figura</h4>

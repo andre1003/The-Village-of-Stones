@@ -118,6 +118,10 @@ svg.icon {
     /*color: rgba(255, 255, 255, 0.6) solid;*/
 }
 
+div.dash-card-body h5 {
+    margin-left: 16px;
+}
+
 hr.soft-hr {
     display: block;
     right: 0;
@@ -138,6 +142,12 @@ hr.soft-hr {
 .dash-card-body p {
     text-indent: 1.5em;
     font-size: 1.125rem;
+}
+
+div.dash-card-body img.img-tutorial {
+    width: 100%;
+    margin-top: 30px;
+    margin-bottom: 30px;
 }
 
 ul.dash-list {
@@ -234,7 +244,7 @@ footer.rodape {
     color: rgba(255, 255, 255, 0.8);
     background-color: #27293d;
 
-    flex-shrink: none;
+    /*flex-shrink: none;*/
 }
 
 ul.rodape-list {

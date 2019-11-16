@@ -71,9 +71,9 @@ $.ajax({
                 width: 300,
             },
             title: { text: 'Taxa de vitórias do jogador' },
-            tooltip: { pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>' },
+            tooltip: { pointFormat: '{series.name}: <b>{point.percentage:.2f}%</b>' },
             plotOptions: {
-                pie: { allowPointSelect: true, cursor: 'pointer',
+                pie: { allowPointSelect: false, cursor: 'pointer',
                     dataLabels: { enabled: false },
                     showInLegend: true
                 }

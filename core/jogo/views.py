@@ -32,8 +32,18 @@ def index(request):
     """
     return render(request, 'jogo/index.html')
 
+
 def pre_cadastro(request):
     return render(request, 'jogo/pre-cadastro.html')
+
+
+def tutorial(request):
+    return render(request, 'jogo/tutorial.html')
+
+
+def obrigado(request):
+    return render(request, 'jogo/obrigado.html')
+
 
 def jogar(request, apelido, uuid):
     """
@@ -190,6 +200,7 @@ def getVitoriaDerrotaRating(jogo):
         return total_sucesso / jogo.total_tentativas
     return 0
 
+
 def getNumVitoriaDerrota(rodadas):
     aux = {'heroi': 0, 'boss': 0}
     lista = list()
@@ -209,6 +220,7 @@ def getNumVitoriaDerrota(rodadas):
     lista.append(aux)
 
     return lista
+
 
 def dashboard(request, apelido, uuid):
     """
@@ -234,6 +246,7 @@ def dashboard(request, apelido, uuid):
     }
 
     return render(request, 'jogo/dashboard.html', data)
+
 
 def dashboard_obterDados(request):
     """
@@ -372,6 +385,7 @@ def somar_morte(request, uuid):
         jogo.total_mortes += 1
         jogo.save(update_fields=['total_mortes'])
         return HttpResponse(request, status=200)
+
 
 @login_required
 def get_csv_dashboard(request, uuid):

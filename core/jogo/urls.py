@@ -7,7 +7,9 @@ from jogo.views import *
 urlpatterns = [
     # páginas simples
     path('', index, name='index'),  # apresentação do projeto
-    path('sobre', sobre, name='sobre'),
+    path('sobre/', sobre, name='sobre'),
+    path('tutorial/', tutorial, name='tutorial'),
+    path('obrigado/', obrigado, name='end-game'),  # fim do jogo
 
     # páginas jogo
     path('jogar/<str:apelido>/<str:uuid>', jogar, name='jogar'),
