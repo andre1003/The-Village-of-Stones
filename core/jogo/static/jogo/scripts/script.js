@@ -121,7 +121,7 @@ function danoDefesa(tipo_ataque, personagem) {
     else if(personagem === 'voss') {
         if(tipo_ataque === 'basico')
             dano = gerarNumeroIntervalo(2, 3);
-        else if(tipo_ataque == 'magico')
+        else if(tipo_ataque === 'magico')
             dano = gerarNumeroIntervalo(2, 4.5);
     }
 
@@ -177,10 +177,14 @@ function definicaoAtaqueFinal(tipo_ataque, personagem) {
 // Essa função deve ser chamada quando o jogador optar por defender o ataque (botão defesa)
 function CalculoDefesa(dano_total, num_fase){
     let defesa = gerarNumeroIntervalo(1, 100);
-    if (defesa >= 95)
-        dano_total = 0; // defesa absoluta!
-    else if (defesa > (num_fase * 10) && defesa <= (20 * num_fase))
+    if (defesa >= 95) // Se a defesa for maior que 95, defesa absoluta
+        dano_total = 0;
+    else if (defesa >= 1 && defesa < 20) // Se a defesa estiver entre 1 e 20, defende o número da fase
         dano_total -= num_fase;
+    else if(defesa >= 20 && defesa < 70) // Se a defesa estiver entre 20 e 70, defende 2 * número da fase
+        dano_total -= 2 * num_fase;
+    else // Se a defesa estiver entre 70 e 95, defende 3/4 do dano total
+        dano_total -= Math.floor((3 * dano_total) / 4);
 
     if (dano_total < 0)
         dano_total = 0;
