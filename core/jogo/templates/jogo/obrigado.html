@@ -1,4 +1,5 @@
 {% extends 'jogo/base.html' %}
+{% load static %}
 {% block body %}
     <div class="container-fluid">
         <div class="row">
@@ -13,6 +14,7 @@
                         <p class="text-justify">Esperamos muito que você tenha se divertido!!!.</p>
                         <p>É muito importante, nesta etapa final, você deixar a sua opinião a respeito do jogo, isso é muito importante para a equipe que desenvolveu o jogo.</p>
 
+                        <img src="{% static 'jogo/img/obrigado.gif' %}" alt="" class="img-fluid img-tutorial">
                         <div class="dash-list text-center">
                             <a href="#" class="btn btn-azul-1" target="_blank">Acessar formulário</a>
                         </div>

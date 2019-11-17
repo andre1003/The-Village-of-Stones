@@ -135,7 +135,6 @@ hr.soft-hr {
 }
 
 .dash-card-header p {
-    font-size: 1.25rem;
     font-weight: lighter;
 }
 
@@ -268,7 +267,15 @@ ul.rodape-list li a:hover {
 
 /* JOGO SECTION STYLES */
 .pixel-title {
-    font-size: 28px !important;
+    /*font-size: 28px !important;*/
     letter-spacing: -1px;
     font-family: 'Press Start 2P', cursive !important;
+}
+
+/* Responsive breakpoints */
+@media (max-width: 768px) {
+    .dash-card-header h4 {
+        font-size: 1.5rem !important;
+    }
+
 }
