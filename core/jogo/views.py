@@ -193,15 +193,7 @@ def novoJogo(request, id_jogador):
 #############################
 #     Dashboard section     #
 #############################
-def getVitoriaDerrotaRating(jogo):
-    total_sucesso = jogo.total_tentativas - jogo.total_mortes
-
-    if jogo.total_tentativas != 0:
-        return total_sucesso / jogo.total_tentativas
-    return 0
-
-
-def getNumVitoriaDerrota(rodadas):
+def get_dano_total_causado(rodadas):
     aux = {'heroi': 0, 'boss': 0}
     lista = list()
     level = 1
@@ -209,6 +201,7 @@ def getNumVitoriaDerrota(rodadas):
     for rodada in rodadas:
         if rodada.numero_fase != level:
             # prox level, incrementar level e salvar as listas
+            lista.append(aux)
             level += 1
             aux = {'heroi': 0, 'boss': 0}
 
@@ -220,6 +213,17 @@ def getNumVitoriaDerrota(rodadas):
     lista.append(aux)
 
     return lista
+
+# Recebe uma lista de jogos e calcula a média de dano em cada uma dos 4 lvls
+# def get_media_dano_jogos(jogos):
+#     media = {1: 0, 2: 0, 3: 0, 4: 0}
+#     cont = 0
+#     aux_level = 1
+#
+#     for jogo in jogos:
+#         for rodada in jogo.pk_rodada.all():
+#
+
 
 
 def dashboard(request, apelido, uuid):
@@ -237,12 +241,11 @@ def dashboard(request, apelido, uuid):
 
     jogador = Jogador.objects.get(apelido=apelido)
 
-
     data = {
         'jogos': jogo.pk_rodada.all(),
         'jogador': jogador,
         'jogo': jogo,
-        'total_jogos': jogador.pk_jogos.count(),
+        'total_jogos': jogador.pk_jogos.all().count(),
     }
 
     return render(request, 'jogo/dashboard.html', data)
@@ -264,12 +267,12 @@ def dashboard_obterDados(request):
         jogos = jogo.pk_rodada.all()
 
         # pegando os dados
-        dano_total = getNumVitoriaDerrota(jogo.pk_rodada.all())
-        perc_vit_derrota = getVitoriaDerrotaRating(jogo)
+        dano_total = get_dano_total_causado(jogo.pk_rodada.all())
+        taxa_vitoria_derrota = (jogo.total_mortes / jogo.total_tentativas) * 100
 
         data = {
             'dano_total_causado': dano_total,
-            'perc_vit_derrota': perc_vit_derrota,
+            'perc_vit_derrota': taxa_vitoria_derrota,
         }
 
         return JsonResponse(data, safe=False)

@@ -82,8 +82,8 @@ $.ajax({
                 name: 'Porcentagem',
                 colorByPoint: true,
                 data: [
-                    { name: 'Vitórias', y: 78, },
-                    { name: 'Derrotas', y: 100-78 },
+                    { name: 'Vitórias', y: (100 - data['perc_vit_derrota']), },
+                    { name: 'Derrotas', y: data['perc_vit_derrota'] },
                 ]
             }]
         });
@@ -92,7 +92,9 @@ $.ajax({
         Highcharts.chart('vida_personagem_boss', {
             chart: { type: 'column' },
             title: { text: undefined },
-            xAxis: { title: { text: 'Fase' }, categories: [1, 2, 3, 4] },
+            xAxis: { title: { text: 'Fases' }, categories: [1, 2, 3, 4] },
+            yAxis: { title: { text: 'Média' }},
+            legend: { align: 'center', verticalAlign: 'top', borderWidth: 0 },
             credits: { enabled: false },
             series: [
                 { name: 'Herói', data: [5, 3, 4, 7], color: '#FF4D43' },
@@ -100,14 +102,17 @@ $.ajax({
             ],
         });
 
-        Highcharts.chart('distribuicao_probabilidades', {
+
+        Highcharts.chart('dano_total_fases', {
             chart: { type: 'column' },
             title: { text: undefined },
-            xAxis: { categories: [1, 2, 3, 4] },
+            xAxis: { title: { text: 'Fases' }, categories: [1, 2, 3, 4] },
+            yAxis: { title: { text: 'Média de dano' }},
+            legend: { align: 'center', verticalAlign: 'top', borderWidth: 0 },
             credits: { enabled: false },
             series: [
-                { name: 'Herói', data: [1155, 345, 4546, 756], color: '#FF4D43' },
-                { name: 'Média', data: [2122, 2231, 3546, 2456], color: '#08AEEA' }
+                { name: 'Herói', data: [5, 3, 4, 7], color: '#FF4D43' },
+                { name: 'Boss', data: [2, 2, 3, 2], color: '#08AEEA' }
             ],
         });
 
