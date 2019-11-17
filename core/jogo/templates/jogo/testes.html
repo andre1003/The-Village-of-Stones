@@ -139,33 +139,48 @@
 			percent_vitorias = vitorias / 1000;
 			document.getElementById('magico-basico').value = percent_vitorias;*/
 
-			let vitorias = 0, derrotas = 0, duracaoTurno = [], vidaRestante = [], j = 0, basico = 0, magico = 0;
+			let vitorias = 0, derrotas = 0, duracaoTurno = [], vidaRestante = [], j = 0, basico = 0, magico = 0, ataque = 0, defesa = 0;
 			for(let i = 0; i < 10000; i++) {
 				// Simulando 1000 jogos
 				let vidaHeroi = 50, vidaVilao = 50, turno = 0;
 				while(vidaHeroi > 0 || vidaVilao > 0) {
 					turno++;
-					let escolhaHeroi = gerarNumeroIntervalo(1, 2); // Define o tipo do ataque do herói
-					if(escolhaHeroi == 1) { // Básico
-						basico++;
-						vidaVilao -= definicaoAtaqueFinal('basico', 'heroi');
-					}
-					else { // Mágico
-						magico++;
-						vidaVilao -= definicaoAtaqueFinal('magico', 'heroi');
-					}
-					if(vidaVilao <= 0)
-						break;
+					let choice = gerarNumeroIntervalo(1, 2);
+					if(choice == 1) {
+					    ataque++;
+					    let escolhaHeroi = gerarNumeroIntervalo(1, 2); // Define o tipo do ataque do herói
+                        if(escolhaHeroi == 1) { // Básico
+                            basico++;
+                            vidaVilao -= definicaoAtaqueFinal('basico', 'heroi');
+                        }
+                        else { // Mágico
+                            magico++;
+                            vidaVilao -= definicaoAtaqueFinal('magico', 'heroi');
+                        }
+                        if(vidaVilao <= 0)
+                            break;
+
+                        let escolhaVilao = gerarNumeroIntervalo(1, 2); // Define o tipo do ataque do vilão
+                        if(escolhaVilao == 1)
+                            vidaHeroi -= definicaoAtaqueFinal('basico', 'magus');
+                        else
+                            vidaHeroi -= definicaoAtaqueFinal('magico', 'magus');
+                        if(vidaHeroi <= 0)
+                            break;
+                    }
+					else {
+					    defesa++;
+					    let escolhaVilao = gerarNumeroIntervalo(1, 2); // Define o tipo do ataque do vilão
+                        if(escolhaVilao == 1)
+                            vidaHeroi -= CalculoDefesa(definicaoAtaqueFinal('basico', 'magus'), 3);
+                        else
+                            vidaHeroi -= CalculoDefesa(definicaoAtaqueFinal('magico', 'magus'), 3);
+                        if(vidaHeroi <= 0)
+                            break;
+
+                    }
 
 					turno++;
-
-					let escolhaVilao = gerarNumeroIntervalo(1, 2); // Define o tipo do ataque do vilão
-					if(escolhaVilao == 1)
-						vidaHeroi -= definicaoAtaqueFinal('basico', 'voss');
-					else
-						vidaHeroi -= definicaoAtaqueFinal('magico', 'voss');
-					if(vidaHeroi <= 0)
-						break;
 				}
 
 				duracaoTurno[i] = turno;
@@ -189,7 +204,65 @@
 			document.getElementById('ataquesBasicos').value = basico;
 			document.getElementById('ataquesMagicos').value = magico;
 			document.getElementById('mediaTurnos').value = (cont / 10000) / 2;
+			document.getElementById('ataques').value = ataque;
+			document.getElementById('defesas').value = defesa;
 		}
+
+		function somenteAtaque() {
+    	    let vitorias = 0, derrotas = 0, duracaoTurno = [], vidaRestante = [], j = 0, basico = 0, magico = 0, ataque = 0, defesa = 0;
+			for(let i = 0; i < 10000; i++) {
+				// Simulando 1000 jogos
+				let vidaHeroi = 50, vidaVilao = 50, turno = 0;
+				while(vidaHeroi > 0 || vidaVilao > 0) {
+					turno++;
+
+                    let escolhaHeroi = gerarNumeroIntervalo(1, 2); // Define o tipo do ataque do herói
+                    if(escolhaHeroi == 1) { // Básico
+                        basico++;
+                        vidaVilao -= definicaoAtaqueFinal('basico', 'heroi');
+                    }
+                    else { // Mágico
+                        magico++;
+                        vidaVilao -= definicaoAtaqueFinal('magico', 'heroi');
+                    }
+                    if(vidaVilao <= 0)
+                        break;
+
+                    let escolhaVilao = gerarNumeroIntervalo(1, 2); // Define o tipo do ataque do vilão
+                    if(escolhaVilao == 1)
+                        vidaHeroi -= definicaoAtaqueFinal('basico', 'voss');
+                    else
+                        vidaHeroi -= definicaoAtaqueFinal('magico', 'voss');
+                    if(vidaHeroi <= 0)
+                        break;
+
+					turno++;
+				}
+
+				duracaoTurno[i] = turno;
+				if(vidaHeroi <= 0)
+					derrotas++;
+				else if(vidaVilao <= 0) {
+					vidaRestante[j] = vidaHeroi;
+					j++;
+					vitorias++;
+				}
+			}
+
+			let cont = 0;
+
+			for(let i = 0; i < 10000; i++) {
+				cont += duracaoTurno[i];
+			}
+
+			let percent_vitorias = vitorias / 10000;
+			document.getElementById('basico').value = percent_vitorias;
+			document.getElementById('ataquesBasicos').value = basico;
+			document.getElementById('ataquesMagicos').value = magico;
+			document.getElementById('mediaTurnos').value = (cont / 10000) / 2;
+			document.getElementById('ataques').value = ataque;
+			document.getElementById('defesas').value = defesa;
+        }
     </script>
 </head>
 	
@@ -213,8 +286,10 @@
 	Percentual de vitórias, apenas com ataque aleatório: <input type="text" id="basico" value="" readonly> <br>
 	Número de vezes que o herói atacou com ataque básico: <input type="text" id="ataquesBasicos" value="" readonly> <br>
 	Número de vezes que o herói atacou com ataque mágico: <input type="text" id="ataquesMagicos" value="" readonly> <br>
+    Número de vezes que o herói atacou <input type="text" id="ataques" value="" readonly> <br>
+    Número de vezes que o herói defendeu: <input type="text" id="defesas" value="" readonly> <br>
 	Média de turnos que o jogador irá jogar contra Voss: <input type="text" id="mediaTurnos" value="" readonly> <br>
-	<input type="button" name="" onclick="simularJogos();" value="Rodar">
+	<input type="button" name="" onclick="somenteAtaque();" value="Rodar">
 
 
 
