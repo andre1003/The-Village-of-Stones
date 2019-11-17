@@ -30,7 +30,7 @@
                                         <h5>Sobre o jogador:</h5>
                                         <ul class="dash-list">
                                             <li>Cadastro realizado  {{ jogador.data_cadastro }}</li>
-                                            <li>Total de jogos realizados: {{ total_jogos }}</li>
+                                            <li>Total de jogos cadastrados: {{ total_jogos }}</li>
                                         </ul>
                                         <!-- Concertar isso -->
 
@@ -43,7 +43,11 @@
                                     </div>
                                     <!-- Pegar esse rating do banco -->
                                     <div class="col-md-4">
-                                        <div class="text-center" id="vitorias-derrotas-rating"></div>
+                                        {% if jogo.total_tentativas != 0 %}
+                                            <div class="text-center" id="vitorias-derrotas-rating"></div>
+                                        {% else %}
+                                            <p>Jogo não terminado.</p>
+                                        {% endif %}
                                     </div>
                                 </div>
                             </div>
@@ -61,7 +65,11 @@
                                 <hr/>
                             </div>
                             <div class="dash-card-body">
-                                <div id="dano_total_fases"></div>
+                                {% if jogo.total_tentativas != 0 %}
+                                    <div id="dano_total_fases"></div>
+                                {% else %}
+                                    <p>Jogo não terminado.</p>
+                                {% endif %}
                             </div>
                         </div>
                     </div>
@@ -70,11 +78,17 @@
                         <div class="dash-card">
                             <div class="dash-card-header">
                                 <h4><span class="icon-stats-dots"></span>&nbsp;Faça uma figura</h4>
-                                <p>Número de vitórias e derrotas.</p>
+                                <p>Média de dano do jogador</p>
                                 <hr/>
                             </div>
                             <div class="dash-card-body">
-                                <div id="vida_personagem_boss"></div>
+                                <div class="dash-card-body">
+                                    {% if jogo.total_tentativas != 0 %}
+                                        <div id="vida_personagem_boss"></div>
+                                    {% else %}
+                                        <p>Jogo não terminado.</p>
+                                    {% endif %}
+                                </div>
                             </div>
                         </div>
                     </div>

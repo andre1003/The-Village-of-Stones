@@ -63,27 +63,35 @@ $.ajax({
 
         Highcharts.chart('vitorias-derrotas-rating', {
             chart: {
-                plotBackgroundColor: null,
-                plotBorderWidth: null,
-                plotShadow: false,
-                type: 'pie',
-                height: 300,
-                width: 300,
+                plotBackgroundColor: null, plotBorderWidth: null, plotShadow: false,
+                type: 'pie', height: 350, width: 350,
             },
+            legend: { align: 'center', verticalAlign: 'top', borderWidth: 0 },
             title: { text: 'Taxa de vitórias do jogador' },
+            // subtitle: { text: 'Passe o mouse para mais detalhes' },
             tooltip: { pointFormat: '{series.name}: <b>{point.percentage:.2f}%</b>' },
             plotOptions: {
                 pie: { allowPointSelect: false, cursor: 'pointer',
-                    dataLabels: { enabled: false },
-                    showInLegend: true
+                    dataLabels: {
+                        enabled: true,
+                        format: '{point.percentage:.2f} %',
+                        // format: '<b>{point.name}</b><br>{point.percentage:.2f} %',
+                        distance: -55,
+                        filter: { property: 'percentage', operator: '>', value: 4 },
+                        style: { fontFamily: 'Montserrat', fontSize: '16px' }
+                },
+                    showInLegend: true, // ativa ou desativa a legenda
                 }
             },
             series: [{
                 name: 'Porcentagem',
                 colorByPoint: true,
                 data: [
-                    { name: 'Vitórias', y: (100 - data['perc_vit_derrota']), },
-                    { name: 'Derrotas', y: data['perc_vit_derrota'] },
+                    // { name: 'Vitórias', y: 99, color: '#08AEEA' },
+                    // { name: 'Derrotas', y: 1, color: '#FF4D43' },
+
+                    { name: 'Vitórias', y: (100 - data['perc_vit_derrota']), color: '#08AEEA' },
+                    { name: 'Derrotas', y: data['perc_vit_derrota'], color: '#FF4D43' },
                 ]
             }]
         });
@@ -97,7 +105,7 @@ $.ajax({
             legend: { align: 'center', verticalAlign: 'top', borderWidth: 0 },
             credits: { enabled: false },
             series: [
-                { name: 'Herói', data: [5, 3, 4, 7], color: '#FF4D43' },
+                { name: 'Herói', data: [5, 3, 4, 7.5], color: '#FF4D43' },
                 { name: 'Boss', data: [2, 2, 3, 2], color: '#08AEEA' }
             ],
         });
@@ -106,12 +114,19 @@ $.ajax({
         Highcharts.chart('dano_total_fases', {
             chart: { type: 'column' },
             title: { text: undefined },
+            // title: { text: 'Média de dano causado' },
             xAxis: { title: { text: 'Fases' }, categories: [1, 2, 3, 4] },
             yAxis: { title: { text: 'Média de dano' }},
             legend: { align: 'center', verticalAlign: 'top', borderWidth: 0 },
             credits: { enabled: false },
             series: [
-                { name: 'Herói', data: [5, 3, 4, 7], color: '#FF4D43' },
+                { name: 'Herói', data: [
+                    data['media_dano_jogos'][1],
+                    data['media_dano_jogos'][2],
+                    data['media_dano_jogos'][3],
+                    data['media_dano_jogos'][4],
+                    ],
+                    color: '#FF4D43' },
                 { name: 'Boss', data: [2, 2, 3, 2], color: '#08AEEA' }
             ],
         });
@@ -167,19 +182,23 @@ Highcharts.theme = {
     colors: ['#08AEEA', '#2AF598', '#3D96AE', '#E20473', '#FF4D43'],
     chart: { backgroundColor: { color: 'rgba(28,28,41,0.8)', }, },
     title: {
-        style: { color: 'rgba(255, 255, 255, 0.9)', font: 'bold 16px "Montserrat", Verdana, sans-serif' }
+        style: { color: 'rgba(255, 255, 255, 0.9)', font: 'bold 18px "Montserrat", Verdana, sans-serif' }
+    },
+    subtitle: {
+        style: { color: 'rgba(255, 255, 255, 0.9)', font: '14px "Montserrat", Verdana, sans-serif' }
     },
     xAxis: {
-        title: { style: { color: 'rgba(255, 255, 255, 1)'}},
-        labels: { style: { color: 'rgba(255, 255, 255, 1)'}}
+        title: { style: { color: 'rgba(255, 255, 255, 1)', fontSize: '0.9rem'}},
+        labels: { style: { color: 'rgba(255, 255, 255, 1)', fontSize: '0.9rem'}}
     },
     yAxis: {
-        title: { style: { color: 'rgba(255, 255, 255, 1)'}},
-        labels: { style: { color: 'rgba(255, 255, 255, 1)'}}
+        title: { style: { color: 'rgba(255, 255, 255, 1)', fontSize: '0.9rem'}},
+        labels: { style: { color: 'rgba(255, 255, 255, 1)', fontSize: '0.9rem'}}
     },
     legend: {
         itemStyle: {
-            font: '9pt "Montserrat", Verdana, sans-serif', color: 'rgba(255, 255, 255, 1)' },
+            fontSize: '0.9rem',
+            font: '"Montserrat", Verdana, sans-serif', color: 'rgba(255, 255, 255, 1)'},
             itemHoverStyle: { color: 'rgba(255, 255, 255, 0.6)' }
     }
 };

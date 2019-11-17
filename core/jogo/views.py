@@ -194,36 +194,47 @@ def novoJogo(request, id_jogador):
 #     Dashboard section     #
 #############################
 def get_dano_total_causado(rodadas):
-    aux = {'heroi': 0, 'boss': 0}
-    lista = list()
+    lista = {
+        'heroi': {1: 0, 2: 0, 3: 0, 4: 0},
+        'media': {1: 0, 2: 0, 3: 0, 4: 0}
+    }
     level = 1
+    cont = 1
 
     for rodada in rodadas:
         if rodada.numero_fase != level:
             # prox level, incrementar level e salvar as listas
-            lista.append(aux)
+            cont += 1
             level += 1
-            aux = {'heroi': 0, 'boss': 0}
 
         if rodada.personagem_atacou:
-            aux['heroi'] += rodada.dano_atacante
-        else:
-            aux['boss'] += rodada.dano_atacante
-
-    lista.append(aux)
+            lista['heroi'][cont] += rodada.dano_atacante
 
     return lista
 
-# Recebe uma lista de jogos e calcula a média de dano em cada uma dos 4 lvls
-# def get_media_dano_jogos(jogos):
-#     media = {1: 0, 2: 0, 3: 0, 4: 0}
-#     cont = 0
-#     aux_level = 1
-#
-#     for jogo in jogos:
-#         for rodada in jogo.pk_rodada.all():
-#
 
+def get_media_dano_jogos(jogo):
+    media = {1: 0, 2: 0, 3: 0, 4: 0}
+    cont = 0
+    aux_level = 1
+    i = 0
+
+    for rodada in jogo.pk_rodada.all():
+        if rodada.numero_fase != aux_level:
+            if i != 0:
+                media[aux_level] = (cont / i)
+            else:
+                media[aux_level] = 0
+            aux_level = rodada.numero_fase
+            i = 1
+
+        if rodada.personagem_atacou:
+            cont += rodada.dano_atacante
+            i += 1
+
+    # media[aux_level] = (cont / i)
+
+    return media
 
 
 def dashboard(request, apelido, uuid):
@@ -264,15 +275,22 @@ def dashboard_obterDados(request):
         except ObjectDoesNotExist:
             return Http404(request, 'O jogo não existe')
 
-        jogos = jogo.pk_rodada.all()
+        rodadas = jogo.pk_rodada.all()
 
         # pegando os dados
         dano_total = get_dano_total_causado(jogo.pk_rodada.all())
-        taxa_vitoria_derrota = (jogo.total_mortes / jogo.total_tentativas) * 100
+
+        if jogo.total_tentativas != 0:
+            taxa_vitoria_derrota = (jogo.total_mortes / jogo.total_tentativas) * 100
+        else:
+            taxa_vitoria_derrota = 0
+
+        media_dano_jogos = get_media_dano_jogos(jogo)
 
         data = {
             'dano_total_causado': dano_total,
             'perc_vit_derrota': taxa_vitoria_derrota,
+            'media_dano_jogos': media_dano_jogos,
         }
 
         return JsonResponse(data, safe=False)
