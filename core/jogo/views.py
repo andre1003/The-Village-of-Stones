@@ -288,10 +288,16 @@ def dashboard(request, apelido, uuid):
     :return: retorna a renderização da página em questão
     """
     try:
+        jogador = Jogador.objects.get(apelido=apelido)
+    except ObjectDoesNotExist:  # não encontrei o jogador no BD, redirecionar para o cadastro
+        return redirect('/cadastro_jogador')
+
+    try:
         jogo = Jogo.objects.get(id_jogo=uuid)
     except ObjectDoesNotExist:
         messages.warning(request, 'O jogo solicitado ainda não foi cadastrado')
-        return render(request, 'jogo/dashboard.html')
+        return redirect('/cadastro_jogador')
+        # return render(request, 'jogo/dashboard.html')
 
     jogador = Jogador.objects.get(apelido=apelido)
 
