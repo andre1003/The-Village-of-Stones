@@ -4,26 +4,28 @@ import uuid
 
 # https://docs.djangoproject.com/en/2.2/ref/models/fields/
 class Rodada(models.Model):  # rodadas da batalha
-    vida_personagem = models.FloatField()                                         # vida do atacante naquela rodada
-    vida_boss = models.FloatField()                                               # vida do defensor naquela rodada
-    dano_atacante = models.FloatField()                                           # dano base do atacante personagem
-    probabilidade_ataque = models.DecimalField(max_digits=3, decimal_places=2)    # % de acerto do atacante
-    probabilidade_defesa = models.DecimalField(max_digits=3, decimal_places=2)    # % de defesa do defensor
-    numero_dado = models.PositiveSmallIntegerField()                              # Valor tirado no dado (random())
-    numero_rodada = models.PositiveIntegerField()                                 # contadora de rodadas
-    tempo_rodada = models.DateTimeField(auto_now_add=True)                        # tempo em que a rodada foi finalizada
-    numero_fase = models.IntegerField()                                           # level
-    personagem_atacou = models.BooleanField()                                     # personagem quem atacou?
+    vida_personagem = models.FloatField()                                        # vida do atacante naquela rodada
+    vida_boss = models.FloatField()                                              # vida do defensor naquela rodada
+    dano_atacante = models.FloatField()                                          # dano base do atacante personagem
+    probabilidade_ataque = models.DecimalField(max_digits=3, decimal_places=2)   # % de acerto do atacante
+    probabilidade_defesa = models.DecimalField(max_digits=3, decimal_places=2)   # % de defesa do defensor
+    numero_dado = models.PositiveSmallIntegerField()                             # Valor tirado no dado (random())
+    numero_rodada = models.PositiveIntegerField()                                # contadora de rodadas
+    tempo_rodada = models.DateTimeField(auto_now_add=True)                       # tempo em que a rodada foi finalizada
+    tempo_resposta = models.PositiveIntegerField()                               # salva a contadora de tempo restante
+    numero_fase = models.IntegerField()                                          # level
+    personagem_atacou = models.BooleanField()                                    # personagem quem atacou?
 
     def __str__(self):
-        return str(self.id)
+        return str(self.pk)
 
 
 class Jogo(models.Model):
     id_jogo = models.UUIDField(default=uuid.uuid4, editable=False, unique=True)  # identificador jogo
     data_jogo = models.DateField(auto_now_add=True)                              # data que o jogo foi criado no BD
     total_mortes = models.PositiveIntegerField(default=0)                        # total de mortes do jogador
-    total_tentativas = models.PositiveIntegerField(default=0)                    # Total de vezes que tentou passar a fase
+    # total_tentativas p/ jogo, acrescento quando o jogador morrer ou quando ele iniciar um novo lvl
+    total_tentativas = models.PositiveIntegerField(default=0)                    # Total de vezes que tentou passar lvl
     escolha_final = models.BooleanField(null=True)                               # salvou HumanTown?
     pk_rodada = models.ManyToManyField(Rodada, blank=True)                       # foreign key para rodadas (1~n)
     # fk_jogador = models.ForeignKey(Jogador, on_delete=models.PROTECT)
