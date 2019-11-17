@@ -193,10 +193,14 @@ def novoJogo(request, id_jogador):
 #############################
 #     Dashboard section     #
 #############################
+
+
+
 def get_dano_total_causado(rodadas):
     lista = {
         'heroi': {1: 0, 2: 0, 3: 0, 4: 0},
-        'media': {1: 0, 2: 0, 3: 0, 4: 0}
+        'media': {1: 0, 2: 0, 3: 0, 4: 0},
+        'contAtaqueFase': [0, 0, 0, 0]
     }
     level = 1
     cont = 1
@@ -208,6 +212,7 @@ def get_dano_total_causado(rodadas):
             level += 1
 
         if rodada.personagem_atacou:
+            lista['contAtaqueFase'][cont - 1] += 1
             lista['heroi'][cont] += rodada.dano_atacante
 
     return lista
@@ -226,15 +231,53 @@ def get_media_dano_jogos(jogo):
             else:
                 media[aux_level] = 0
             aux_level = rodada.numero_fase
-            i = 1
+            cont = 0
+            i = 0
 
         if rodada.personagem_atacou:
             cont += rodada.dano_atacante
             i += 1
 
-    # media[aux_level] = (cont / i)
+    if i != 0:
+        media[aux_level] = (cont / i)
+    else:
+        media[aux_level] = 0
 
     return media
+
+def getMediaJogosGeral():
+    """
+    --> Esta função calcula a média de todos os jogadores no banco de dados.
+    Dessa forma, ela  percorre cada jogo de cada jogador obtendo a somatória
+    total de dano. No final, essa somatória é dividida pelo número de vezes
+    que foi chamada.
+    :return:
+    :return:
+    """
+
+    jogadores = Jogador.objects.all() # Obtém todos os jogadores
+    mediaGeral = {1: 0, 2: 0, 3: 0, 4: 0} # Média geral de todos os jogadores
+    mediaJogadores = dict() # Dicinário auxiliar para ajudar no cálculo da média
+    fases = [0, 0, 0, 0] # Salva o somatório de dano em cada fase
+    contAtaqueFases = [0, 0, 0, 0] # Salva o contador de vezes que cada jogador atacou em cada fase
+
+    for jogador in jogadores: # Percorre os jogadores
+        for jogo in jogador.pk_jogos.all(): # Percorre os jogos de cada jogador
+            soma = get_dano_total_causado(jogo.pk_rodada.all()) # Calcula o somatório do dano de cada fase
+            for i in range(1, 5): # Salva os dados de dano e número de ataques
+                mediaGeral[i] += soma['heroi'][i]
+                contAtaqueFases[i - 1] += soma['contAtaqueFase'][i - 1]
+
+        mediaJogadores[jogador] = mediaGeral # Salva no dicionário auxiliar
+
+    aux = list(mediaJogadores.keys())
+    i = aux[-1] # Pega apenas o último item do dicionário (mais atualizado... e o único que funcionou)
+    for j in range(1, 5): # Preenche as fases e define a média geral final
+        fases[j - 1] = mediaJogadores[i][j]
+        if contAtaqueFases[j - 1] != 0:
+            mediaGeral[j] = fases[j - 1] / contAtaqueFases[j - 1]
+
+    return mediaGeral
 
 
 def dashboard(request, apelido, uuid):
@@ -286,11 +329,13 @@ def dashboard_obterDados(request):
             taxa_vitoria_derrota = 0
 
         media_dano_jogos = get_media_dano_jogos(jogo)
+        mediaGeral = getMediaJogosGeral()
 
         data = {
             'dano_total_causado': dano_total,
             'perc_vit_derrota': taxa_vitoria_derrota,
             'media_dano_jogos': media_dano_jogos,
+            'mediaGeral': mediaGeral,
         }
 
         return JsonResponse(data, safe=False)
