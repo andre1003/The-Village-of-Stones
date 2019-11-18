@@ -79,6 +79,7 @@
         </div>
     </nav>
 
+    <!--  Erros section   -->
     <div class="container">
         <div class="col-md-12 mt-3">
             {% for message in messages %}
@@ -93,9 +94,9 @@
     </div>
 
     <div style=" flex: 1 0 auto;">
-    {% block body %}
-    {% endblock %}
-        </div>
+        {% block body %}
+        {% endblock %}
+    </div>
 
 
     {% block footer %}

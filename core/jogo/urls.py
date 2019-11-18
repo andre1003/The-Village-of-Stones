@@ -12,7 +12,7 @@ urlpatterns = [
     path('obrigado/', obrigado, name='end-game'),  # fim do jogo
 
     # páginas jogo
-    path('jogar/<str:apelido>/<str:uuid>', jogar, name='jogar'),
+    path('jogar/<str:apelido>/<str:uuid_jogo>', jogar, name='jogar'),
     path('salvarrodada/', salvarRodada),  # Salva uma nova rodada no BD
     path('get_todas_rodadas/', get_todas_rodadas),  # Retorna um json com as rodadas salvas no BD
 
@@ -29,7 +29,7 @@ urlpatterns = [
     path('somar_morte/<str:uuid>', somar_morte),
 
     # dashboard ajax functions
-    path('dashboard/<str:apelido>/<str:uuid>', dashboard, name='dashboard'),
+    path('dashboard/<str:apelido>/<str:uuid_jogo>', dashboard, name='dashboard'),
     # Arrumar o nome desta url abaixo p/ uma generica de obtenção de dados
     path('dashboard/vida/', dashboard_obterDados),
     path('get_csv_dashboard/<str:uuid>', get_csv_dashboard, name='baixar_csv_jogo'),

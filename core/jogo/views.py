@@ -45,7 +45,7 @@ def obrigado(request):
     return render(request, 'jogo/obrigado.html')
 
 
-def jogar(request, apelido, uuid):
+def jogar(request, apelido, uuid_jogo):
     """
     --> Esta função é responsável por renderizar a página de jogo
     :param uuid: uuid jogo do usuário (para buscar no banco)
@@ -53,9 +53,22 @@ def jogar(request, apelido, uuid):
     :return: renderiza a página de jogo do usuário
     """
     # verificando se o jogo está cadastrado
-    jogo = None
     try:
-       jogo = Jogo.objects.get(id_jogo=uuid)
+        # existe o jogo, verificando se o usuário pertence a este nome
+        jogador = Jogador.objects.get(apelido=apelido)
+
+        # verificando se o jogador possui este jogo
+        erro = True
+        for j in jogador.pk_jogos.all():
+            if str(j.id_jogo) == str(uuid_jogo):
+                erro = False
+
+        if erro:
+            messages.error(request, 'Você não pode acessar esse jogo')
+            raise ValidationError('oi')
+
+        jogo = Jogo.objects.get(id_jogo=uuid_jogo)
+
     except ObjectDoesNotExist:
         messages.warning(request, 'Jogo não cadastrado')
         return redirect(f'/index_jogo/{apelido}')
@@ -280,26 +293,38 @@ def getMediaJogosGeral():
     return mediaGeral
 
 
-def dashboard(request, apelido, uuid):
+def dashboard(request, apelido, uuid_jogo):
     """
     --> Esta função é responsável por renderizar a página de resultados do jogo
     :param request: requisição do jogador
+    :param apelido: apelido pra
     :param uuid: identificador uuid do jogo (utilizado para consulta)
     :return: retorna a renderização da página em questão
     """
+
     try:
+        # existe o jogo, verificando se o usuário pertence a este nome
         jogador = Jogador.objects.get(apelido=apelido)
+
+        # verificando se o jogador possui este jogo
+        erro = True
+        for j in jogador.pk_jogos.all():
+            if str(j.id_jogo) == str(uuid_jogo):
+                erro = False
+
+        if erro:
+            messages.error(request, 'Os resultados não pertencem a este usuário')
+            raise ValidationError('oi')
+
+        jogo = Jogo.objects.get(id_jogo=uuid_jogo)
+
     except ObjectDoesNotExist:  # não encontrei o jogador no BD, redirecionar para o cadastro
+        messages.warning(request, 'O jogador solicitado não foi cadastrado ainda')
+        messages.info(request, 'Tente outra vez ou, faça um novo cadastro')
         return redirect('/cadastro_jogador')
 
-    try:
-        jogo = Jogo.objects.get(id_jogo=uuid)
-    except ObjectDoesNotExist:
-        messages.warning(request, 'O jogo solicitado ainda não foi cadastrado')
-        return redirect('/cadastro_jogador')
-        # return render(request, 'jogo/dashboard.html')
-
-    jogador = Jogador.objects.get(apelido=apelido)
+    except ValidationError:
+        return redirect(f'/index_jogo/{apelido}')
 
     data = {
         'jogos': jogo.pk_rodada.all(),
