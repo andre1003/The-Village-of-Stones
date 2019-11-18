@@ -84,12 +84,22 @@ function poisson(k, media) {
 }
 
 // esta função é onde definimos as probabilidades
-function p_acerto_erro(tipo_ataque) {
-    if (tipo_ataque === 'magico') {
-        return 0.6;
+function p_acerto_erro(tipo_ataque, personagem) {
+    if(personagem === 'voss'){
+        if (tipo_ataque === 'magico') {
+            return 0.9;
+        }
+        else if (tipo_ataque === 'basico')
+            return 0.9; 
     }
-    else if (tipo_ataque === 'basico')
-        return 0.8;                   
+    else{
+        if (tipo_ataque === 'magico') {
+            return 0.6;
+        }
+        else if (tipo_ataque === 'basico')
+            return 0.8; 
+    }
+                      
 }
 
 // esta função calcula o dano
@@ -106,21 +116,21 @@ function danoDefesa(tipo_ataque, personagem) {
     }
     else if(personagem === 'zayin') {
         if(tipo_ataque === 'basico')
-            dano = gerarNumeroIntervalo(1, 4);
+            dano = gerarNumeroIntervalo(1, 5);
         else if(tipo_ataque === 'magico')
-            dano = gerarNumeroIntervalo(1, 5); 
+            dano = gerarNumeroIntervalo(1, 6); 
     }
     else if(personagem === 'magus') {
         if(tipo_ataque === 'basico')
-            dano = gerarNumeroIntervalo(1, 4.5);
+            dano = gerarNumeroIntervalo(1, 7);
         else if(tipo_ataque === 'magico')
-            dano = gerarNumeroIntervalo(1, 6);
+            dano = gerarNumeroIntervalo(1, 8);
     }
     else if(personagem === 'voss') {
         if(tipo_ataque === 'basico')
-            dano = gerarNumeroIntervalo(2, 3);
+            dano = gerarNumeroIntervalo(3, 5);
         else if(tipo_ataque === 'magico')
-            dano = gerarNumeroIntervalo(2, 4.5);
+            dano = gerarNumeroIntervalo(3, 7);
     }
 
     return dano;
@@ -158,7 +168,7 @@ function calculoAtaque(tipo_ataque, resultado, personagem, numero_rodada) {
 
 // Cálculo do dano final do personagem, esse valor sera tirado da defesa
 function definicaoAtaqueFinal(tipo_ataque, personagem, numero_rodada) {
-    let p = (p_acerto_erro(tipo_ataque)) * 100; // em %
+    let p = (p_acerto_erro(tipo_ataque, personagem)) * 100; // em %
     let minimo = 100 - p;
     let resultado = gerarNumeroIntervalo(1, 100);
     let dano;
