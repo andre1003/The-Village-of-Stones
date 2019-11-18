@@ -16,7 +16,7 @@
         <section id="section-dashboard">
             <div class="container-fluid">
                 <div class="row">
-                    <div class="col-md-10 offset-1">
+                    <div class="col-sm-12 col-md-10 offset-md-1 col-lg-10 offset-lg-1">
                         <div class="dash-card">
                             <div class="dash-card-header">
                                 <h4><span class="icon-user"></span>&nbsp;Jogador: {{ jogador.apelido }}</h4>
@@ -57,16 +57,16 @@
 
                 <!-- Gráfico da vida dos personagens -->
                 <div class="row">
-                    <div class="col-md-5 offset-1">
+                    <div class="col-sm-12 col-md-10 offset-md-1 col-lg-5 offset-lg-1">
                         <div class="dash-card">
                             <div class="dash-card-header">
-                                <h4>Faça uma figura</h4>
-                                <p>Dano total em cada fase:</p>
+                                <h4>Dano do jogador</h4>
+                                <p>Média de dano de(a) {{ jogador.apelido }} e de outros jogos:</p>
                                 <hr/>
                             </div>
                             <div class="dash-card-body">
                                 {% if jogo.total_tentativas != 0 %}
-                                    <div id="dano_total_fases"></div>
+                                    <div id="media_dano_fases"></div>
                                 {% else %}
                                     <p>Jogo não terminado.</p>
                                 {% endif %}
@@ -74,17 +74,17 @@
                         </div>
                     </div>
 
-                    <div class="col-md-5">
+                    <div class="col-sm-12 col-md-10 col-lg-5">
                         <div class="dash-card">
                             <div class="dash-card-header">
-                                <h4><span class="icon-stats-dots"></span>&nbsp;Faça uma figura</h4>
-                                <p>Média de dano do jogador</p>
+                                <h4><span class="icon-stats-dots"></span>&nbsp;Vida restante</h4>
+                                <p>Vida restante de(a) {{ jogador.apelido }} em cada fase</p>
                                 <hr/>
                             </div>
                             <div class="dash-card-body">
                                 <div class="dash-card-body">
                                     {% if jogo.total_tentativas != 0 %}
-                                        <div id="vida_personagem_boss"></div>
+                                        <div id="vida_restante_fases"></div>
                                     {% else %}
                                         <p>Jogo não terminado.</p>
                                     {% endif %}

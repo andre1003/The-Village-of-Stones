@@ -1,7 +1,3 @@
-// Apresentação biblioteca
-var dashboard_vida = [];
-var dashboard_distribuicao_probabilidades = [];
-
 // Esta função pega o JSON do jogo focando em retornar a vida do personagem pelo turno
 // $(function () {
 //     // var url = "get_ult_rodada";
@@ -97,21 +93,34 @@ $.ajax({
         });
 
 
-        Highcharts.chart('vida_personagem_boss', {
+        Highcharts.chart('media_dano_fases', {
             chart: { type: 'column' },
             title: { text: undefined },
             xAxis: { title: { text: 'Fases' }, categories: [1, 2, 3, 4] },
-            yAxis: { title: { text: 'Média' }},
+            yAxis: { title: { text: 'Dano' }},
             legend: { align: 'center', verticalAlign: 'top', borderWidth: 0 },
             credits: { enabled: false },
             series: [
-                { name: 'Herói', data: [5, 3, 4, 7.5], color: '#FF4D43' },
-                { name: 'Boss', data: [2, 2, 3, 2], color: '#08AEEA' }
+                { name: 'Herói',
+                    data: [
+                        data['media_dano_jogos'][1],
+                        data['media_dano_jogos'][2],
+                        data['media_dano_jogos'][3],
+                        data['media_dano_jogos'][4],
+                    ],
+                    color: '#FF4D43' },
+                { name: 'Média Geral',
+                    data: [
+                        data['mediaGeral'][1],
+                        data['mediaGeral'][2],
+                        data['mediaGeral'][3],
+                        data['mediaGeral'][4],
+                    ], color: '#08AEEA' }
             ],
         });
 
 
-        Highcharts.chart('dano_total_fases', {
+        Highcharts.chart('vida_restante_fases', {
             chart: { type: 'column' },
             title: { text: undefined },
             // title: { text: 'Média de dano causado' },
