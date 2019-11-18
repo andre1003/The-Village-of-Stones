@@ -3,7 +3,7 @@ var end2Stage4State = {
 		// Música e sons
 		this.musica_fase4_dialogo = game.add.audio('musica_fase4_dialogo');
 		this.musica_fase4_dialogo.loop = true;
-		this.musica_fase4_dialogo.volume = .5;
+		this.musica_fase4_dialogo.volume = 10.0;
 		this.musica_fase4_dialogo.play();
 
 		// Cenário
@@ -39,12 +39,12 @@ var end2Stage4State = {
 
 		this.content = [
 			"",
-		    "Voss: Como você pode perceber, nós só queremos o \nque é nosso de volta.",
+		    /*"Voss: Como você pode perceber, nós só queremos o \nque é nosso de volta.",
 		    "Herói: Mas e meus amigos... meus familiares...",
 		    "Voss: Isso ainda não justifica a injustiça que nós \nsofremos por conta de seu povo!",
 		    "Herói: Eu... só queria salvar o dia... ",
 		    "Voss: Salvar um dia não é relevante mediante aos \ndanos que foram causados na minha comunidade.",
-		    "Herói: Mas eu amo meus conhecidos, meus familiares, \nmeus...",
+		    "Herói: Mas eu amo meus conhecidos, meus familiares, \nmeus...",*/
 		    "Voss: Como se monstros não amassem."
 		];
 
@@ -71,18 +71,45 @@ var end2Stage4State = {
 	    if (this.index < this.content.length) {
 	        this.line = '';
 	        game.time.events.repeat(20, this.content[this.index].length + 1, this.updateLine, this);
-	    } else {
-	    	game.time.events.add(500, function() {  
-				game.add.tween(this.cenario).to({alpha: 0}, 1500, Phaser.Easing.Linear.None, true);    
-				game.add.tween(this.heroi).to({alpha: 0}, 1500, Phaser.Easing.Linear.None, true);  
-				game.add.tween(this.monstro).to({alpha: 0}, 1500, Phaser.Easing.Linear.None, true);  
-				game.add.tween(this.caixa_dialogo).to({alpha: 0}, 1500, Phaser.Easing.Linear.None, true);
-				game.add.tween(this.texto).to({alpha: 0}, 1500, Phaser.Easing.Linear.None, true);  
-	        }, this);
-	    	game.time.events.add(2000, function() { 
-	    		this.musica_fase4_dialogo.stop();
-	    		game.state.start('creditos'); 
-	    	}, this);
-	    }
+		} 
+		else {
+			this.texto.destroy();
+			this.caixa_dialogo.visible = false;
+			this.texto = game.add.text(240, 100, 'Qual vila que o herói mais justo de \n  HumanTown gostaria de salvar?', { font: "40px Montserrat bold", fill: "#fff"});
+			this.btn_humanos = game.add.button(game.world.centerX - 210, game.world.centerY + 30, 'btn_humanos', this.btnHumanosAction, this, 0, 0, 1);
+			this.btn_humanos.smoothed = false;
+			this.btn_humanos.scale.setTo(3,3);
+			this.btn_monstros = game.add.button(game.world.centerX + 50, game.world.centerY + 30, 'btn_monstros', this.btnMonstrosAction, this, 0, 0, 1);
+			this.btn_monstros.smoothed = false;
+			this.btn_monstros.scale.setTo(3,3);
+		}
+	},
+
+	btnHumanosAction: function() {
+		this.btn_humanos.setFrames(1);
+		game.global.escolha_jogador = 0;
+		this.carregarCreditos();
+	},
+
+	btnMonstrosAction: function() {
+		this.btn_monstros.setFrames(1);
+		game.global.escolha_jogador = 1;
+		this.carregarCreditos();
+	},
+
+	carregarCreditos: function() {
+		game.time.events.add(500, function() {  
+			game.add.tween(this.cenario).to({alpha: 0}, 1500, Phaser.Easing.Linear.None, true);    
+			game.add.tween(this.heroi).to({alpha: 0}, 1500, Phaser.Easing.Linear.None, true);  
+			game.add.tween(this.monstro).to({alpha: 0}, 1500, Phaser.Easing.Linear.None, true);  
+			game.add.tween(this.texto).to({alpha: 0}, 1500, Phaser.Easing.Linear.None, true);  
+			game.add.tween(this.btn_humanos).to({alpha: 0}, 1500, Phaser.Easing.Linear.None, true);  
+			game.add.tween(this.btn_monstros).to({alpha: 0}, 1500, Phaser.Easing.Linear.None, true);  
+		}, this);
+		game.time.events.add(2000, function() { 
+			this.musica_fase4_dialogo.stop();
+			game.state.start('creditos'); 
+		}, this);
 	}
+
 };

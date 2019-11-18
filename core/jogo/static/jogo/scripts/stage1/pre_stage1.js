@@ -6,7 +6,7 @@ var preStage1State = {
 		this.musica_fase1_dialogo.volume = .5;
 		this.musica_fase1_dialogo.play();
 		this.som_fase1_tela_preta = game.add.audio('som_fase1_tela_preta');
-		this.som_fase1_tela_preta.volume = .3;
+		this.som_fase1_tela_preta.volume = .4;
 
 		this.parar_dialogo = true;
 		this.finalizar_dialogo = false;

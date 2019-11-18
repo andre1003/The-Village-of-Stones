@@ -64,7 +64,7 @@ var stage2State = { // Objeto da Fase 2
 		this.img_ataque_magico_2 = game.add.sprite(750,game.world.height - 335,'ataque_magico_2');
 		this.img_ataque_magico_2.smoothed = false;
 		this.img_ataque_magico_2.scale.setTo(3,3);
-		this.img_ataque_magico_2.tint = 0x500c6b;
+		this.img_ataque_magico_2.tint = 0xcd7bcf;
 		this.img_ataque_magico_2.visible = false;
 
 		/* Botões */

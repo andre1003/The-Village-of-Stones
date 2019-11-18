@@ -2,9 +2,10 @@ var mapaState = {
 	create: function() {
 		this.musica_mapa = game.add.audio('musica_mapa_mundi');
 		this.musica_mapa.loop = true;
-		this.musica_mapa.volume = .5;
+		this.musica_mapa.volume = .6;
 		this.musica_mapa.play();
 		this.som_selecionar_fase = game.add.audio('som_selecionar_fase');
+		this.som_selecionar_fase.volume = .3;
 
 		this.cenario = game.add.sprite(0,0,'mapa_mundi');
 		this.cenario.smoothed = false;

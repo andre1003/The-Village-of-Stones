@@ -7,6 +7,7 @@ from import_export.widgets import ManyToManyWidget
 
 # https://medium.com/@hakibenita/how-to-add-custom-action-buttons-to-django-admin-8d266f5b0d41
 
+admin.site.site_header = 'Administração The Village of Stones'
 
 # https://developer.mozilla.org/pt-BR/docs/Learn/Server-side/Django/Admin_site
 # https://docs.djangoproject.com/en/2.2/ref/contrib/admin/

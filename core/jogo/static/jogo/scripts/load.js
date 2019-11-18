@@ -60,6 +60,8 @@ var loadState = { // Objeto do Carregamento
 		game.load.spritesheet('btn_defesa', '/static/jogo/img/btn_defesa.png',40,20);
 		game.load.spritesheet('btn_pedra', '/static/jogo/img/btn_pedra.png',40,20);
 		game.load.spritesheet('btn_continuar', '/static/jogo/img/btn_continuar.png',60,30);
+		game.load.spritesheet('btn_monstros', '/static/jogo/img/btn_monstros.png',60,30);
+		game.load.spritesheet('btn_humanos', '/static/jogo/img/btn_humanos.png',60,30);		
 
 		// Carregando o arquivo de barra para botão Ataque
 		game.load.image('barra_ataque', '/static/jogo/img/barra_ataque.png');

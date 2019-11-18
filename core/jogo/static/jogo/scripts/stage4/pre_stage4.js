@@ -3,7 +3,7 @@ var preStage4State = {
 		// Música e sons
 		this.musica_fase4_dialogo = game.add.audio('musica_fase4_dialogo');
 		this.musica_fase4_dialogo.loop = true;
-		this.musica_fase4_dialogo.volume = .5;
+		this.musica_fase4_dialogo.volume = 10.0;
 		this.musica_fase4_dialogo.play();
 
 		// Cenário

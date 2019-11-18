@@ -16,7 +16,7 @@
         <section id="section-dashboard">
             <div class="container-fluid">
                 <div class="row">
-                    <div class="col-sm-12 col-md-10 offset-md-1 col-lg-10 offset-lg-1">
+                    <div class="col-sm-12 col-md-12 col-lg-10 offset-lg-1">
                         <div class="dash-card">
                             <div class="dash-card-header">
                                 <h4><span class="icon-user"></span>&nbsp;Jogador: {{ jogador.apelido }}</h4>
@@ -26,7 +26,7 @@
                             <div class="dash-card-body">
                                 <!-- CONCERTAR TODA ESTA SEÇÃO AQUI -->
                                 <div class="row">
-                                    <div class="col-md-8">
+                                    <div class="col-md-12 col-lg-8">
                                         <h5>Sobre o jogador:</h5>
                                         <ul class="dash-list">
                                             <li>Cadastro realizado  {{ jogador.data_cadastro }}</li>
@@ -42,7 +42,7 @@
                                         </ul>
                                     </div>
                                     <!-- Pegar esse rating do banco -->
-                                    <div class="col-md-4">
+                                    <div class="mx-auto">
                                         {% if jogo.total_tentativas != 0 %}
                                             <div class="text-center" id="vitorias-derrotas-rating"></div>
                                         {% else %}
@@ -57,7 +57,7 @@
 
                 <!-- Gráfico da vida dos personagens -->
                 <div class="row">
-                    <div class="col-sm-12 col-md-10 offset-md-1 col-lg-5 offset-lg-1">
+                    <div class="col-sm-12 col-md-12 col-lg-5 offset-lg-1">
                         <div class="dash-card">
                             <div class="dash-card-header">
                                 <h4>Dano do jogador</h4>
@@ -74,7 +74,7 @@
                         </div>
                     </div>
 
-                    <div class="col-sm-12 col-md-10 col-lg-5">
+                    <div class="col-sm-12 col-md-12 col-lg-5">
                         <div class="dash-card">
                             <div class="dash-card-header">
                                 <h4><span class="icon-stats-dots"></span>&nbsp;Vida restante</h4>
@@ -95,61 +95,43 @@
                 </div>
 
                 <div class="row">
-                <!-- Aqui vem outro gráfico, não sei qual -->
-                    <div class="col-md-5 offset-1">
+                    <div class="col-sm-12 col-md-12 col-lg-10 offset-lg-1">
                         <div class="dash-card">
                             <div class="dash-card-header">
-                                <h4>Faça uma figura</h4>
+                                <h4>Simple Table</h4>
                                 <p>Vestibulum vitae cursus orci. Sed erat mi, venenatis id lacinia non, pretium sed velit.</p>
                                 <hr/>
                             </div>
                             <div class="dash-card-body">
-                                <div id="distribuicao_probabilidades0"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row">
-                        <div class="col-md-10 offset-1">
-                            <div class="dash-card">
-                                <div class="dash-card-header">
-                                    <h4>Simple Table</h4>
-                                    <p>Vestibulum vitae cursus orci. Sed erat mi, venenatis id lacinia non, pretium sed velit.</p>
-                                    <hr/>
-                                </div>
-                                <div class="dash-card-body">
-                                    <table class="table dash-table white-color">
-                                        <thead>
+                                <table class="table dash-table white-color">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col"><span class="icon-file-text"></span></span>&nbsp;Nº rodada</th>
+                                            <th scope="col"><span class="icon-fire"></span>&nbsp;Dano causado</th>
+                                            <th scope="col"><span class="icon-dice"></span>&nbsp;Valor dado</th>
+                                            <th scope="col">Situação jogador</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for j in jogos %}
                                             <tr>
-                                                <th scope="col"><span class="icon-file-text"></span></span>&nbsp;Nº rodada</th>
-                                                <th scope="col"><span class="icon-fire"></span>&nbsp;Dano causado</th>
-                                                <th scope="col"><span class="icon-dice"></span>&nbsp;Valor dado</th>
-                                                <th scope="col">Situação jogador</th>
+                                                <th scope="row">{{j.numero_rodada}}</th>
+                                                <td>{{ j.dano_atacante }}</td>
+                                                <td>{{ j.numero_dado }}</td>
+                                                <td>
+                                                    {% if j.personagem_atacou %}
+                                                        <span class="icon-eyedropper"></span>
+                                                    {% else %}
+                                                        <span class="icon-shield"></span>
+                                                    {% endif %}
+                                                </td>
                                             </tr>
-                                        </thead>
-                                        <tbody>
-                                            {% for j in jogos %}
-                                                <tr>
-                                                    <th scope="row">{{j.numero_rodada}}</th>
-                                                    <td>{{ j.dano_atacante }}</td>
-                                                    <td>{{ j.numero_dado }}</td>
-                                                    <td>
-                                                        {% if j.personagem_atacou %}
-                                                            <span class="icon-eyedropper"></span>
-                                                        {% else %}
-                                                            <span class="icon-shield"></span>
-                                                        {% endif %}
-                                                    </td>
-                                                </tr>
-                                            {% endfor %}
-                                        </tbody>
-                                    </table>
-                                </div>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
                     </div>
-
                 </div>
             </div>
         </section>

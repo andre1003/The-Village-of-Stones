@@ -278,4 +278,10 @@ ul.rodape-list li a:hover {
         font-size: 1.5rem !important;
     }
 
+    div#game-body {
+    overflow-x: scroll;
+    overflow-y: hidden;
+    white-space: nowrap;
+}
+
 }
