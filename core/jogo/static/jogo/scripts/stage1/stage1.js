@@ -3,14 +3,20 @@ var stage1State = { // Objeto da Fase 1
 		// Música e sons
 		this.musica_fase_1_loop = game.add.audio('musica_fase1_intro');
 		this.musica_fase_1_loop.loop = true;
-		this.musica_fase_1_loop.volume = .5;
+		this.musica_fase_1_loop.volume = .4;
 		this.musica_fase_1_loop.play();
 		this.som_clique_1 = game.add.audio('som_clique_1');
+		this.som_clique_1.volume = .1;
 		this.som_clique_2 = game.add.audio('som_clique_2');
+		this.som_clique_2.volume = .1;
 		this.som_hit_basico = game.add.audio('som_hit_basico');
+		this.som_hit_basico.volume = .2;
 		this.som_hit_magico = game.add.audio('som_hit_magico');
+		this.som_hit_magico.volume = .2;
 		this.som_errou = game.add.audio('som_errou');
+		this.som_errou.volume = .2;
 		this.som_morte_inimigo = game.add.audio('som_morte_inimigo');
+		this.som_morte_inimigo.volume = .2;
 	},
 
 	addObjetos: function() { // Adiciona os objetos na tela do jogo
@@ -32,7 +38,7 @@ var stage1State = { // Objeto da Fase 1
 		this.heroi.animations.add('atacar',[2,3,4,5,6,7],7,true);
 
 		// Ataque mágico do herói
-		this.img_ataque_magico = game.add.sprite(360,game.world.height - 335,'ataque_magico');
+		this.img_ataque_magico = game.add.sprite(360,game.world.height - 335,'ataque_magico_1');
 		this.img_ataque_magico.smoothed = false;
 		this.img_ataque_magico.scale.setTo(3,3);
 		this.img_ataque_magico.visible = false;
@@ -56,43 +62,36 @@ var stage1State = { // Objeto da Fase 1
 		this.btn_ataque.scale.setTo(4,4);
 
 		// Opções - Botão Ataque
-		this.espaco_ataque = game.add.sprite(game.world.centerX - 350, 376, 'espaco_btn_2');
-		this.espaco_ataque.smoothed = false;
-		this.espaco_ataque.scale.setTo(4,4);	
-		this.txt_ataque_basico = game.add.text(game.world.centerX - 322, 394, 'BASICO', {font: "20px pixel_arial_r", fill: "#fff", align: "center" });
-		this.txt_ataque_magico = game.add.text(game.world.centerX - 325, 457, 'MAGICO', {font: "20px pixel_arial_r", fill: "#fff", align: "center" });
+		this.barra_ataque = game.add.sprite(game.world.centerX - 350, 256, 'barra_ataque');
+		this.barra_ataque.smoothed = false;
+		this.barra_ataque.scale.setTo(4,4);	
+		this.txt_ataque_basico = game.add.text(game.world.centerX - 322, 402, 'BASICO', {font: "20px pixel_arial_r", fill: "#fff", align: "center" });
+		this.txt_ataque_magico = game.add.text(game.world.centerX - 325, 463, 'MAGICO', {font: "20px pixel_arial_r", fill: "#fff", align: "center" });
 		
-
 		// Defesa
 		this.btn_defesa = game.add.button(game.world.centerX - 100, 500, 'btn_defesa', this.btnDefesaAction, this, 0, 0, 1);
 		this.btn_defesa.smoothed = false;
 		this.btn_defesa.scale.setTo(4,4);
-		this.btn_defesa.inputEnabled = false;
-		this.btn_defesa.tint = 0x808080;
 
-		// Item
-		this.btn_item = game.add.button(game.world.centerX + 150, 500, 'btn_item', this.btnItemAction, this, 0, 0, 1);
-		this.btn_item.smoothed = false;
-		this.btn_item.scale.setTo(4,4);
-		this.btn_item.inputEnabled = false;
-		this.btn_item.tint = 0x808080;
+		// Pedra
+		this.btn_pedra = game.add.button(game.world.centerX + 150, 500, 'btn_pedra', this.btnPedraAction, this, 0, 0, 1);
+		this.btn_pedra.smoothed = false;
+		this.btn_pedra.scale.setTo(4,4);
 
-		// Opções - Botão Item
-		this.espaco_item = game.add.sprite(game.world.centerX + 150, 256, 'espaco_btn_4');
-		this.espaco_item.smoothed = false;
-		this.espaco_item.scale.setTo(4,4);
-		this.txt_item_1 = game.add.text(game.world.centerX + 190, 275, 'ITEM 1', {font: "20px pixel_arial_r", fill: "#ffffff", align: "center" });
-		this.txt_item_2 = game.add.text(game.world.centerX + 190, 340, 'ITEM 2', {font: "20px pixel_arial_r", fill: "#ffffff", align: "center" });
-		this.txt_item_3 = game.add.text(game.world.centerX + 190, 405, 'ITEM 3', {font: "20px pixel_arial_r", fill: "#ffffff", align: "center" });	
-		this.txt_item_4 = game.add.text(game.world.centerX + 190, 465, 'ITEM 4', {font: "20px pixel_arial_r", fill: "#ffffff", align: "center" });
+		// Opções - Botão Pedra
+		this.barra_pedra = game.add.sprite(game.world.centerX + 150, 440, 'barra_pedra_1');
+		this.barra_pedra.smoothed = false;
+		this.barra_pedra.scale.setTo(4,4);
+
+		this.txt_ar = game.add.text(game.world.centerX + 205, 460, 'AR', {font: "20px pixel_arial_r", fill: "#ffffff", align: "center" });
 
 		// Textos informativos
-		this.txt_score_heroi = game.add.text(22,16,'VIDA: 50\nDANO: 0\nDEFESA: 0', {font: "20px pixel_arial_r", fill:"#fff"});
-		this.txt_score_monstro = game.add.text(1052,16,'VIDA: 50\nDANO: 0\nDEFESA: 0', {font: "20px pixel_arial_r", fill:"#fff"});
-		this.txt_tempo_turno = game.add.text(590, 16, '15', {font: "32px pixel_arial_r", fill:"#fff"});
-		this.txt_turno = game.add.text(510, 64, 'TURNO: 01', {font: "32px pixel_arial_r", fill:"#fff"});
+		this.txt_score_heroi = game.add.text(42,26,'VIDA: 50\nDANO: 0\nDEFESA: 0', {font: "20px pixel_arial_r", fill:"#fff"});
+		this.txt_score_monstro = game.add.text(1052,26,'VIDA: 50\nDANO: 0', {font: "20px pixel_arial_r", fill:"#fff"});
+		this.txt_tempo_turno = game.add.text(590, 26, '15', {font: "32px pixel_arial_r", fill:"#fff"});
+		this.txt_turno = game.add.text(510, 74, 'TURNO: 01', {font: "32px pixel_arial_r", fill:"#fff"});
 
-		// Textos: dano recebido herói e vilão
+		// Textos: dano recebido herói e monstro
 		this.txt_dano_recebido_heroi = game.add.text(140,game.world.height - 410,'', {font: "20px pixel_arial_r", fill:"#c00"});
 		this.txt_dano_recebido_monstro = game.add.text(1005,game.world.height - 370,'', {font: "20px pixel_arial_r", fill:"#c00"});
 	},
@@ -105,20 +104,20 @@ var stage1State = { // Objeto da Fase 1
 		this.clique = false;
 
 		// Atributos Herói
-		this.vida_heroi = 50; 
+		this.vida_heroi = 30; 
 		this.dano_heroi = 0;
 		this.defesa_heroi = 0;
+		this.defesa_heroi_habilitada = false;
 		this.ataque_basico = false;
 		this.ataque_magico = false;
-		this.item_1 = false;
-		this.item_2 = false;
-		this.item_3 = false;
-		this.item_4 = false;
+		this.ar = false;
 
 		// Atributos Monstro
-		this.vida_monstro = 50; 
+		this.vida_monstro = 30; 
+		this.dano_monstro_aux = 0;
+		this.dano_monstro_total = 0;
 		this.dano_monstro = 0;
-		this.defesa_monstro = 0;
+		this.tipo_ataque_monstro = '';
 
 		// Música e sons
 		this.addMusicaSons();
@@ -148,7 +147,7 @@ var stage1State = { // Objeto da Fase 1
 			this.btn_ataque.setFrames(0);
 			this.desativarOpcoes();
 			this.desabilitarBotoes();
-			this.opcoesMonstro();
+			this.opcaoMonstro();
 
 			if(this.tempo_turno != 0) {
 				this.jogadaHeroi();
@@ -158,7 +157,9 @@ var stage1State = { // Objeto da Fase 1
 				game.time.events.add(Phaser.Timer.SECOND * 5, this.jogadaMonstro, this);
 				game.time.events.add(Phaser.Timer.SECOND * 5.5, this.estadoInicial, this);
 			}  else {
+				this.cont_ar += 1;
 				this.tempo_turno = 1;
+				this.turno +=1;
 				this.jogadaMonstro();
 				game.time.events.add(Phaser.Timer.SECOND * 2, this.jogadaMonstro, this);
 				game.time.events.add(Phaser.Timer.SECOND * 2.5, this.estadoInicial, this);		
@@ -176,30 +177,28 @@ var stage1State = { // Objeto da Fase 1
 	},
 
 	atualizaScore: function() {
-		this.txt_score_monstro.text = 'VIDA: ' + this.vida_monstro + '\nDANO: ' + this.dano_monstro + '\nDEFESA: ' + this.defesa_monstro;
+		this.txt_score_monstro.text = 'VIDA: ' + this.vida_monstro + '\nDANO: ' + this.dano_monstro_total + '\n' + this.tipo_ataque_monstro;
 		this.txt_score_heroi.text = 'VIDA: ' + this.vida_heroi + '\nDANO: ' + this.dano_heroi + '\nDEFESA: ' + this.defesa_heroi;
 	},
 
 	habilitarBotoes: function() { // Habilita os botões
 		this.clique = false;
 		this.btn_ataque.inputEnabled = true;
-		//this.btn_defesa.inputEnabled = true;
-		//this.btn_item.inputEnabled = true;
+		this.btn_defesa.inputEnabled = true;
+		this.btn_pedra.inputEnabled = true;
 	},
 
 	desabilitarBotoes: function() { // Desabilita os botões
 		this.btn_ataque.setFrames(0,0,0);
 		this.btn_ataque.inputEnabled = false;
-		//this.btn_defesa.setFrames(0,0,0);
-		//this.btn_defesa.inputEnabled = false;
-		//this.btn_item.setFrames(0,0,0);
-		//this.btn_item.inputEnabled = false;
+		this.btn_defesa.inputEnabled = false;
+		this.btn_pedra.setFrames(0,0,0);
+		this.btn_pedra.inputEnabled = false;
 	},
 
 	restaurarAnimacaoBotoes: function() {
 		this.btn_ataque.setFrames(0,0,1);
-		//this.btn_defesa.setFrames(0,0,1);
-		//this.btn_item.setFrames(0,0,1);
+		this.btn_pedra.setFrames(0,0,1);
 	},
 
 	desativarOpcoes: function() { // Desativa as opções dos botões
@@ -207,23 +206,17 @@ var stage1State = { // Objeto da Fase 1
 		this.txt_ataque_basico.inputEnabled = false;
 		this.txt_ataque_magico.visible = false;
 		this.txt_ataque_magico.inputEnabled = false;
-		this.espaco_ataque.visible = false;
-		this.txt_item_1.visible = false;
-		this.txt_item_1.inputEnabled = false;
-		this.txt_item_2.visible = false;
-		this.txt_item_2.inputEnabled = false;
-		this.txt_item_3.visible = false;
-		this.txt_item_3.inputEnabled = false;
-		this.txt_item_4.visible = false;
-		this.txt_item_4.inputEnabled = false;
-		this.espaco_item.visible = false;
+		this.barra_ataque.visible = false;
+		this.txt_ar.visible = false;
+		this.txt_ar.inputEnabled = false;
+		this.barra_pedra.visible = false;
 	},
 
 	txtAtaqueBasicoAction: function() { // Ação ao clicar no botão Basico
 		this.som_clique_2.play();
 		this.ataque_basico = true;
 		this.ataque_magico = false;
-		this.dano_heroi = definicaoAtaqueFinal('basico','heroi');
+		this.dano_heroi = definicaoAtaqueFinal('basico','heroi',this.turno + 1);
 		this.atualizaScore();
 		this.desativarOpcoes();
 		this.habilitarBotoes();
@@ -235,7 +228,7 @@ var stage1State = { // Objeto da Fase 1
 		this.som_clique_2.play();
 		this.ataque_basico = false;
 		this.ataque_magico = true;
-		this.dano_heroi = definicaoAtaqueFinal('magico','heroi');
+		this.dano_heroi = definicaoAtaqueFinal('magico','heroi',this.turno + 1);
 		this.atualizaScore();
 		this.desativarOpcoes();
 		this.habilitarBotoes();
@@ -247,13 +240,13 @@ var stage1State = { // Objeto da Fase 1
 		this.som_clique_1.play();
 
 		// Desativando os outros botões
-		//this.btn_defesa.inputEnabled = false;
-		//this.btn_item.inputEnabled = false;
+		this.btn_defesa.inputEnabled = false;
+		this.btn_pedra.inputEnabled = false;
 
 		if(this.clique == false) {
 			this.clique = true;
 			this.btn_ataque.setFrames(1);
-			this.espaco_ataque.visible = true;	
+			this.barra_ataque.visible = true;	
 			this.txt_ataque_basico.visible = true;
 			this.txt_ataque_basico.inputEnabled = true;
 			this.txt_ataque_basico.events.onInputDown.add(this.txtAtaqueBasicoAction, this);
@@ -269,78 +262,63 @@ var stage1State = { // Objeto da Fase 1
 		}
 	},
 
-	/*btnDefesaAction: function() { // Ação ao clicar no botão Defesa
+	btnDefesaAction: function() { // Ação ao clicar no botão Defesa
 		this.som_clique_1.play();
-		this.defesa_heroi = 0;
-	},*/
-
-	txtItem1Action: function() { // Ação ao clicar no botão Item 1
-		this.som_clique_2.play();
-		this.item_1 = true;
-		this.item_2 = false;
-		this.item_3 = false;
-		this.item_4 = false;
+		this.defesa_heroi_habilitada = true;
 		this.desativarOpcoes();
 		this.habilitarBotoes();
 		this.restaurarAnimacaoBotoes();
+		this.tempo_turno = 0;
+		this.executar = true;
 	},
 
-	txtItem2Action: function() { // Ação ao clicar no botão Item 2
+	txtArAction: function() { // Ação ao clicar no botão Ar
 		this.som_clique_2.play();
-		this.item_1 = false;
-		this.item_2 = true;
-		this.item_3 = false;
-		this.item_4 = false;
 		this.desativarOpcoes();
 		this.habilitarBotoes();
 		this.restaurarAnimacaoBotoes();
+
+		if(this.vida_heroi < 50) {
+			this.vida_heroi = pedraAr(this.vida_heroi);
+
+			this.cont_ar = 0;
+			this.ar = true;
+		}
+
+		this.atualizaScore();
 	},
 
-	txtItem3Action: function() { // Ação ao clicar no botão Item 3
-		this.som_clique_2.play();
-		this.item_1 = false;
-		this.item_2 = false;
-		this.item_3 = true;
-		this.item_4 = false;
-		this.desativarOpcoes();
-		this.habilitarBotoes();
-		this.restaurarAnimacaoBotoes();
-	},
-
-	txtItem4Action: function() { // Ação ao clicar no botão Item 4
-		this.som_clique_2.play();
-		this.item_1 = false;
-		this.item_2 = false;
-		this.item_3 = false;
-		this.item_4 = true;
-		this.desativarOpcoes();
-		this.habilitarBotoes();
-		this.restaurarAnimacaoBotoes();
-	},
-
-	btnItemAction: function() { // Ação ao clicar no botão Item
+	btnPedraAction: function() { // Ação ao clicar no botão Pedra
 		this.som_clique_1.play();
 
 		// Desativando os outros botões 
 		this.btn_ataque.inputEnabled = false;
-		//this.btn_defesa.inputEnabled = false;
+		this.btn_defesa.inputEnabled = false;
 
 		if(this.clique == false) {
 			this.clique = true;
-			this.btn_item.setFrames(1);
-			this.espaco_item.visible = true;
-			this.txt_item_1.visible = true;
-			this.txt_item_1.inputEnabled = true;
-			this.txt_item_1.events.onInputDown.add(this.txtItem1Action, this);
-			this.txt_item_2.visible = true;
-			this.txt_item_2.inputEnabled = true;
-			this.txt_item_2.events.onInputDown.add(this.txtItem2Action, this);
-			this.txt_item_3.visible = true;
-			this.txt_item_3.inputEnabled = true;
-			this.txt_item_3.events.onInputDown.add(this.txtItem3Action, this);
-			this.txt_item_4.visible = true;
-			this.txt_item_4.inputEnabled = true;
-			this.txt_item_4.events.onInputDown.add(this.txtItem4Action, this);
+			this.btn_pedra.setFrames(1);
+			this.barra_pedra.visible = true;
+			this.txt_ar.visible = true;
+
+			if(this.cont_ar < 3) {
+				this.txt_ar.inputEnabled = false;
+				this.txt_ar.tint = 0x808080;	
+			}
+			else {
+				if(this.vida_heroi == 50) {
+					this.txt_ar.tint = 0x808080;	
+					this.txt_ar.inputEnabled = false;
+				}
+				else {
+					this.txt_ar.tint = 0xffffff;
+					this.txt_ar.inputEnabled = true;
+				}
+
+				this.ar = false;	
+			}
+
+			this.txt_ar.events.onInputDown.add(this.txtArAction, this);
 		}
 		else {
 			this.clique = false;
@@ -350,9 +328,16 @@ var stage1State = { // Objeto da Fase 1
 		}
 	},
 
-	opcoesMonstro: function() {
-		this.dano_monstro = definicaoAtaqueFinal('basico','plox');
-		this.defesa_monstro = 0;
+	opcaoMonstro: function() {
+		this.dano_monstro_aux = definicaoAtaqueFinal('basico','plox',this.turno + 1);
+
+		if(this.defesa_heroi_habilitada == true) {
+			this.dano_monstro = CalculoDefesa(this.dano_monstro_aux, 1);
+			this.defesa_heroi = this.dano_monstro_aux - this.dano_monstro;
+		} 
+		else 
+			this.dano_monstro = this.dano_monstro_aux;	
+
 		this.atualizaScore();
 	},
 
@@ -373,8 +358,7 @@ var stage1State = { // Objeto da Fase 1
 
 		}
 
-		this.vida_monstro -= this.dano_heroi - this.defesa_monstro;
-		this.defesa_monstro = 0;
+		this.vida_monstro -= this.dano_heroi;
 
 		if(this.vida_monstro < 0)
 			this.vida_monstro = 0;
@@ -402,7 +386,7 @@ var stage1State = { // Objeto da Fase 1
 			
 		this.monstro.animations.stop();
 		this.monstro.animations.play('atacar');
-		this.vida_heroi -= this.dano_monstro - this.defesa_heroi;
+		this.vida_heroi -= this.dano_monstro;
 		this.defesa_heroi = 0;
 
 		if(this.vida_heroi < 0)
@@ -411,7 +395,11 @@ var stage1State = { // Objeto da Fase 1
 		this.txt_dano_recebido_heroi.visible = true;
 
 		if(this.dano_monstro == 0) {
-			this.txt_dano_recebido_heroi.text = 'ERROU';
+			if(this.defesa_heroi_habilitada == true) 
+				this.txt_dano_recebido_heroi.text = 'DEFESA TOTAL';	
+			else
+				this.txt_dano_recebido_heroi.text = 'ERROU';
+			
 			this.heroi.tint = 0xffffff;
 		}
 		else {
@@ -419,6 +407,9 @@ var stage1State = { // Objeto da Fase 1
 			this.heroi.tint = 0xff0000;
 		}
 
+		this.defesa_heroi_habilitada = false;
+		this.tipo_ataque_monstro = '';
+		this.dano_monstro_total = 0;
 		this.dano_monstro = 0;
 		this.atualizaScore();
 	},
@@ -426,7 +417,12 @@ var stage1State = { // Objeto da Fase 1
 	jogadaHeroi: function() {
 		if(this.heroi.x == 125) {
 			this.timer.stop();
-			this.turno +=1;
+			this.turno += 1;
+
+			if(this.ar == true) {
+				this.cont_ar += 1;
+			}
+
 			this.txt_turno.text = 'TURNO: ' + ("0" + this.turno).slice(-2);
 			this.heroi.animations.play('right');
 			game.add.tween(this.heroi).to({x: '120'}, 1000, Phaser.Easing.Linear.None, true);
@@ -455,26 +451,24 @@ var stage1State = { // Objeto da Fase 1
 	estadoInicial: function() {
 		if(this.opcao_estado == 1) 
 			this.habilitarBotoes();
-
-		
 		
 		this.heroi.animations.play('stop');
 		this.monstro.animations.play('stop');
 
 		if(this.vida_monstro <= 0) {
-			game.global.vencedor = 1;
 			this.som_morte_inimigo.play();
+			// Variável global que indica a fase concluída
+			game.global.fase_concluida = 1;
 			// Voltando para o menu
-			game.time.events.add(Phaser.Timer.SECOND * 0.5, function() {
-				game.sound.stopAll(); 
-            	game.state.start('menu');
+			game.time.events.add(500, function() {
+				this.musica_fase_1_loop.stop();
+            	game.state.start('end_stage1');
 			}, this);
 		}
 
 		if(this.vida_heroi <= 0) {
-			game.global.vencedor = 0;
 			// Iniciando o estado do fim (Game Over)
-			game.sound.stopAll(); 
+			this.musica_fase_1_loop.stop();
 			game.state.start('game_over');
 		}
 	},
@@ -483,6 +477,9 @@ var stage1State = { // Objeto da Fase 1
 		this.txt_turno.text = 'TURNO: ' + ("0" + this.turno).slice(-2);	
 
 		if(this.monstro.x == 945) {
+			this.dano_monstro_total = this.dano_monstro_aux;
+			this.tipo_ataque_monstro = 'BASICO';
+			this.atualizaScore();
 			this.timer.stop();
 			this.turno +=1;
 			this.txt_turno.text = 'TURNO: ' + ("0" + this.turno).slice(-2);

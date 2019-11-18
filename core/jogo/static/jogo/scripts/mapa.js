@@ -10,7 +10,15 @@ var mapaState = {
 		this.cenario.smoothed = false;
 		this.cenario.scale.setTo(0.5,0.5);
 
-		this.heroi = game.add.sprite(195,game.world.height - 312,'sprite_heroi');
+		if(game.global.fase_concluida == 0) 
+			this.heroi = game.add.sprite(195,game.world.height - 312,'sprite_heroi');
+		else if(game.global.fase_concluida == 1)
+			this.heroi = game.add.sprite(445,game.world.height - 312,'sprite_heroi');
+		else if(game.global.fase_concluida == 2)
+			this.heroi = game.add.sprite(695,game.world.height - 312,'sprite_heroi');
+		else if(game.global.fase_concluida == 3)
+			this.heroi = game.add.sprite(945,game.world.height - 312,'sprite_heroi');
+
 		this.heroi.smoothed = false;
 		this.heroi.scale.setTo(2,2);
 		game.physics.arcade.enable(this.heroi);
@@ -20,27 +28,33 @@ var mapaState = {
 
 		this.heroi.animations.play('stop');
 
-		this.txt_pressione_enter = game.add.text(game.world.centerX - 300,440,'PRESSIONE ENTER PARA INICIAR',{font:'30px pixel_arial_r',fill:'#fff'});
-		game.time.events.add(1000,function(){		
-			var enter_key = game.input.keyboard.addKey(Phaser.Keyboard.ENTER);
-				enter_key.onDown.addOnce(this.startPreStage1,this);
-		},this);
+		this.btn_lutar = game.add.button(game.world.centerX - 80, game.world.centerY + 130, 'btn_lutar', this.btnLutarAction, this, 0, 0, 1);
+		this.btn_lutar.smoothed = false;
+		this.btn_lutar.scale.setTo(4,4);
 	},
 
-	startPreStage1: function() {	
+	btnLutarAction: function() {	
 		this.som_selecionar_fase.play();
+		this.btn_lutar.setFrames(1);
 
 		game.time.events.add(1000, function() {
 				this.heroi.animations.stop();
 	        	game.add.tween(this.cenario).to({alpha: 0}, 1500, Phaser.Easing.Linear.None, true);
 	        	game.add.tween(this.heroi).to({alpha: 0}, 1500, Phaser.Easing.Linear.None, true);
-	        	game.add.tween(this.txt_pressione_enter).to({alpha: 0}, 1500, Phaser.Easing.Linear.None, true);
+	        	game.add.tween(this.btn_lutar).to({alpha: 0}, 1500, Phaser.Easing.Linear.None, true);
 	    }, this);
 
 		game.time.events.add(2000, function() {
-	    		game.sound.stopAll();
-	    		 // Inicializando o estado da pré-fase 1
-	    		game.state.start('pre_stage1');
+	    	this.musica_mapa.stop();
+
+	    	if(game.global.fase_concluida == 0)  
+	    		game.state.start('pre_stage1'); // Inicializando o estado da pré-fase 1
+			else if(game.global.fase_concluida == 1)
+				game.state.start('pre_stage2'); // Inicializando o estado da pré-fase 2
+			else if(game.global.fase_concluida == 2)
+				game.state.start('pre_stage3'); // Inicializando o estado da pré-fase 3
+			else if(game.global.fase_concluida == 3)
+				game.state.start('pre_stage4'); // Inicializando o estado da pré-fase 4
 	    }, this);
 	}
 };

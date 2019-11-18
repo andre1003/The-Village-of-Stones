@@ -62,8 +62,6 @@ function gerarNumeroIntervalo(min, max) {
 ////////////////////////////////////////////////////////////////////////////
 //                   MODELOS E FUNÇÕES MATEMÁTICAS                        //
 ////////////////////////////////////////////////////////////////////////////
-
-// Esta função calcula o fatorial de um número
 function fat(num) {
     let result = num;
     if (num === 0 || num === 1)
@@ -128,7 +126,7 @@ function danoDefesa(tipo_ataque, personagem) {
     return dano;
 }
 
-function ataqueCritico(personagem) {
+function ataqueCritico(personagem, numero_rodada) {
     let p = 0;
 
     if (personagem === 'heroi')
@@ -148,19 +146,18 @@ function ataqueCritico(personagem) {
 }
 
 // Ataque bruto
-function calculoAtaque(tipo_ataque, resultado, personagem) {
+function calculoAtaque(tipo_ataque, resultado, personagem, numero_rodada) {
     let dano = danoDefesa(tipo_ataque, personagem); // tenho o dano do ataque
 
     // se o personagem vai dar ataque critico ou se o valor do dado for mt alto, ele vai dar atk critico
-    if (ataqueCritico(personagem) === true || resultado >= 95)
+    if (ataqueCritico(personagem, numero_rodada) === true || resultado >= 95)
         dano += danoDefesa(tipo_ataque, personagem); // dano + dano critico
-
 
     return dano;
 }
 
 // Cálculo do dano final do personagem, esse valor sera tirado da defesa
-function definicaoAtaqueFinal(tipo_ataque, personagem) {
+function definicaoAtaqueFinal(tipo_ataque, personagem, numero_rodada) {
     let p = (p_acerto_erro(tipo_ataque)) * 100; // em %
     let minimo = 100 - p;
     let resultado = gerarNumeroIntervalo(1, 100);
@@ -169,7 +166,7 @@ function definicaoAtaqueFinal(tipo_ataque, personagem) {
     if (resultado <= minimo)
         dano = 0;
     else
-        dano = calculoAtaque(tipo_ataque, resultado, personagem);
+        dano = calculoAtaque(tipo_ataque, resultado, personagem, numero_rodada);
 
     return dano;
 }
@@ -193,11 +190,13 @@ function CalculoDefesa(dano_total){
 }
 
 // Essa função utiliza a pedra do ar (único item ativo)
-function usarPedra(vida, podeUsar) {
-    if(podeUsar === true)
-        return vida + 15;
-    else
-        return vida;
+function pedraAr(vida) {
+    if(vida <= (30 - 2))
+        vida += 2;
+    else 
+        vida = 30;
+
+    return vida;
 }
 
 ///////////////////////////////////////////////////

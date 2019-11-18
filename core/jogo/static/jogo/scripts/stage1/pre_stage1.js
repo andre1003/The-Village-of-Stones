@@ -6,8 +6,10 @@ var preStage1State = {
 		this.musica_fase1_dialogo.volume = .5;
 		this.musica_fase1_dialogo.play();
 		this.som_fase1_tela_preta = game.add.audio('som_fase1_tela_preta');
+		this.som_fase1_tela_preta.volume = .3;
 
-		this.finalizar = false;
+		this.parar_dialogo = true;
+		this.finalizar_dialogo = false;
 
 		// Cenário
 		this.cenario = game.add.sprite(0,0,'sprite_cenario_1');
@@ -46,22 +48,21 @@ var preStage1State = {
 		    "Plox: VOCÊ!?",
 		    "Herói: Oi? AH, é você de novo Plox?",
 		    "Plox: Você não vai tirar ela de mim!",
-		    "Herói: Retirar o quê? Do que você está\nfalando?",
-		    "Plox: Dessa jóia que achei atrás daquela\nárvore.",
+		    "Herói: Retirar o quê? Do que você está falando?",
+		    "Plox: Dessa jóia que achei atrás daquela árvore.",
 		    "Herói: ...",
-		    "Herói: Essa joia é... a... pedra elementar\ndo ar..."
+		    "Herói: Essa joia é... a... pedra elementar do ar..."
 		];
 
 		this.index = 0;
 		this.line = '';
-		this.texto = game.add.text(180, 460, '', { font: "40px Montserrat", fill: "#000"});
+		this.texto = game.add.text(180, 460, '', { font: "30px Montserrat", fill: "#000"});
 		this.nextLine();
 	},
 
 	updateLine: function() {
 	    if (this.line.length < this.content[this.index].length) {
 	        this.line = this.content[this.index].substr(0, this.line.length + 1);
-	        // text.text = line;
 	        this.texto.setText(this.line);
 	    }
 	    else {
@@ -77,25 +78,49 @@ var preStage1State = {
 	        this.line = '';
 	        game.time.events.repeat(20, this.content[this.index].length + 1, this.updateLine, this);
 	    } else {
-	    	if(this.finalizar == true) {
+	    	if(this.finalizar_dialogo == true) {
 	    		this.monstro.animations.stop();
 	    		this.monstro.animations.play('atacar');
 	    		game.time.events.add(Phaser.Timer.SECOND * 1, function() {
-	    			game.sound.stopAll();
+	    			this.musica_fase1_dialogo.stop();
 	    			game.state.start('stage1');
 	    		}, this);
 	    	}
-	    	else {
+	    	else if(this.parar_dialogo == true) {
 		    	this.cenario.visible = false;
 		    	this.heroi.visible = false;
 		    	this.monstro.visible = false;
 		    	this.caixa_dialogo.visible = false;
-		    	this.texto.visible = false;
+		    	this.texto.destroy();
 		    	this.musica_fase1_dialogo.pause();
 		    	this.som_fase1_tela_preta.play();
-		    	game.time.events.add(Phaser.Timer.SECOND * 2, this.voltarDialogo, this);
+		    	game.time.events.add(Phaser.Timer.SECOND * 2, this.mensagemPedraAr, this);
+		    	this.parar_dialogo = false;
 		    }
+		    else  {
+				game.time.events.add(500, function() {  
+					game.add.tween(this.pedra_ar).to({alpha: 0}, 1500, Phaser.Easing.Linear.None, true);    
+					game.add.tween(this.texto).to({alpha: 0}, 1500, Phaser.Easing.Linear.None, true);
+				}, this);
+				game.time.events.add(2000, this.voltarDialogo, this);
+			}
 	    }
+	},
+
+	mensagemPedraAr: function() {
+		this.pedra_ar = game.add.sprite(game.world.centerX - 60, game.world.centerY - 220, 'pedra_ar');
+		this.pedra_ar.smoothed = false;
+		this.pedra_ar.scale.setTo(9,9)
+
+		this.content = [
+			"",
+		    "Parabéns, você conquistou a PEDRA DO AR.\nAo clicar em AR no botão PEDRA, você irá ganhar +2 vida.\nA PEDRA DO AR poderá ser utilizado a cada 3 rodadas."
+		];
+
+	    this.index = 0;
+		this.line = '';
+		this.texto = game.add.text(300, 260, '', {font: "20px Montserrat", fill: "#fff"});
+		this.nextLine();
 	},
 
 	voltarDialogo: function() {
@@ -103,7 +128,8 @@ var preStage1State = {
 
 		this.content = [
 			"",
-		    "Herói: Ela pertence ao reino, você não\npode ficar com ela.",
+			"Plox: DEVOLVE! ELA É MINHA!",
+		    "Herói: Ela pertence ao reino, você não pode ficar com \nela.",
 		    "Plox: Mas... Mas... ela é tão bonitinha...",
 		    "Plox: QUERO ELA DE VOLTA!"
 		];
@@ -115,9 +141,9 @@ var preStage1State = {
 
 	    this.index = 0;
 		this.line = '';
+		this.texto = game.add.text(180, 460, '', { font: "30px Montserrat", fill: "#000"});
 		this.texto.text = '';
 		this.nextLine();
-	    this.texto.visible = true;
-	    this.finalizar = true;
+	    this.finalizar_dialogo = true;
 	}
 };
