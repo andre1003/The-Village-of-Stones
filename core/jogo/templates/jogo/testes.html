@@ -142,7 +142,7 @@
 			let vitorias = 0, derrotas = 0, duracaoTurno = [], vidaRestante = [], j = 0, basico = 0, magico = 0, ataque = 0, defesa = 0;
 			for(let i = 0; i < 10000; i++) {
 				// Simulando 1000 jogos
-				let vidaHeroi = 50, vidaVilao = 50, turno = 0;
+				let vidaHeroi = 30, vidaVilao = 30, turno = 0;
 				while(vidaHeroi > 0 || vidaVilao > 0) {
 					turno++;
 					let choice = gerarNumeroIntervalo(1, 2);
@@ -162,9 +162,9 @@
 
                         let escolhaVilao = gerarNumeroIntervalo(1, 2); // Define o tipo do ataque do vilão
                         if(escolhaVilao == 1)
-                            vidaHeroi -= definicaoAtaqueFinal('basico', 'magus');
+                            vidaHeroi -= definicaoAtaqueFinal('basico', 'zayin');
                         else
-                            vidaHeroi -= definicaoAtaqueFinal('magico', 'magus');
+                            vidaHeroi -= definicaoAtaqueFinal('magico', 'zayin');
                         if(vidaHeroi <= 0)
                             break;
                     }
