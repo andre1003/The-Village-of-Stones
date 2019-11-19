@@ -13,6 +13,8 @@ var stage2State = { // Objeto da Fase 2
 		this.som_hit_basico.volume = .2;
 		this.som_hit_magico = game.add.audio('som_hit_magico');
 		this.som_hit_magico.volume = .2;
+		this.som_cura = game.add.audio('som_cura');
+		this.som_cura.volume = .2;
 		this.som_errou = game.add.audio('som_errou');
 		this.som_errou.volume = .2;
 		this.som_morte_inimigo = game.add.audio('som_morte_inimigo');
@@ -100,13 +102,25 @@ var stage2State = { // Objeto da Fase 2
 
 		// Textos informativos
 		this.txt_score_heroi = game.add.text(42,26,'VIDA: 30\nDANO: 0\nDEFESA: 0', {font: "20px pixel_arial_r", fill:"#fff"});
+		this.txt_score_heroi.stroke = '#000000';
+    	this.txt_score_heroi.strokeThickness = 3;
 		this.txt_score_monstro = game.add.text(1052,26,'VIDA: 30\nDANO: 0', {font: "20px pixel_arial_r", fill:"#fff"});
+		this.txt_score_monstro.stroke = '#000000';
+    	this.txt_score_monstro.strokeThickness = 3;
 		this.txt_tempo_turno = game.add.text(590, 26, '15', {font: "32px pixel_arial_r", fill:"#fff"});
+		this.txt_tempo_turno.stroke = '#000000';
+    	this.txt_tempo_turno.strokeThickness = 3;
 		this.txt_turno = game.add.text(510, 74, 'TURNO: 01', {font: "32px pixel_arial_r", fill:"#fff"});
+		this.txt_turno.stroke = '#000000';
+    	this.txt_turno.strokeThickness = 3;	
 
 		// Textos: dano recebido herói e monstro
 		this.txt_dano_recebido_heroi = game.add.text(140,game.world.height - 410,'', {font: "20px pixel_arial_r", fill:"#c00"});
+		this.txt_dano_recebido_heroi.stroke = '#000000';
+    	this.txt_dano_recebido_heroi.strokeThickness = 1;	
 		this.txt_dano_recebido_monstro = game.add.text(1010,game.world.height - 422,'', {font: "20px pixel_arial_r", fill:"#c00"});
+		this.txt_dano_recebido_monstro.stroke = '#000000';
+    	this.txt_dano_recebido_monstro.strokeThickness = 1;		
 	},
 
 	create: function(){
@@ -316,6 +330,8 @@ var stage2State = { // Objeto da Fase 2
 		this.restaurarAnimacaoBotoes();
 
 		if(this.vida_heroi < 50) {
+			this.som_cura.play();
+			
 			this.vida_heroi = pedraAr(this.vida_heroi);
 
 			this.cont_ar = 0;

@@ -17,6 +17,8 @@ var stage4State = { // Objeto da Fase 4
 		this.som_hit_basico_monstro.volume = .2;
 		this.som_hit_magico_monstro = game.add.audio('som_trovao');
 		this.som_hit_magico_monstro.volume = .9;
+		this.som_cura = game.add.audio('som_cura');
+		this.som_cura.volume = .2;
 		this.som_errou = game.add.audio('som_errou');
 		this.som_errou.volume = .2;
 		this.som_morte_inimigo = game.add.audio('som_morte_inimigo');
@@ -72,6 +74,8 @@ var stage4State = { // Objeto da Fase 4
 		this.img_ataque_magico_2.visible = false;
 		this.img_ataque_magico_2.animations.add('stop',[0,1,2,3,4,5,6,7,8,9],6.5,true);	
 		this.txt_ataque_magico_2 = game.add.text(game.world.centerX + 180, game.world.height - 370, 'ALAKAZAAAAM', {font: "20px pixel_arial_r", fill: "#ffffff", align: "center" });
+		this.txt_ataque_magico_2.stroke = '#000000';
+    	this.txt_ataque_magico_2.strokeThickness = 2;	
 		this.txt_ataque_magico_2.visible = false;
 
 		/* Botões */
@@ -109,13 +113,25 @@ var stage4State = { // Objeto da Fase 4
 
 		// Textos informativos
 		this.txt_score_heroi = game.add.text(42,26,'VIDA: 45\nDANO: 0\nDEFESA: 0', {font: "20px pixel_arial_r", fill:"#fff"});
+		this.txt_score_heroi.stroke = '#000000';
+    	this.txt_score_heroi.strokeThickness = 3;
 		this.txt_score_monstro = game.add.text(1052,26,'VIDA: 45\nDANO: 0', {font: "20px pixel_arial_r", fill:"#fff"});
+		this.txt_score_monstro.stroke = '#000000';
+    	this.txt_score_monstro.strokeThickness = 3;
 		this.txt_tempo_turno = game.add.text(590, 26, '15', {font: "32px pixel_arial_r", fill:"#fff"});
+		this.txt_tempo_turno.stroke = '#000000';
+    	this.txt_tempo_turno.strokeThickness = 3;
 		this.txt_turno = game.add.text(510, 74, 'TURNO: 01', {font: "32px pixel_arial_r", fill:"#fff"});
+		this.txt_turno.stroke = '#000000';
+    	this.txt_turno.strokeThickness = 3;	
 
 		// Textos: dano recebido herói e monstro
 		this.txt_dano_recebido_heroi = game.add.text(140,game.world.height - 410,'', {font: "20px pixel_arial_r", fill:"#c00"});
+		this.txt_dano_recebido_heroi.stroke = '#000000';
+    	this.txt_dano_recebido_heroi.strokeThickness = 1;
 		this.txt_dano_recebido_monstro = game.add.text(1005,game.world.height - 370,'', {font: "20px pixel_arial_r", fill:"#c00"});
+		this.txt_dano_recebido_monstro.stroke = '#000000';
+    	this.txt_dano_recebido_monstro.strokeThickness = 1;		
 	},
 
 	create: function(){
@@ -335,6 +351,8 @@ var stage4State = { // Objeto da Fase 4
 		this.restaurarAnimacaoBotoes();
 
 		if(this.vida_heroi < 50) {
+			this.som_cura.play();
+			
 			this.vida_heroi = pedraAr(this.vida_heroi);
 
 			this.cont_ar = 0;

@@ -86,7 +86,7 @@ var end1Stage4State = {
 			this.dialogo = false;
 		}	
 	    else {
-	    	game.time.events.add(500, function() {  
+	    	game.time.events.add(2500, function() {  
 				game.add.tween(this.cenario).to({alpha: 0}, 1500, Phaser.Easing.Linear.None, true);    
 		        game.add.tween(this.heroi).to({alpha: 0}, 1500, Phaser.Easing.Linear.None, true);
 		         game.add.tween(this.monstro).to({alpha: 0}, 1500, Phaser.Easing.Linear.None, true);
@@ -94,7 +94,7 @@ var end1Stage4State = {
 		        game.add.tween(this.texto).to({alpha: 0}, 1500, Phaser.Easing.Linear.None, true);
 	    	}, this);
 
-	    	game.time.events.add(2000, function() {
+	    	game.time.events.add(4000, function() {
 	        	this.musica_fase4_dialogo.stop();
 	        	// Iniciando o estado do mapa
 	        	game.state.start('story2_screen1');

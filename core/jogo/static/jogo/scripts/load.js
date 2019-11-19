@@ -77,6 +77,7 @@ var loadState = { // Objeto do Carregamento
 		// Carregando os arquivos de áudio 
 		game.load.audio('som_clique_1','/static/jogo/audio/clique_1.mp3');
 		game.load.audio('som_clique_2','/static/jogo/audio/clique_2.mp3');
+		game.load.audio('som_cura','/static/jogo/audio/cura.wav');
 		game.load.audio('som_hit_basico','/static/jogo/audio/hit_basico.wav');
 		game.load.audio('som_hit_magico','/static/jogo/audio/hit_magico.mp3');
 		game.load.audio('som_errou','/static/jogo/audio/errou.wav');
