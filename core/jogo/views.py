@@ -123,9 +123,11 @@ def salvarRodada(request, apelido, uuid_jogo):
         vida_boss = request.POST['vida_boss']
         dano_personagem = request.POST['dano_personagem']
         defesa_personagem = request.POST['defesa_personagem']
-        opcao_ataque_personagem = request.POST['opcao_ataque_personagem']
+        opcao_ataque_personagem = request.POST.get('opcao_ataque_personagem', False)
         tempo_decisao = request.POST['tempo_decisao']
         personagem_atacou = request.POST['personagem_atacou']
+        defesa_personagem = request.POST['defesa_personagem']
+
 
         # validando o personagem atacou (js entrega 'true' ou 'false) que é diferente do Python
         if personagem_atacou == 'true':
@@ -135,8 +137,9 @@ def salvarRodada(request, apelido, uuid_jogo):
 
         # Criando o obj
         nova_rodada = Rodada(vida_personagem=vida_personagem, vida_boss=vida_boss, dano_atacante=dano_personagem,
-                             numero_rodada=num_rodada, tempo_resposta=tempo_decisao, numero_fase=num_fase,
-                             personagem_atacou=personagem_atacou)
+                             numero_rodada=num_rodada, tempo_resposta=tempo_decisao,
+                             numero_fase=num_fase, personagem_atacou=personagem_atacou,
+                             tipo_ataque=opcao_ataque_personagem, defesa_personagem=defesa_personagem)
         nova_rodada.save()  # salvando a nova rodada no banco de dados
 
         # Relacionando as tabelas

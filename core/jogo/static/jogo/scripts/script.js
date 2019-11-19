@@ -231,7 +231,7 @@ $(function() {
 //              FUNÇÃO AUTOCOMPLETE              //
 ///////////////////////////////////////////////////
 
-function enviarDados(num_fase, num_rodada, vida_personagem, vida_boss, dano_personagem, defesa_personagem, opcao_ataque_personagem, tempo_decisao, personagem_atacou) {
+function enviarDados(num_fase, num_rodada, vida_personagem, vida_boss, dano_personagem, defesa_personagem, opcao_ataque_personagem, tempo_decisao, personagem_atacou, defesa_personagem) {
     $.ajax({
         url:'/salvar_rodada/' + apelido_jogador + '/' + uuid_jogo,
         type: "POST",
@@ -245,7 +245,9 @@ function enviarDados(num_fase, num_rodada, vida_personagem, vida_boss, dano_pers
             opcao_ataque_personagem:opcao_ataque_personagem,
             tempo_decisao:tempo_decisao,
             personagem_atacou:personagem_atacou,
-            csrfmiddlewaretoken: '{{ csrf_token }}'},
+            defesa_personagem:defesa_personagem,
+            csrfmiddlewaretoken: csrf
+        },
         success:function(response){console.log('Rodada salva com sucesso.');},
         complete:function(){},
         error:function (xhr, status, error){console.log('erro');}
