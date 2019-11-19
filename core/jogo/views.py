@@ -546,6 +546,8 @@ def change_escolha_final(request, apelido, uuid_jogo):
         # else:
         elif int(escolha_final) == int(0):
             jogo.escolha_final = False
+        else:
+            return Http404('Escolha inválida')
 
         jogo.save(update_fields=['escolha_final'])
         return HttpResponse(request, status=200)
