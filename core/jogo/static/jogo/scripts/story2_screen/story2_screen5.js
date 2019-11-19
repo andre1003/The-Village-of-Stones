@@ -21,7 +21,8 @@ var story2Screen5State = {
 	    if (this.lineIndex === this.conteudo.length)
 	    {
 	        //  We're finished
-	        game.time.events.add(2000, function() {      
+	        game.time.events.add(2000, function() {
+	        	game.sound.volume = .2;      
 	        	game.add.tween(this.fundo).to({alpha: 0}, 1500, Phaser.Easing.Linear.None, true);
 	        	game.add.tween(this.texto).to({alpha: 0}, 1500, Phaser.Easing.Linear.None, true);
 	        }, this);
