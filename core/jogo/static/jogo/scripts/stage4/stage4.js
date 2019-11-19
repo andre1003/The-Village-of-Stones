@@ -108,8 +108,8 @@ var stage4State = { // Objeto da Fase 4
 		this.txt_fogo = game.add.text(game.world.centerX + 190, 463, 'FOGO', {font: "20px pixel_arial_r", fill: "#808080", align: "center" });
 
 		// Textos informativos
-		this.txt_score_heroi = game.add.text(42,26,'VIDA: 50\nDANO: 0\nDEFESA: 0', {font: "20px pixel_arial_r", fill:"#fff"});
-		this.txt_score_monstro = game.add.text(1052,26,'VIDA: 50\nDANO: 0', {font: "20px pixel_arial_r", fill:"#fff"});
+		this.txt_score_heroi = game.add.text(42,26,'VIDA: 45\nDANO: 0\nDEFESA: 0', {font: "20px pixel_arial_r", fill:"#fff"});
+		this.txt_score_monstro = game.add.text(1052,26,'VIDA: 45\nDANO: 0', {font: "20px pixel_arial_r", fill:"#fff"});
 		this.txt_tempo_turno = game.add.text(590, 26, '15', {font: "32px pixel_arial_r", fill:"#fff"});
 		this.txt_turno = game.add.text(510, 74, 'TURNO: 01', {font: "32px pixel_arial_r", fill:"#fff"});
 
@@ -126,7 +126,7 @@ var stage4State = { // Objeto da Fase 4
 		this.clique = false;
 
 		// Atributos Herói
-		this.vida_heroi = 30; 
+		this.vida_heroi = 45;
 		this.dano_heroi = 0;
 		this.defesa_heroi = 0;
 		this.defesa_heroi_habilitada = false;
@@ -135,7 +135,7 @@ var stage4State = { // Objeto da Fase 4
 		this.ar = false;
 
 		// Atributos Monstro
-		this.vida_monstro = 30; 
+		this.vida_monstro = 45;
 		this.dano_monstro_aux = 0;
 		this.dano_monstro_total = 0;
 		this.dano_monstro = 0;

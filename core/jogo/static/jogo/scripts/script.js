@@ -92,12 +92,19 @@ function p_acerto_erro(tipo_ataque, personagem) {
         else if (tipo_ataque === 'basico')
             return 0.9; 
     }
-    else{
+    else if(personagem === 'magus') {
         if (tipo_ataque === 'magico') {
-            return 0.6;
+            return 0.8;
         }
         else if (tipo_ataque === 'basico')
-            return 0.8; 
+            return 0.7;
+    }
+    else {
+        if (tipo_ataque === 'magico') {
+            return 0.70;
+        }
+        else if (tipo_ataque === 'basico')
+            return 0.85;
     }
                       
 }
@@ -109,7 +116,7 @@ function danoDefesa(tipo_ataque, personagem) {
         if (tipo_ataque === 'basico')
             dano = gerarNumeroIntervalo(1, 5);
         else if (tipo_ataque === 'magico')
-            dano = gerarNumeroIntervalo(1, 7);
+            dano = gerarNumeroIntervalo(2, 7);
     }
     else if(personagem === 'plox') {
         dano = gerarNumeroIntervalo(1, 2);
@@ -128,9 +135,9 @@ function danoDefesa(tipo_ataque, personagem) {
     }
     else if(personagem === 'voss') {
         if(tipo_ataque === 'basico')
-            dano = gerarNumeroIntervalo(3, 5);
+            dano = gerarNumeroIntervalo(3, 6);
         else if(tipo_ataque === 'magico')
-            dano = gerarNumeroIntervalo(3, 7);
+            dano = gerarNumeroIntervalo(3, 8);
     }
 
     return dano;

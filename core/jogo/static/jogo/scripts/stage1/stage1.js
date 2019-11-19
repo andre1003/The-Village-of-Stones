@@ -86,8 +86,8 @@ var stage1State = { // Objeto da Fase 1
 		this.txt_ar = game.add.text(game.world.centerX + 205, 460, 'AR', {font: "20px pixel_arial_r", fill: "#ffffff", align: "center" });
 
 		// Textos informativos
-		this.txt_score_heroi = game.add.text(42,26,'VIDA: 50\nDANO: 0\nDEFESA: 0', {font: "20px pixel_arial_r", fill:"#fff"});
-		this.txt_score_monstro = game.add.text(1052,26,'VIDA: 50\nDANO: 0', {font: "20px pixel_arial_r", fill:"#fff"});
+		this.txt_score_heroi = game.add.text(42,26,'VIDA: 30\nDANO: 0\nDEFESA: 0', {font: "20px pixel_arial_r", fill:"#fff"});
+		this.txt_score_monstro = game.add.text(1052,26,'VIDA: 30\nDANO: 0', {font: "20px pixel_arial_r", fill:"#fff"});
 		this.txt_tempo_turno = game.add.text(590, 26, '15', {font: "32px pixel_arial_r", fill:"#fff"});
 		this.txt_turno = game.add.text(510, 74, 'TURNO: 01', {font: "32px pixel_arial_r", fill:"#fff"});
 

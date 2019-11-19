@@ -271,7 +271,6 @@ def getMediaJogosGeral():
     jogadores = Jogador.objects.all() # Obtém todos os jogadores
     mediaGeral = {1: 0, 2: 0, 3: 0, 4: 0} # Média geral de todos os jogadores
     mediaJogadores = dict() # Dicinário auxiliar para ajudar no cálculo da média
-    fases = [0, 0, 0, 0] # Salva o somatório de dano em cada fase
     contAtaqueFases = [0, 0, 0, 0] # Salva o contador de vezes que cada jogador atacou em cada fase
 
     for jogador in jogadores: # Percorre os jogadores
@@ -286,9 +285,8 @@ def getMediaJogosGeral():
     aux = list(mediaJogadores.keys())
     i = aux[-1] # Pega apenas o último item do dicionário (mais atualizado... e o único que funcionou)
     for j in range(1, 5): # Preenche as fases e define a média geral final
-        fases[j - 1] = mediaJogadores[i][j]
         if contAtaqueFases[j - 1] != 0:
-            mediaGeral[j] = fases[j - 1] / contAtaqueFases[j - 1]
+            mediaGeral[j] = mediaJogadores[i][j] / contAtaqueFases[j - 1]
 
     return mediaGeral
 
