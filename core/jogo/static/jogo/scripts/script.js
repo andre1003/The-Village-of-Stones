@@ -233,6 +233,9 @@ $(function() {
 
 function enviarDados(num_fase, num_rodada, vida_personagem, vida_boss, dano_personagem, defesa_personagem, opcao_ataque_personagem, tempo_decisao, personagem_atacou, defesa_personagem) {
     $.ajax({
+        headers: {
+            'X-CSRFTOKEN': csrf,
+        },
         url:'/salvar_rodada/' + apelido_jogador + '/' + uuid_jogo,
         type: "POST",
         data: {
@@ -249,6 +252,41 @@ function enviarDados(num_fase, num_rodada, vida_personagem, vida_boss, dano_pers
             csrfmiddlewaretoken: csrf
         },
         success:function(response){console.log('Rodada salva com sucesso.');},
+        complete:function(){},
+        error:function (xhr, status, error){console.log('erro');}
+    });
+}
+
+
+function jogador_morreu() {
+    $.ajax({
+        headers: {
+            'X-CSRFTOKEN': csrf,
+        },
+        url:'/jogador_morreu/' + apelido_jogador + '/' + uuid_jogo,
+        type: "PATCH",
+        data: {
+            csrfmiddlewaretoken: csrf,
+        },
+        success:function(response){console.log('Morte do jogador salva com sucesso.');},
+        complete:function(){},
+        error:function (xhr, status, error){console.log('erro');}
+    });
+}
+
+
+function escolha_final(escolha_final) {
+    $.ajax({
+        headers: {
+            'X-CSRFTOKEN': csrf,
+        },
+        url:'/escolha_final/' + apelido_jogador + '/' + uuid_jogo,
+        type: "POST",
+        data: {
+            escolha_final: escolha_final,
+            csrfmiddlewaretoken: csrf,
+        },
+        success:function(response){console.log('Escolha do jogador salva com sucesso.');},
         complete:function(){},
         error:function (xhr, status, error){console.log('erro');}
     });

@@ -146,6 +146,7 @@ var stage4State = { // Objeto da Fase 4
 		this.dano_heroi = 0;
 		this.defesa_heroi = 0;
 		this.defesa_heroi_habilitada = false;
+		this.executar_defesa = false;
 		this.ataque_basico_heroi = false;
 		this.ataque_magico_heroi = false;
 		this.ar = false;
@@ -188,33 +189,42 @@ var stage4State = { // Objeto da Fase 4
 			this.desativarOpcoes();
 			this.desabilitarBotoes();
 			this.opcaoMonstro();
+			let turno_salvar;
 
-			if(this.tempo_turno != 0) {
+			if(this.tempo_turno != 0 && this.executar_defesa == false) {
 				this.jogadaHeroi();
 				game.time.events.add(Phaser.Timer.SECOND * 2, this.jogadaHeroi, this);
 				game.time.events.add(Phaser.Timer.SECOND * 2.5, this.estadoInicial, this);
 				game.time.events.add(Phaser.Timer.SECOND * 3, this.jogadaMonstro, this);
 				game.time.events.add(Phaser.Timer.SECOND * 5, this.jogadaMonstro, this);
 				game.time.events.add(Phaser.Timer.SECOND * 5.5, this.estadoInicial, this);
-			}  else {
+				turno_salvar = this.turno;
+			}  
+			else if(this.tempo_turno == 0 || this.executar_defesa == true) {
 				this.cont_ar += 1;
 				this.tempo_turno = 1;
+				this.executar_defesa = false;
 				this.turno +=1;
 				this.jogadaMonstro();
 				game.time.events.add(Phaser.Timer.SECOND * 2, this.jogadaMonstro, this);
-				game.time.events.add(Phaser.Timer.SECOND * 2.5, this.estadoInicial, this);		
+				game.time.events.add(Phaser.Timer.SECOND * 2.5, this.estadoInicial, this);	
+				turno_salvar = this.turno - 1;		
 			}
 			
-			let tipo_ataque_h = 'magico';
+			let tipo_ataque_h;
 			let tipo_ataque_m = 'magico';
 			let tempo_decisao = 15 - this.tempo_turno;
-			
+
 			// Enviando os dados do usuário
 			if(this.ataque_basico === true)
 				tipo_ataque_h = 'basico';
+			else if(this.ataque_magico == true)
+				tipo_ataque_h = 'magico';
+			else
+				tipo_ataque_h = 'nenhum'
 
 			enviarDados(
-				4, this.turno, this.vida_heroi,
+				4, turno_salvar, this.vida_heroi,
 				this.vida_monstro - this.dano_heroi, this.dano_heroi, this.defesa_heroi, tipo_ataque_h,
 				tempo_decisao,true, this.defesa_heroi);
 
@@ -223,7 +233,7 @@ var stage4State = { // Objeto da Fase 4
 				tipo_ataque_m = 'basico';
 
 			enviarDados(
-				4, this.turno+1, this.vida_heroi  - this.dano_monstro,
+				4, turno_salvar+1, this.vida_heroi  - this.dano_monstro,
 				this.vida_monstro - this.dano_heroi, this.dano_monstro, 0,
 				tipo_ataque_m,0,false, 0);
 
@@ -340,7 +350,7 @@ var stage4State = { // Objeto da Fase 4
 		this.desativarOpcoes();
 		this.habilitarBotoes();
 		this.restaurarAnimacaoBotoes();
-		this.tempo_turno = 0;
+		this.executar_defesa = true;
 		this.executar = true;
 	},
 
@@ -501,7 +511,7 @@ var stage4State = { // Objeto da Fase 4
 		this.txt_dano_recebido_heroi.visible = true;
 
 		if(this.dano_monstro == 0) {
-			if(this.defesa_heroi_habilitada == true) 
+			if(this.defesa_heroi_habilitada == true && this.defesa_heroi != 0) 
 				this.txt_dano_recebido_heroi.text = 'DEFESA TOTAL';	
 			else
 				this.txt_dano_recebido_heroi.text = 'ERROU';

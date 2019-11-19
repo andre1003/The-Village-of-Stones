@@ -31,7 +31,7 @@
         }
     </style>
 {% endblock %}
-
+{% csrf_token %}
 {% block scripts %}
 	<script src="{% static 'jogo/scripts/phaser.js' %}"></script>
 	<script>
@@ -43,6 +43,7 @@
 
 
 {% block body %}
+	{% csrf_token %}
 
 	<div id="game-body">
 			<div class="container-fluid">

@@ -26,7 +26,8 @@ urlpatterns = [
     # pesquisar jogo
     path('pesquisar_jogo/', pesquisar_jogo, name='pesquisar_jogo'),  # Url para pesquisar jogos
     path('autocomplete/', autocomplete),  # Url apenas para requisições em Ajax, para o autocomplete
-    path('somar_morte/<str:uuid>', somar_morte),
+    path('jogador_morreu/<str:apelido>/<str:uuid_jogo>', somar_morte),
+    path('escolha_final/<str:apelido>/<str:uuid_jogo>', change_escolha_final),
 
     # dashboard ajax functions
     path('dashboard/<str:apelido>/<str:uuid_jogo>', dashboard, name='dashboard'),

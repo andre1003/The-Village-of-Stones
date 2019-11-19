@@ -122,6 +122,7 @@ var stage1State = { // Objeto da Fase 1
 		this.dano_heroi = 0;
 		this.defesa_heroi = 0;
 		this.defesa_heroi_habilitada = false;
+		this.executar_defesa = false;
 		this.ataque_basico = false;
 		this.ataque_magico = false;
 		this.ar = false;
@@ -162,53 +163,48 @@ var stage1State = { // Objeto da Fase 1
 			this.desativarOpcoes();
 			this.desabilitarBotoes();
 			this.opcaoMonstro();
+			let turno_salvar;
 
-			if(this.tempo_turno != 0) {
+			if(this.tempo_turno != 0 && this.executar_defesa == false) {
 				this.jogadaHeroi();
 				game.time.events.add(Phaser.Timer.SECOND * 2, this.jogadaHeroi, this);
 				game.time.events.add(Phaser.Timer.SECOND * 2.5, this.estadoInicial, this);
 				game.time.events.add(Phaser.Timer.SECOND * 3, this.jogadaMonstro, this);
 				game.time.events.add(Phaser.Timer.SECOND * 5, this.jogadaMonstro, this);
 				game.time.events.add(Phaser.Timer.SECOND * 5.5, this.estadoInicial, this);
-			}  else {
+				turno_salvar = this.turno;
+				
+			}  
+			else if(this.tempo_turno == 0 || this.executar_defesa == true) {
 				this.cont_ar += 1;
 				this.tempo_turno = 1;
-				this.turno +=1;
+				this.executar_defesa = false;
+				this.turno +=1;	
 				this.jogadaMonstro();
 				game.time.events.add(Phaser.Timer.SECOND * 2, this.jogadaMonstro, this);
-				game.time.events.add(Phaser.Timer.SECOND * 2.5, this.estadoInicial, this);	
-
+				game.time.events.add(Phaser.Timer.SECOND * 2.5, this.estadoInicial, this);
+				turno_salvar = this.turno - 1;	
 			}
 
-			// console.log(this.defesa_heroi);
-			// numero da fase eu tenho
-			// console.log(this.turno);
-			// console.log(this.turno + 1);
-			// console.log(this.vida_monstro - this.dano_heroi);    // vida do persongagem agr
-			// console.log(this.vida_heroi  - this.dano_monstro);   // vida do boss agr
-
-			//console.log(this.dano_heroi);    
-			//console.log(this.dano_monstro); 
-
-			let tipo_ataque_h = 'magico';
+			let tipo_ataque_h;
 			let tempo_decisao = 15 - this.tempo_turno;
 
 			// Enviando os dados do usuário
 			if(this.ataque_basico === true)
 				tipo_ataque_h = 'basico';
+			else if(this.ataque_magico == true)
+				tipo_ataque_h = 'magico';
+			else
+				tipo_ataque_h = 'nenhum'
 
-			/*console.log('basico');*/
-			//console.log(15 - this.tempo_turno);
-
-			// enviarDados(num_fase, num_rodada, vida_personagem, vida_boss, dano_personagem, defesa_personagem, opcao_ataque_personagem, tempo_decisao, personagem_atacou)
 			enviarDados(
-				1, this.turno, this.vida_heroi,
+				1, turno_salvar, this.vida_heroi,
 				this.vida_monstro - this.dano_heroi, this.dano_heroi, this.defesa_heroi, tipo_ataque_h,
 				tempo_decisao,true, this.defesa_heroi);
 
 			// Enviando dados do boss
 			enviarDados(
-				1, this.turno+1, this.vida_heroi  - this.dano_monstro,
+				1, turno_salvar+1, this.vida_heroi  - this.dano_monstro,
 				this.vida_monstro - this.dano_heroi, this.dano_monstro, 0,
 				'basico',0,false, 0);
 			
@@ -315,7 +311,7 @@ var stage1State = { // Objeto da Fase 1
 		this.desativarOpcoes();
 		this.habilitarBotoes();
 		this.restaurarAnimacaoBotoes();
-		this.tempo_turno = 0;
+		this.executar_defesa = true;
 		this.executar = true;
 	},
 
@@ -444,7 +440,7 @@ var stage1State = { // Objeto da Fase 1
 		this.txt_dano_recebido_heroi.visible = true;
 
 		if(this.dano_monstro == 0) {
-			if(this.defesa_heroi_habilitada == true) 
+			if(this.defesa_heroi_habilitada == true && this.defesa_heroi != 0) 
 				this.txt_dano_recebido_heroi.text = 'DEFESA TOTAL';	
 			else
 				this.txt_dano_recebido_heroi.text = 'ERROU';
@@ -517,6 +513,7 @@ var stage1State = { // Objeto da Fase 1
 
 		if(this.vida_heroi <= 0) {
 			// Iniciando o estado do fim (Game Over)
+			jogador_morreu(); // função ajax jogador morreu
 			this.musica_fase_1_loop.stop();
 			game.state.start('game_over');
 		}

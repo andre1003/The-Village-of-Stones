@@ -6,12 +6,14 @@ var creditos1State = {
 		this.musica_creditos.volume = .5;
 		this.musica_creditos.play();
 
-		if(game.global.escolha_jogador == 0) { 
+		if(game.global.escolha_jogador == 0) {
+			escolha_final(1);
 			this.conteudo = [
 				"O herói tomou sua decisão..."
 			];
-		} 
+		}
 		else if(game.global.escolha_jogador == 1) {
+			escolha_final(0);
 			this.conteudo = [
 				"O herói tomou sua decisão..."
 			];
