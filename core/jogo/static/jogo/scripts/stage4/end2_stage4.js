@@ -108,7 +108,7 @@ var end2Stage4State = {
 		}, this);
 		game.time.events.add(2000, function() { 
 			this.musica_fase4_dialogo.stop();
-			game.state.start('creditos'); 
+			game.state.start('creditos1'); 
 		}, this);
 	}
 

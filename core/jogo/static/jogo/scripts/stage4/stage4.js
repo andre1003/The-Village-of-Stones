@@ -189,6 +189,28 @@ var stage4State = { // Objeto da Fase 4
 				game.time.events.add(Phaser.Timer.SECOND * 2.5, this.estadoInicial, this);		
 			}
 			
+			let tipo_ataque_h = 'magico';
+			let tipo_ataque_m = 'magico';
+			let tempo_decisao = 15 - this.tempo_turno;
+			
+			// Enviando os dados do usuário
+			if(this.ataque_basico === true)
+				tipo_ataque_h = 'basico';
+
+			enviarDados(
+				4, this.turno, this.vida_heroi,
+				this.vida_monstro - this.dano_heroi, this.dano_heroi, this.defesa_heroi, tipo_ataque_h,
+				tempo_decisao,true, this.defesa_heroi);
+
+			// Enviando dados do boss
+			if(this.opcao_ataque_monstro == 0)
+				tipo_ataque_m = 'basico';
+
+			enviarDados(
+				4, this.turno+1, this.vida_heroi  - this.dano_monstro,
+				this.vida_monstro - this.dano_heroi, this.dano_monstro, 0,
+				tipo_ataque_m,0,false, 0);
+
 			this.executar = false;
 		}
 	},
@@ -365,14 +387,14 @@ var stage4State = { // Objeto da Fase 4
 	},
 
 	opcaoMonstro: function() {
-		var opcao_ataque = gerarNumeroIntervalo(0, 2);
+		this.opcao_ataque_monstro = gerarNumeroIntervalo(0, 2);
 
-		if(opcao_ataque == 0) {
+		if(this.opcao_ataque_monstro == 0) {
 			this.dano_monstro_aux = definicaoAtaqueFinal('basico','voss',this.turno + 1);
 			this.ataque_basico_monstro = true;
 			this.ataque_magico_monstro = false;
 		}
-		else if(opcao_ataque == 1) {
+		else if(this.opcao_ataque_monstro == 1) {
 			this.dano_monstro_aux = definicaoAtaqueFinal('magico','voss',this.turno + 1);
 			this.ataque_basico_monstro = false;
 			this.ataque_magico_monstro = true;

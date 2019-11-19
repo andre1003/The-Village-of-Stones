@@ -41,7 +41,12 @@ game.state.add('story2_screen3', story2Screen3State);
 game.state.add('story2_screen4', story2Screen4State);
 game.state.add('story2_screen5', story2Screen5State);;
 game.state.add('end2_stage4', end2Stage4State);
-game.state.add('creditos', creditosState);
+
+game.state.add('creditos1', creditos1State);
+game.state.add('creditos2', creditos2State);
+game.state.add('creditos3', creditos3State);
+game.state.add('creditos4', creditos4State);
+game.state.add('creditos5', creditos5State);
 
 game.state.add('game_over', gameOverState);
 

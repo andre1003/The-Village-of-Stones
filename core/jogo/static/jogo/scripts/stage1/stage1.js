@@ -176,13 +176,12 @@ var stage1State = { // Objeto da Fase 1
 			//console.log(this.dano_heroi);    
 			//console.log(this.dano_monstro); 
 
-
-
-			let tipo_ataque = 'magico';
+			let tipo_ataque_h = 'magico';
 			let tempo_decisao = 15 - this.tempo_turno;
+
 			// Enviando os dados do usuário
 			if(this.ataque_basico === true)
-				tipo_ataque = 'basico';
+				tipo_ataque_h = 'basico';
 
 			/*console.log('basico');*/
 			//console.log(15 - this.tempo_turno);
@@ -190,10 +189,10 @@ var stage1State = { // Objeto da Fase 1
 			// enviarDados(num_fase, num_rodada, vida_personagem, vida_boss, dano_personagem, defesa_personagem, opcao_ataque_personagem, tempo_decisao, personagem_atacou)
 			enviarDados(
 				1, this.turno, this.vida_heroi,
-				this.vida_monstro - this.dano_heroi, this.dano_heroi, this.defesa_heroi, tipo_ataque,
+				this.vida_monstro - this.dano_heroi, this.dano_heroi, this.defesa_heroi, tipo_ataque_h,
 				tempo_decisao,true, this.defesa_heroi);
 
-			// enviando dados do boss
+			// Enviando dados do boss
 			enviarDados(
 				1, this.turno+1, this.vida_heroi  - this.dano_monstro,
 				this.vida_monstro - this.dano_heroi, this.dano_monstro, 0,
