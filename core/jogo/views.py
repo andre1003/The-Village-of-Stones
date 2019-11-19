@@ -539,13 +539,12 @@ def change_escolha_final(request, apelido, uuid_jogo):
 
 
         jogo = Jogo.objects.get(id_jogo=uuid_jogo)
-        escolha_final = request.POST['escolha_final']
+        escolha_final = request.POST.get('escolha_final')
 
-        if str(escolha_final) == int(1):
+        if int(escolha_final) == int(1):
             jogo.escolha_final = True
-
-        else:
-        #elif str(escolha_final) == 'monstertown':
+        # else:
+        elif int(escolha_final) == int(0):
             jogo.escolha_final = False
 
         jogo.save(update_fields=['escolha_final'])
