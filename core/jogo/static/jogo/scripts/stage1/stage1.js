@@ -162,8 +162,35 @@ var stage1State = { // Objeto da Fase 1
 				this.turno +=1;
 				this.jogadaMonstro();
 				game.time.events.add(Phaser.Timer.SECOND * 2, this.jogadaMonstro, this);
-				game.time.events.add(Phaser.Timer.SECOND * 2.5, this.estadoInicial, this);		
+				game.time.events.add(Phaser.Timer.SECOND * 2.5, this.estadoInicial, this);	
+
 			}
+
+			// console.log(this.defesa_heroi);
+			// numero da fase eu tenho
+			// console.log(this.turno);
+			// console.log(this.turno + 1);
+			// console.log(this.vida_monstro - this.dano_heroi);    // vida do persongagem agr
+			// console.log(this.vida_heroi  - this.dano_monstro);   // vida do boss agr
+
+			//console.log(this.dano_heroi);    
+			//console.log(this.dano_monstro); 
+
+			/*if(this.ataque_basico == true) 
+				console.log('basico');
+			else if(this.ataque_magico == true)
+				console.log('magico');
+
+			console.log('basico');*/
+			//console.log(15 - this.tempo_turno);
+
+			// enviarDados(num_fase, num_rodada, vida_personagem, vida_boss, dano_personagem, defesa_personagem, opcao_ataque_personagem, tempo_decisao, personagem_atacou)
+			enviarDados(
+				1,
+				this.turno,
+				this.vida_heroi  - this.dano_monstro,
+				this.vida_monstro - this.dano_heroi,
+			)
 			
 			this.executar = false;
 		}

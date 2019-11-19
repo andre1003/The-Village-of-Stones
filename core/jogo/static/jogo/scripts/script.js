@@ -225,4 +225,29 @@ $(function() {
         minLength: 2,
         source: "/autocomplete/"
     })
-})
+});
+
+///////////////////////////////////////////////////
+//              FUNÇÃO AUTOCOMPLETE              //
+///////////////////////////////////////////////////
+
+function enviarDados(num_fase, num_rodada, vida_personagem, vida_boss, dano_personagem, defesa_personagem, opcao_ataque_personagem, tempo_decisao, personagem_atacou) {
+    $.ajax({
+        url:'/salvar_rodada/' + apelido_jogador + '/' + uuid_jogo,
+        type: "POST",
+        data: {
+            num_fase: num_fase,
+            num_rodada: num_rodada,
+            vida_personagem:vida_personagem,
+            vida_boss:vida_boss,
+            dano_personagem:dano_personagem,
+            defesa_personagem:defesa_personagem,
+            opcao_ataque_personagem:opcao_ataque_personagem,
+            tempo_decisao:tempo_decisao,
+            personagem_atacou:personagem_atacou,
+            csrfmiddlewaretoken: '{{ csrf_token }}'},
+        success:function(response){console.log('Rodada salva com sucesso.');},
+        complete:function(){},
+        error:function (xhr, status, error){console.log('erro');}
+    });
+}

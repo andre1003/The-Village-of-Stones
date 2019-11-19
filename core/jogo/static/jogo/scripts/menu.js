@@ -34,7 +34,7 @@ var menuState = { // Objeto do Menu
 	    game.time.events.add(2000, function() {
 	        this.musica_menu.stop();
 	        // Iniciando o estado da introdução da história 1
-	        game.state.start('stage3');
+	        game.state.start('stage1');
 	    }, this);	
 	}
 };

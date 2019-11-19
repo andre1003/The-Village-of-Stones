@@ -27,29 +27,7 @@
             return cookieValue;
         }
 
-        function enviarDados() {
-            $.ajax({
-                url:'/salvarrodada/',
-                type: "POST",
-                data: {
-                    id_jogo: 5,
-                    ult_rodada:ult_rodada,
-                    pk_jogador:pk_jogador,
-                    vida_personagem:vida_personagem,
-                    vida_boss:vida_boss,
-                    dano_atacante:dano_atacante,
-                    probabilidade_ataque:probabilidade_ataque,
-                    probabilidade_defesa:probabilidade_defesa,
-                    numero_dado:gerarNumeroIntervalo(1,6),
-                    numero_rodada:numero_rodada,
-                    numero_fase:numero_fase,
-                    personagem_atacou:personagem_atacou,
-                    csrfmiddlewaretoken: '{{ csrf_token }}'},
-                success:function(response){console.log('Rodada salva com sucesso.');},
-                complete:function(){},
-                error:function (xhr, status, error){console.log('erro');}
-            });
-        }
+
 
         function get_ult_rodada() {
             console.log("Pegando o valor da ultima rodada")

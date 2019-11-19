@@ -76,7 +76,7 @@ def jogar(request, apelido, uuid_jogo):
         messages.warning(request, 'Identificador de jogo inválido.')
         return redirect(f'/index_jogo/{apelido}')
     else:
-        return render(request, 'jogo/jogar.html', {'jogo': jogo})  # renderizar a tela de jogo
+        return render(request, 'jogo/jogar.html', {'jogo': jogo, 'jogador': jogador})  # renderizar a tela de jogo
 
 
 def sobre(request):
@@ -88,28 +88,43 @@ def sobre(request):
     return render(request, 'jogo/sobre.html')
 
 
-def salvarRodada(request):
+def salvarRodada(request, apelido, uuid_jogo):
     """
     --> Salva uma nova rodada no BD. Esta função é ativada via AJAX por depender dos parâmetros passados via POST
     :param request: este param armazena os dados da interação do usuário (variáveis do jogo)
     :return: retorna http status (200, 400, 404)
     """
     if request.method == 'POST':
-        id = request.POST['id_jogo']
         try:
-            jogo = Jogo.objects.get(id=id)
-        except ObjectDoesNotExist:  # não tem jogo com esse id
+            # existe o jogo, verificando se o usuário pertence a este nome
+            jogador = Jogador.objects.get(apelido=apelido)
+
+            # verificando se o jogador possui este jogo
+            erro = True
+            for j in jogador.pk_jogos.all():
+                if str(j.id_jogo) == str(uuid_jogo):
+                    erro = False
+
+            if erro:
+                raise ValidationError('Este jogo não pertence a este jogador')
+
+        except ObjectDoesNotExist:
+            return HttpResponse(status=400)
+        except ValidationError:
+            # messages.warning(request, 'Identificador de jogo inválido.')
             return HttpResponse(status=400)
 
+        jogo = Jogo.objects.get(id_jogo=uuid_jogo)
+
         # recuperando os valores dados por JSON
+        num_fase = request.POST['num_fase']
+        num_rodada = request.POST['num_rodada']
         vida_personagem = request.POST['vida_personagem']
         vida_boss = request.POST['vida_boss']
-        dano_atacante = request.POST['dano_atacante']
-        probabilidade_ataque = request.POST['probabilidade_ataque']
-        probabilidade_defesa = request.POST['probabilidade_defesa']
-        numero_dado = request.POST['numero_dado']
-        numero_rodada = request.POST['numero_rodada']
-        numero_fase = request.POST['numero_fase']
+        dano_personagem = request.POST['dano_personagem']
+        defesa_personagem = request.POST['defesa_personagem']
+        opcao_ataque_personagem = request.POST['opcao_ataque_personagem']
+        tempo_decisao = request.POST['tempo_decisao']
         personagem_atacou = request.POST['personagem_atacou']
 
         # validando o personagem atacou (js entrega 'true' ou 'false) que é diferente do Python
@@ -119,9 +134,8 @@ def salvarRodada(request):
             personagem_atacou = False
 
         # Criando o obj
-        nova_rodada = Rodada(vida_personagem=vida_personagem, vida_boss=vida_boss, dano_atacante=dano_atacante,
-                             probabilidade_ataque=probabilidade_ataque, probabilidade_defesa=probabilidade_defesa,
-                             numero_dado=numero_dado, numero_rodada=numero_rodada, numero_fase=numero_fase,
+        nova_rodada = Rodada(vida_personagem=vida_personagem, vida_boss=vida_boss, dano_atacante=dano_personagem,
+                             numero_rodada=num_rodada, tempo_resposta=tempo_decisao, numero_fase=num_fase,
                              personagem_atacou=personagem_atacou)
         nova_rodada.save()  # salvando a nova rodada no banco de dados
 
