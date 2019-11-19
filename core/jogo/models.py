@@ -7,9 +7,9 @@ class Rodada(models.Model):  # rodadas da batalha
     vida_personagem = models.FloatField()                                        # vida do atacante naquela rodada
     vida_boss = models.FloatField()                                              # vida do defensor naquela rodada
     dano_atacante = models.FloatField()                                          # dano base do atacante personagem
-    probabilidade_ataque = models.DecimalField(max_digits=3, decimal_places=2)   # % de acerto do atacante
-    probabilidade_defesa = models.DecimalField(max_digits=3, decimal_places=2)   # % de defesa do defensor
-    numero_dado = models.PositiveSmallIntegerField()                             # Valor tirado no dado (random())
+    # probabilidade_ataque = models.DecimalField(max_digits=3, decimal_places=2)   # % de acerto do atacante
+    # probabilidade_defesa = models.DecimalField(max_digits=3, decimal_places=2)   # % de defesa do defensor
+    # numero_dado = models.PositiveSmallIntegerField()                             # Valor tirado no dado (random())
     numero_rodada = models.PositiveIntegerField()                                # contadora de rodadas
     tempo_rodada = models.DateTimeField(auto_now_add=True)                       # tempo em que a rodada foi finalizada
     tempo_resposta = models.PositiveIntegerField()                               # salva a contadora de tempo restante

@@ -34,6 +34,10 @@
 
 {% block scripts %}
 	<script src="{% static 'jogo/scripts/phaser.js' %}"></script>
+	<script>
+		const uuid_jogo = '{{ jogo.id_jogo }}';
+		const apelido_jogador = '{{ jogador.apelido }}'
+	</script>
 {% endblock %}
 
 
