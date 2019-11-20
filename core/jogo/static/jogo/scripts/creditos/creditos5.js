@@ -1,6 +1,6 @@
 var creditos5State = {
 	create: function() {
-		if(game.global.escolha_jogador == 0) { 
+		if(game.global.escolha_jogador == 0) {
 			this.conteudo = [
 				"A felicidade não era para todos."
 			];
@@ -29,8 +29,9 @@ var creditos5State = {
 	        	game.add.tween(this.texto).to({alpha: 0}, 1500, Phaser.Easing.Linear.None, true);
 	        }, this);
 	        game.time.events.add(2000, function() {
-	        	game.sound.stopAll();  
-	        	game.state.start('menu');
+	        	game.sound.stopAll();
+	        	// forçando o redirecionamento --> jogo acabou!!!
+	        	window.location.href = url_obrigado;
 	        }, this);
 	        return;
 	    }

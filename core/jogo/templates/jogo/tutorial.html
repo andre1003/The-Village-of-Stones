@@ -5,36 +5,50 @@
 {% block body %}
     <div class="container-fluid">
         <div class="row">
-            <div class="col-md-10 offset-md-1">
+            <div class="col-lg-10 offset-lg-1 col-md-12">
                 <div class="dash-card">
                     <div class="dash-card-header">
-                        <h4 class="pixel-title">Did you ever hear the tragedy of Darth Plagueis the Wise?&nbsp;<span class="icon-info"></span></h4>
-<!--                        <p>.</p>-->
+                        <h4 class="pixel-title">Uma pequena introdução...&nbsp;<span class="icon-info"></span></h4>
+                        <p>Esta seção é dedicada aos novos jogadores. Aqui explicaremos como as mecânicas do jogo funcionam com o objetivo de trazer uma melhor experiência para o jogador.</p>
                         <hr/>
                     </div>
                     <div class="dash-card-body">
-
-                        <h5>Sobre a index_jogo:</h5>
-                        <p class="text-justify">I thought not. It's not a story the Jedi would tell you. It's a Sith legend. Darth Plagueis was a Dark Lord of the Sith, so powerful and so wise he could use the Force to influence the midichlorians to create life... He had such a knowledge of the dark side that he could even keep the ones he cared about from dying. The dark side of the Force is a pathway to many abilities some consider to be unnatural. He became so powerful... the only thing he was afraid of was losing his power, which eventually, of course, he did. Unfortunately, he taught his apprentice everything he knew, then his apprentice killed him in his sleep. It's ironic he could save others from death, but not himself.</p>
+                        <h5 class="title-item-dash">Como criar um novo jogo?</h5>
+                        <p class="text-justify">Na seção principal do jogador (link de acesso no fim desta página) encontra-se um botão verde, ao clicar no botão você começa automaticamente a partida. Conforme pode ser observado na figura a seguir.</p>
                         <img src="{% static 'jogo/img/tutorial/tutorial_novo_jogo.jpg' %}" alt="" class="img-fluid img-tutorial">
 
-                        <p class="text-justify">I thought not. It's not a story the Jedi would tell you. It's a Sith legend. Darth Plagueis was a Dark Lord of the Sith, so powerful and so wise he could use the Force to influence the midichlorians to create life... He had such a knowledge of the dark side that he could even keep the ones he cared about from dying. The dark side of the Force is a pathway to many abilities some consider to be unnatural. He became so powerful... the only thing he was afraid of was losing his power, which eventually, of course, he did. Unfortunately, he taught his apprentice everything he knew, then his apprentice killed him in his sleep. It's ironic he could save others from death, but not himself.</p>
+                        <h5 class="title-item-dash">Como ver o resultado de um jogo?</h5>
+                        <p class="text-justify">Para acessar a <i>dashboard</i>, basta clicar no botão obter resultados. Ainda na mesma tela, é possível observar um botão de baixar CSV, esta opção permite extrair os dados armazenados do jogo em questão. Esta opção está disponível apenas para administradores.</p>
                         <img src="{% static 'jogo/img/tutorial/tutorial_consultar_dashboard.jpg' %}" alt="" class="img-fluid img-tutorial">
 
-                        <h5>Como jogar</h5>
-                        <p class="text-justify">I thought not. It's not a story the Jedi would tell you. It's a Sith legend. Darth Plagueis was a Dark Lord of the Sith, so powerful and so wise he could use the Force to influence the midichlorians to create life... He had such a knowledge of the dark side that he could even keep the ones he cared about from dying. The dark side of the Force is a pathway to many abilities some consider to be unnatural. He became so powerful... the only thing he was afraid of was losing his power, which eventually, of course, he did. Unfortunately, he taught his apprentice everything he knew, then his apprentice killed him in his sleep. It's ironic he could save others from death, but not himself.</p>
+                        <h5 class="title-item-dash">Como o jogo funciona?</h5>
+                        <p class="text-justify">A partir desta seção, explicaremos um pouco sobre a mecânica do jogo.</p>
+                        <p><b>Turno:</b> Um turno, ou uma rodada, representa uma medida de ação. Dentro de uma rodada podem ser realizadas ações como atacar o oponente ou defender-se de um ataque. Vale destacar que o item de cura <b>(pedra do ar)</b> não consome uma rodada quando utilizada.</p>
+                        <p>A região destacada na imagem a seguir indica a posição da vida do personagem, dano realizado e defesa atualizados para aquele turno em questão. Durante o jogo os valores desta região estão sob constante mudança, sendo atualizados a cada ação.</p>
                         <img src="{% static 'jogo/img/tutorial/tutorial_player_HUD.jpg' %}" alt="" class="img-fluid img-tutorial">
 
-                        <p class="text-justify">I thought not. It's not a story the Jedi would tell you. It's a Sith legend. Darth Plagueis was a Dark Lord of the Sith, so powerful and so wise he could use the Force to influence the midichlorians to create life... He had such a knowledge of the dark side that he could even keep the ones he cared about from dying. The dark side of the Force is a pathway to many abilities some consider to be unnatural. He became so powerful... the only thing he was afraid of was losing his power, which eventually, of course, he did. Unfortunately, he taught his apprentice everything he knew, then his apprentice killed him in his sleep. It's ironic he could save others from death, but not himself.</p>
+                        <p class="text-justify">A região destacada na figura a seguir demonstra a posição do identificador de status do jogo. O primeiro é um <b>contador de tempo, se chegar a 0, a rodada do personagem é consumida.</b></p>
                         <img src="{% static 'jogo/img/tutorial/tutorial_score.jpg' %}" alt="" class="img-fluid img-tutorial">
 
-                        <p class="text-justify">I thought not. It's not a story the Jedi would tell you. It's a Sith legend. Darth Plagueis was a Dark Lord of the Sith, so powerful and so wise he could use the Force to influence the midichlorians to create life... He had such a knowledge of the dark side that he could even keep the ones he cared about from dying. The dark side of the Force is a pathway to many abilities some consider to be unnatural. He became so powerful... the only thing he was afraid of was losing his power, which eventually, of course, he did. Unfortunately, he taught his apprentice everything he knew, then his apprentice killed him in his sleep. It's ironic he could save others from death, but not himself.</p>
+                        <h5 class="title-item-dash">Como realizar um ataque?</h5>
+                        <p class="text-justify">Basta clicar no botão de <b>ataque</b> a "caixa" de tipos de ataque é aberta, basta clicar no tipo de ataque a ser realizado. Esta ação consome o turno do personagem.</p>
                         <img src="{% static 'jogo/img/tutorial/tutorial_atacar.jpg' %}" alt="" class="img-fluid img-tutorial">
 
-                        <p class="text-justify">I thought not. It's not a story the Jedi would tell you. It's a Sith legend. Darth Plagueis was a Dark Lord of the Sith, so powerful and so wise he could use the Force to influence the midichlorians to create life... He had such a knowledge of the dark side that he could even keep the ones he cared about from dying. The dark side of the Force is a pathway to many abilities some consider to be unnatural. He became so powerful... the only thing he was afraid of was losing his power, which eventually, of course, he did. Unfortunately, he taught his apprentice everything he knew, then his apprentice killed him in his sleep. It's ironic he could save others from death, but not himself.</p>
+                        <h5 class="title-item-dash">Como me defender de um ataque?</h5>
+                        <p class="text-justify">Ao clicar na opção <b>defesa</b>, a rodada do personagem é consumida.</p>
                         <img src="{% static 'jogo/img/tutorial/tutorial_defesa.jpg' %}" alt="" class="img-fluid img-tutorial">
 
-                        <!-- ESQUECI O DA PEDRA -->
+                        <h5 class="title-item-dash">Como usar um item?</h5>
+                        <p class="text-justify">Ao clicar na opção <b>item</b>, uma "caixa" é exibida. Existem dois tipos de items no jogo: ativos e passivos. Itens ativos são aqueles que o jogador precisa clicar para executar uma ação, por exemplo, para recuperar a vida do persongagem é preciso utilizar a pedra do ar. Já os itens passivos não dependem do jogador para serem ativados, quando equipamentos, estão sempre executando as duas ações.</p>
+<!--                        !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1 TROCAR IMG-->
+                        <img src="{% static 'jogo/img/tutorial/tutorial_defesa.jpg' %}" alt="" class="img-fluid img-tutorial">
+
+
+                        <p>Por fim, para começar um jogo novo jogo, clique no botão abaixo.</p>
+                        <div class="text-center">
+                            <a href="$" class="btn btn-success">Começar o meu jogo!!!</a>
+                        </div>
+
                     </div>
                 </div>
             </div>

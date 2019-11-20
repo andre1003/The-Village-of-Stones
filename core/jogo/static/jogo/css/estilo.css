@@ -41,6 +41,7 @@ html, body {
     /* variáveis */
     --verde: #28a745;
     --vermelho: #dc3545;
+    --rosa: rgba(225, 78, 202, 0.6);
 }
 
 .white-color {
@@ -82,7 +83,7 @@ svg.icon {
 /*225 78 202*/
 .dash-card:hover {
     /*box-shadow: 0 1px 20px 0 #e14eca;*/
-    border: 2px solid rgba(225, 78, 202, 0.6);
+    border: 2px solid var(--rosa);
 }
 
 .dash-card-header {
@@ -118,8 +119,31 @@ svg.icon {
     /*color: rgba(255, 255, 255, 0.6) solid;*/
 }
 
-div.dash-card-body h5 {
+div.dash-card-body h5.title-item-dash {
+    font-size: 1.4rem;
     margin-left: 16px;
+    margin-right: 16px;
+    font-weight: bold;
+    margin-top: 30px;
+    /*border-bottom: #ffffff solid 1px;*/
+    border-left: 6px solid var(--rosa);
+    /*background-color: rgba(255,255,255,.09);*/
+    padding: 10px;
+    background-color: rgba(255,255,255,.09);
+    transition: border-color ease-in 0.2s;
+}
+
+div.dash-card-body img.img-tutorial {
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+div.dash-card-body h5.title-item-dash:hover {
+    border-color: var(--vermelho);
+}
+
+div.dash-card-body h5.title-item-dash:before {
+    content: " » ";
 }
 
 hr.soft-hr {
@@ -141,12 +165,6 @@ hr.soft-hr {
 .dash-card-body p {
     text-indent: 1.5em;
     font-size: 1.125rem;
-}
-
-div.dash-card-body img.img-tutorial {
-    width: 100%;
-    margin-top: 30px;
-    margin-bottom: 30px;
 }
 
 ul.dash-list {
