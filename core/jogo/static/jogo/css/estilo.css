@@ -119,9 +119,12 @@ svg.icon {
     /*color: rgba(255, 255, 255, 0.6) solid;*/
 }
 
+div.dash-card-body h5 {
+    margin-left: 16px;
+}
+
 div.dash-card-body h5.title-item-dash {
     font-size: 1.4rem;
-    margin-left: 16px;
     margin-right: 16px;
     font-weight: bold;
     margin-top: 30px;

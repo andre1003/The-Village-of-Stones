@@ -41,8 +41,13 @@ def tutorial(request):
     return render(request, 'jogo/tutorial.html')
 
 
-def obrigado(request):
-    return render(request, 'jogo/obrigado.html')
+def obrigado(request, apelido):
+    try:
+        jogador = Jogador.objects.get(apelido=apelido)
+    except ObjectDoesNotExist:  # não encontrei o jogador no BD, redirecionar para o cadastro
+        return redirect('/cadastro_jogador')
+
+    return render(request, 'jogo/obrigado.html', {'jogador': jogador})
 
 
 def jogar(request, apelido, uuid_jogo):
@@ -511,10 +516,12 @@ def somar_morte(request, apelido, uuid_jogo):
 
         # jogo encontrado!
         jogo.total_mortes += 1
-        jogo.save(update_fields=['total_mortes'])
+        jogo.total_tentativas += 1
+        jogo.save(update_fields=['total_mortes', 'total_tentativas'])
         return HttpResponse(request, status=200)
     else:
         return Http404(request, 'Método HTTP inválido')
+
 
 def change_escolha_final(request, apelido, uuid_jogo):
     if request.method == 'POST':
@@ -575,10 +582,13 @@ def get_csv_dashboard(request, uuid):
     response['Content-Disposition'] = 'attachment; filename="contact.csv"'
 
     writer = csv.writer(response, delimiter=',')
-    writer.writerow(['vida_personagem', 'vida_boss', 'dano_atacante', 'probabilidade_ataque', 'probabilidade_defesa', 'numero_dado', 'numero_rodada', 'tempo_rodada', 'numero_fase', 'personagem_atacou'])
+    writer.writerow(['vida_personagem', 'vida_boss', 'dano_atacante', 'defesa_personagem', 'numero_rodada',
+                     'tempo_resposta', 'numero_fase', 'personagem_atacou', 'tipo_ataque'])
 
     for obj in rodadas:
-        writer.writerow([obj.vida_personagem, obj.vida_boss, obj.dano_atacante, obj.probabilidade_ataque, obj.probabilidade_defesa, obj.numero_dado, obj.numero_rodada, obj.tempo_rodada, obj.numero_fase, obj.personagem_atacou])
+        writer.writerow([obj.vida_personagem, obj.vida_boss, obj.dano_atacante, obj.defesa_personagem,
+                         obj.numero_rodada, obj.tempo_resposta, obj.numero_fase,
+                         obj.personagem_atacou, obj.tipo_ataque])
 
     return response
 

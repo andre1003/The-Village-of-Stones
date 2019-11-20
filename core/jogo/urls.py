@@ -9,7 +9,7 @@ urlpatterns = [
     path('', index, name='index'),  # apresentação do projeto
     path('sobre/', sobre, name='sobre'),
     path('tutorial/', tutorial, name='tutorial'),
-    path('obrigado/', obrigado, name='obrigado'),  # fim do jogo
+    path('obrigado/<str:apelido>', obrigado, name='obrigado'),  # fim do jogo
 
     # páginas jogo
     path('jogar/<str:apelido>/<str:uuid_jogo>', jogar, name='jogar'),
