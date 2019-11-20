@@ -2,8 +2,7 @@ var creditos1State = {
 	create: function() {
 		// Música
 		this.musica_creditos = game.add.audio('musica_creditos');	
-		this.musica_creditos.loop = true;
-		this.musica_creditos.volume = .5;
+		this.musica_creditos.volume = 1.2;
 		this.musica_creditos.play();
 
 		if(game.global.escolha_jogador == 0) {

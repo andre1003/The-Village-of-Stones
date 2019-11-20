@@ -21,11 +21,11 @@ var story2Screen2State = {
 	    if (this.lineIndex === this.conteudo.length)
 	    {
 	        //  We're finished
-	        game.time.events.add(2000, function() {      
+	        game.time.events.add(4400, function() {      
 	        	game.add.tween(this.fundo).to({alpha: 0}, 1500, Phaser.Easing.Linear.None, true);
 	        	game.add.tween(this.texto).to({alpha: 0}, 1500, Phaser.Easing.Linear.None, true);
 	        }, this);
-	        game.time.events.add(4000, function() {game.state.start('story2_screen3');}, this);
+	        game.time.events.add(6400, function() {game.state.start('story2_screen3');}, this);
 	        return;
 	    }
 

@@ -28,7 +28,7 @@ var creditos5State = {
 	        game.time.events.add(500, function() {      
 	        	game.add.tween(this.texto).to({alpha: 0}, 1500, Phaser.Easing.Linear.None, true);
 	        }, this);
-	        game.time.events.add(2000, function() {
+	        game.time.events.add(4000, function() {
 	        	game.sound.stopAll();
 	        	// forçando o redirecionamento --> jogo acabou!!!
 	        	window.location.href = url_obrigado;
