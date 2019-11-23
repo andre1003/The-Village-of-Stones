@@ -126,6 +126,7 @@ var stage1State = { // Objeto da Fase 1
 		this.ataque_basico = false;
 		this.ataque_magico = false;
 		this.ar = false;
+		this.cont_ar = 0;
 
 		// Atributos Monstro
 		this.vida_monstro = 30; 

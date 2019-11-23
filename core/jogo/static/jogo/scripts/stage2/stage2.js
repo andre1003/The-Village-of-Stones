@@ -139,6 +139,7 @@ var stage2State = { // Objeto da Fase 2
 		this.ataque_basico_heroi = false;
 		this.ataque_magico_heroi = false;
 		this.ar = false;
+		this.cont_ar = 0;
 
 		// Atributos Monstro
 		this.vida_monstro = 30; 
