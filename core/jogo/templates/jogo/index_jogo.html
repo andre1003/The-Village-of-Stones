@@ -19,13 +19,13 @@
                                             <tr>
                                                 <th scope="col"><span class="icon-file-text"></span>&nbsp;Identificador jogo</th>
                                                 <th scope="col"><span class="icon-fire"></span>&nbsp;Data início</th>
-                                                <th scope="col"><span class="icon-dice"></span>&nbsp;Consultar dashboard</th>
+                                                <th scope="col"><span class="icon-dice"></span>&nbsp;Conferir resultados</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             {% for j in jogos %}
                                                 <tr>
-                                                    <td>{{ j }}</td>
+                                                    <td style="padding-left: 20px;">{{ j }}</td>
                                                     <td>{{ j.data_jogo }}</td>
                                                     <td>
                                                         <a href="{% url 'dashboard' jogador.apelido j %}" title="Conferir dados do jogo" class="btn btn-azul-1">Resultados</a>
