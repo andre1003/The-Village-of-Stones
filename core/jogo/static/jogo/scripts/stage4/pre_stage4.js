@@ -57,7 +57,7 @@ var preStage4State = {
 	        this.texto.setText(this.line);
 	    }
 	    else {
-	        //  Wait 2 seconds then start a new line
+	        //  Wait 3 seconds then start a new line
 	        game.time.events.add(Phaser.Timer.SECOND * 3, this.nextLine, this);
 	    }
 	},

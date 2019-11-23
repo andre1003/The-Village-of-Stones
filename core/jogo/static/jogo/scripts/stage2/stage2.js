@@ -405,7 +405,7 @@ var stage2State = { // Objeto da Fase 2
 			this.ataque_magico_monstro = true;
 		}
 		
-		if(this.defesa_heroi_habilitada == true && this.defesa_heroi != 0) {
+		if(this.defesa_heroi_habilitada == true) {
 			this.dano_monstro = CalculoDefesa(this.dano_monstro_aux, 2);
 			this.defesa_heroi = this.dano_monstro_aux - this.dano_monstro;
 		} 
