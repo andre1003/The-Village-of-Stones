@@ -150,6 +150,7 @@ var stage4State = { // Objeto da Fase 4
 		this.ataque_basico_heroi = false;
 		this.ataque_magico_heroi = false;
 		this.ar = false;
+		this.cont_ar = -1;
 
 		// Atributos Monstro
 		this.vida_monstro = 45;
@@ -201,7 +202,10 @@ var stage4State = { // Objeto da Fase 4
 				turno_salvar = this.turno;
 			}  
 			else if(this.tempo_turno == 0 || this.executar_defesa == true) {
-				this.cont_ar += 1;
+				if(this.ar == true) {
+					this.cont_ar += 1;
+				}
+
 				this.tempo_turno = 1;
 				this.executar_defesa = false;
 				this.turno +=1;
@@ -385,7 +389,7 @@ var stage4State = { // Objeto da Fase 4
 			this.barra_pedra.visible = true;
 			this.txt_ar.visible = true;
 
-			if(this.cont_ar < 3) {
+			if(this.cont_ar < 3 && this.cont_ar != -1) {
 				this.txt_ar.inputEnabled = false;
 				this.txt_ar.tint = 0x808080;	
 			}
