@@ -114,6 +114,7 @@ var stage1State = { // Objeto da Fase 1
 		// Variáveis do Jogo
 		this.tempo_turno = 15;
 		this.turno = 0;
+		this.turno_salvar = 0;
 		this.executar = false;
 		this.clique = false;
 
@@ -173,7 +174,7 @@ var stage1State = { // Objeto da Fase 1
 				game.time.events.add(Phaser.Timer.SECOND * 3, this.jogadaMonstro, this);
 				game.time.events.add(Phaser.Timer.SECOND * 5, this.jogadaMonstro, this);
 				game.time.events.add(Phaser.Timer.SECOND * 5.5, this.estadoInicial, this);
-				turno_salvar = this.turno;
+				this.turno_salvar = this.turno;
 				
 			}  
 			else if(this.tempo_turno == 0 || this.executar_defesa == true) {
@@ -187,33 +188,39 @@ var stage1State = { // Objeto da Fase 1
 				this.jogadaMonstro();
 				game.time.events.add(Phaser.Timer.SECOND * 2, this.jogadaMonstro, this);
 				game.time.events.add(Phaser.Timer.SECOND * 2.5, this.estadoInicial, this);
-				turno_salvar = this.turno - 1;	
+				this.turno_salvar = this.turno - 1;	
 			}
 
-			let tipo_ataque_h;
-			let tempo_decisao = 15 - this.tempo_turno;
-
-			// Enviando os dados do usuário
-			if(this.ataque_basico_heroi === true)
-				tipo_ataque_h = 'basico';
-			else if(this.ataque_magico_heroi == true)
-				tipo_ataque_h = 'magico';
-			else
-				tipo_ataque_h = 'nenhum'
-
-			enviarDados(
-				1, turno_salvar, this.vida_heroi,
-				this.vida_monstro - this.dano_heroi, this.dano_heroi, this.defesa_heroi, tipo_ataque_h,
-				tempo_decisao,true, this.defesa_heroi);
-
-			// Enviando dados do boss
-			enviarDados(
-				1, turno_salvar+1, this.vida_heroi  - this.dano_monstro,
-				this.vida_monstro - this.dano_heroi, this.dano_monstro, 0,
-				'basico',0,false, 0);
-			
+			this.enviar_dados_usuario();
+			this.enviar_dados_boss();
 			this.executar = false;
 		}
+	},
+
+	enviar_dados_usuario: function() {
+		let tipo_ataque_h;
+		let tempo_decisao = 15 - this.tempo_turno;
+
+		// Enviando os dados do usuário
+		if(this.ataque_basico_heroi === true)
+			tipo_ataque_h = 'basico';
+		else if(this.ataque_magico_heroi == true)
+			tipo_ataque_h = 'magico';
+		else
+			tipo_ataque_h = 'nenhum'
+
+		enviarDados(
+			1, turno_salvar, this.vida_heroi,
+			this.vida_monstro - this.dano_heroi, this.dano_heroi, this.defesa_heroi, tipo_ataque_h,
+			tempo_decisao,true, this.defesa_heroi);
+	},
+
+	enviar_dados_boss: function() {
+		// Enviando dados do boss
+		enviarDados(
+			1, turno_salvar+1, this.vida_heroi  - this.dano_monstro,
+			this.vida_monstro - this.dano_heroi, this.dano_monstro, 0,
+			'basico',0,false, 0);
 	},
 
 	atualizaTempo: function() {
@@ -507,6 +514,8 @@ var stage1State = { // Objeto da Fase 1
 		this.monstro.animations.play('stop');
 
 		if(this.vida_monstro <= 0) {
+			this.enviar_dados_usuario();
+
 			this.som_morte_inimigo.play();
 			// Variável global que indica a fase concluída
 			game.global.fase_concluida = 1;
@@ -518,6 +527,8 @@ var stage1State = { // Objeto da Fase 1
 		}
 
 		if(this.vida_heroi <= 0) {
+			this.enviar_dados_boss();
+
 			// Iniciando o estado do fim (Game Over)
 			jogador_morreu(); // função ajax jogador morreu
 			this.musica_fase_1_loop.stop();
