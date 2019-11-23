@@ -191,7 +191,6 @@ var stage4State = { // Objeto da Fase 4
 			this.desativarOpcoes();
 			this.desabilitarBotoes();
 			this.opcaoMonstro();
-			let turno_salvar;
 
 			if(this.tempo_turno != 0 && this.executar_defesa == false) {
 				this.jogadaHeroi();
@@ -235,7 +234,7 @@ var stage4State = { // Objeto da Fase 4
 			tipo_ataque_h = 'nenhum'
 
 		enviarDados(
-			4, turno_salvar, this.vida_heroi,
+			4, this.turno_salvar, this.vida_heroi,
 			this.vida_monstro - this.dano_heroi, this.dano_heroi, this.defesa_heroi, tipo_ataque_h,
 			tempo_decisao,true, this.defesa_heroi);
 	},
@@ -248,7 +247,7 @@ var stage4State = { // Objeto da Fase 4
 			tipo_ataque_m = 'basico';
 
 		enviarDados(
-			4, turno_salvar+1, this.vida_heroi  - this.dano_monstro,
+			4, this.turno_salvar+1, this.vida_heroi  - this.dano_monstro,
 			this.vida_monstro - this.dano_heroi, this.dano_monstro, 0,
 			tipo_ataque_m,0,false, 0);
 	},

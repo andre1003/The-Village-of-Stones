@@ -165,7 +165,6 @@ var stage1State = { // Objeto da Fase 1
 			this.desativarOpcoes();
 			this.desabilitarBotoes();
 			this.opcaoMonstro();
-			let turno_salvar;
 
 			if(this.tempo_turno != 0 && this.executar_defesa == false) {
 				this.jogadaHeroi();
@@ -210,7 +209,7 @@ var stage1State = { // Objeto da Fase 1
 			tipo_ataque_h = 'nenhum'
 
 		enviarDados(
-			1, turno_salvar, this.vida_heroi,
+			1, this.turno_salvar, this.vida_heroi,
 			this.vida_monstro - this.dano_heroi, this.dano_heroi, this.defesa_heroi, tipo_ataque_h,
 			tempo_decisao,true, this.defesa_heroi);
 	},
@@ -218,7 +217,7 @@ var stage1State = { // Objeto da Fase 1
 	enviar_dados_boss: function() {
 		// Enviando dados do boss
 		enviarDados(
-			1, turno_salvar+1, this.vida_heroi  - this.dano_monstro,
+			1, this.turno_salvar+1, this.vida_heroi  - this.dano_monstro,
 			this.vida_monstro - this.dano_heroi, this.dano_monstro, 0,
 			'basico',0,false, 0);
 	},

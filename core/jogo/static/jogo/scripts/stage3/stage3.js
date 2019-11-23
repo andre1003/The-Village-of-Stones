@@ -175,7 +175,6 @@ var stage3State = { // Objeto da Fase 3
 			this.desativarOpcoes();
 			this.desabilitarBotoes();
 			this.opcaoMonstro();
-			let turno_salvar;
 
 			if(this.tempo_turno != 0 && this.executar_defesa == false) {
 				this.jogadaHeroi();
@@ -219,7 +218,7 @@ var stage3State = { // Objeto da Fase 3
 			tipo_ataque_h = 'nenhum'
 
 		enviarDados(
-			3, turno_salvar, this.vida_heroi,
+			3, this.turno_salvar, this.vida_heroi,
 			this.vida_monstro - this.dano_heroi, this.dano_heroi, this.defesa_heroi, tipo_ataque_h,
 			tempo_decisao,true, this.defesa_heroi);
 	},
@@ -232,7 +231,7 @@ var stage3State = { // Objeto da Fase 3
 			tipo_ataque_m = 'basico';
 
 		enviarDados(
-			3, turno_salvar+1, this.vida_heroi  - this.dano_monstro,
+			3, this.turno_salvar+1, this.vida_heroi  - this.dano_monstro,
 			this.vida_monstro - this.dano_heroi, this.dano_monstro, 0,
 			tipo_ataque_m,0,false, 0);
 	},
