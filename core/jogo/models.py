@@ -32,7 +32,7 @@ class Jogo(models.Model):
     data_jogo = models.DateField(auto_now_add=True)                              # data que o jogo foi criado no BD
     total_mortes = models.PositiveIntegerField(default=0)                        # total de mortes do jogador
     # total_tentativas p/ jogo, acrescento quando o jogador morrer ou quando ele iniciar um novo lvl
-    total_tentativas = models.PositiveIntegerField(default=1)                    # Total de vezes que tentou passar lvl
+    total_tentativas = models.PositiveIntegerField(default=0)                    # Total de vezes que tentou passar lvl
     escolha_final = models.BooleanField(null=True)                               # salvou HumanTown?
     pk_rodada = models.ManyToManyField(Rodada, blank=True)                       # foreign key para rodadas (1~n)
     # fk_jogador = models.ForeignKey(Jogador, on_delete=models.PROTECT)

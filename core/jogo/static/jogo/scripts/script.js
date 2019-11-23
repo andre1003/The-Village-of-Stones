@@ -289,7 +289,7 @@ function jogador_passou_fase() {
             'X-CSRFTOKEN': csrf,
         },
         url:'/jogador_passou_fase/' + apelido_jogador + '/' + uuid_jogo,
-        type: "PATCH",
+        type: "POST",
         data: {
             csrfmiddlewaretoken: csrf,
         },
