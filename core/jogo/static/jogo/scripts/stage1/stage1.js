@@ -545,10 +545,9 @@ var stage1State = { // Objeto da Fase 1
 		}
 
 		if(this.vida_heroi <= 0) {
-			this.enviar_dados_boss();
+			jogador_morreu(); // função ajax jogador morreu
 
 			// Iniciando o estado do fim (Game Over)
-			jogador_morreu(); // função ajax jogador morreu
 			this.musica_fase_1_loop.stop();
 			game.state.start('game_over');
 		}
