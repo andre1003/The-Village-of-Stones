@@ -353,7 +353,7 @@ def dashboard(request, apelido, uuid_jogo):
         return redirect(f'/index_jogo/{apelido}')
 
 
-    jogos = jogo.pk_rodada.all()
+    jogos = jogo.pk_rodada.order_by('numero_rodada')
     data = {
         'jogos': jogos,
         'jogador': jogador,
@@ -373,8 +373,6 @@ def conta_rodada_jogos(jogos, rodada):
     for j in jogos:
         if j.numero_fase == rodada:
             cont += 1
-        else:
-            return cont
     return cont
 
 def dashboard_obterDados(request):
