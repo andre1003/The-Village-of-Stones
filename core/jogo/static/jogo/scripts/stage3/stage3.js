@@ -207,9 +207,15 @@ var stage3State = { // Objeto da Fase 3
 
 	enviar_dados_usuario: function() {
 		let tipo_ataque_h;
+		let vida_m;
 		let tempo_decisao = 15 - this.tempo_turno;
 
 		// Enviando os dados do usuário
+		if((this.vida_monstro - this.dano_heroi) <= 0) 
+            vida_m = 0;
+        else
+            vida_m = this.vida_monstro - this.dano_heroi;
+
 		if(this.ataque_basico_heroi === true)
 			tipo_ataque_h = 'basico';
 		else if(this.ataque_magico_heroi == true)
@@ -219,20 +225,31 @@ var stage3State = { // Objeto da Fase 3
 
 		enviarDados(
 			3, this.turno_salvar, this.vida_heroi,
-			this.vida_monstro - this.dano_heroi, this.dano_heroi, this.defesa_heroi, tipo_ataque_h,
+			vida_m, this.dano_heroi, this.defesa_heroi, tipo_ataque_h,
 			tempo_decisao,true, this.defesa_heroi);
 	},
 
 	enviar_dados_boss: function() {
+		let vida_h, vida_m;
 		let tipo_ataque_m = 'magico';
 
 		// Enviando dados do boss
+		if((this.vida_heroi - this.dano_monstro) <= 0) 
+            vida_h = 0;
+        else
+            vida_h = this.vida_heroi - this.dano_monstro;
+
+        if((this.vida_monstro - this.dano_heroi) <= 0) 
+            vida_m = 0;
+        else
+            vida_m = this.vida_monstro - this.dano_heroi;
+		
 		if(this.opcao_ataque_monstro == 0)
 			tipo_ataque_m = 'basico';
 
 		enviarDados(
-			3, this.turno_salvar+1, this.vida_heroi  - this.dano_monstro,
-			this.vida_monstro - this.dano_heroi, this.dano_monstro, 0,
+			3, this.turno_salvar+1, vida_h,
+			vida_m, this.dano_monstro, 0,
 			tipo_ataque_m,0,false, 0);
 	},
 
