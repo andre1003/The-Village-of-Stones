@@ -110,7 +110,7 @@ var endStage2State = {
 		"Zayin: Você conseguiu o que queria...",
 		"Herói: Claro! A minha vila depende disso! Devo retornar \na paz e promover a justiça!",
 	    "Zayin: Ah... Você realmente acredita que trazendo as \npedras de volta a sua vila é sinônimo de justiça?",
-	    "Herói: ... Sim..",
+	    "Herói: ... Sim...",
 	    "Zayin: QUACK! QUACK! QUACK!"
 	    ];
 

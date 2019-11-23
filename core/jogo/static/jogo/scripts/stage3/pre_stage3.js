@@ -41,7 +41,7 @@ var preStage3State = {
 			"",
 		    "Magus: Deve ser você...",
 		    "Herói: Eu quem?",
-		    "Magus: O cara da justiça.... Que seja, preciso das duas \npedras que conquistou pelo caminho.",
+		    "Magus: O cara da justiça... Que seja, preciso das duas \npedras que conquistou pelo caminho.",
 		    "Herói: Jamais! Meus amigos dependem delas!"
 		];
 
