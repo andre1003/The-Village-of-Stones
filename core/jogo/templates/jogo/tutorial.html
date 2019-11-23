@@ -1,7 +1,6 @@
 {% extends 'jogo/base.html' %}
 {% load static %}
 
-
 {% block body %}
     <div class="container-fluid">
         <div class="row">
@@ -10,6 +9,7 @@
                     <div class="dash-card-header">
                         <h4 class="pixel-title">Uma pequena introdução...&nbsp;<span class="icon-info"></span></h4>
                         <p>Esta seção é dedicada aos novos jogadores. Aqui explicaremos como as mecânicas do jogo funcionam com o objetivo de trazer uma melhor experiência para o jogador.</p>
+                        <p>Caso já sabe de tudo, você pode <a class="btn btn-outline-light" href="#btn-comecar-jogo">Pular tutorial</a></p>
                         <hr/>
                     </div>
                     <div class="dash-card-body">
@@ -46,8 +46,12 @@
 
                         <p>Por fim, para começar um jogo novo jogo, clique no botão abaixo.</p>
                         <div class="text-center">
-                            <a href="$" class="btn btn-success">Começar o meu jogo!!!</a>
+                            <a id="btn-comecar-jogo" href="$" class="btn btn-success">Começar o meu jogo!!!</a>
                         </div>
+
+                        <a id="subirTopo">
+                            ▲ <br> topo
+                        </a>
 
                     </div>
                 </div>
