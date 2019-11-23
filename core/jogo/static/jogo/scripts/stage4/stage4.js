@@ -220,9 +220,9 @@ var stage4State = { // Objeto da Fase 4
 			let tempo_decisao = 15 - this.tempo_turno;
 
 			// Enviando os dados do usuário
-			if(this.ataque_basico === true)
+			if(this.ataque_basico_heroi === true)
 				tipo_ataque_h = 'basico';
-			else if(this.ataque_magico == true)
+			else if(this.ataque_magico_heroi == true)
 				tipo_ataque_h = 'magico';
 			else
 				tipo_ataque_h = 'nenhum'
@@ -354,6 +354,8 @@ var stage4State = { // Objeto da Fase 4
 		this.desativarOpcoes();
 		this.habilitarBotoes();
 		this.restaurarAnimacaoBotoes();
+		this.ataque_basico_heroi = false;
+		this.ataque_magico_heroi = false;
 		this.executar_defesa = true;
 		this.executar = true;
 	},
