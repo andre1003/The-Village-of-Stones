@@ -283,6 +283,23 @@ function jogador_morreu() {
 }
 
 
+function jogador_passou_fase() {
+    $.ajax({
+        headers: {
+            'X-CSRFTOKEN': csrf,
+        },
+        url:'/jogador_passou_fase/' + apelido_jogador + '/' + uuid_jogo,
+        type: "PATCH",
+        data: {
+            csrfmiddlewaretoken: csrf,
+        },
+        success:function(response){console.log('Tentativa do jogador salva com sucesso.');},
+        complete:function(){},
+        error:function (xhr, status, error){console.log('erro');}
+    });
+}
+
+
 function escolha_final(escolha_final) {
     $.ajax({
         headers: {

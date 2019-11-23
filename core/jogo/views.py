@@ -544,6 +544,37 @@ def somar_morte(request, apelido, uuid_jogo):
         return Http404(request, 'Método HTTP inválido')
 
 
+def somar_tentativa(request, apelido, uuid_jogo):
+    if request.method == 'PATCH':
+        # existe o jogo, verificando se o usuário pertence a este nome
+        try:
+            jogador = Jogador.objects.get(apelido=apelido)
+
+            # verificando se o jogador possui este jogo
+            erro = True
+            for j in jogador.pk_jogos.all():
+                if str(j.id_jogo) == str(uuid_jogo):
+                    erro = False
+
+            if erro:
+                raise ValidationError('oi')
+
+            jogo = Jogo.objects.get(id_jogo=uuid_jogo)
+
+        except ObjectDoesNotExist:  # não encontrei o jogador no BD, redirecionar para o cadastro
+            return redirect('/cadastro_jogador')
+
+        except ValidationError:
+            return Http404(request, 'Este jogo não pertence a este jogador')
+
+        # jogo encontrado!
+        jogo.total_tentativas += 1
+        jogo.save(update_fields=['total_tentativas'])
+        return HttpResponse(request, status=200)
+    else:
+        return Http404(request, 'Método HTTP inválido')
+
+
 def change_escolha_final(request, apelido, uuid_jogo):
     if request.method == 'POST':
         # existe o jogo, verificando se o usuário pertence a este nome
