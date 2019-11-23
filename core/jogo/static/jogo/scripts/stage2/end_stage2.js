@@ -77,11 +77,11 @@ var endStage2State = {
 	        game.time.events.repeat(20, this.content[this.index].length + 1, this.updateLine, this);
 	    } 
 	   	else if(this.dialogo == true) {
-			game.time.events.add(1000, function() {  
+			game.time.events.add(3000, function() {  
 					game.add.tween(this.pedra_agua).to({alpha: 0}, 1500, Phaser.Easing.Linear.None, true);    
 					game.add.tween(this.texto).to({alpha: 0}, 1500, Phaser.Easing.Linear.None, true);
 				}, this);
-			game.time.events.add(2500, this.dialogoZayin, this);
+			game.time.events.add(4500, this.dialogoZayin, this);
 		
 			this.dialogo = false;
 		}	

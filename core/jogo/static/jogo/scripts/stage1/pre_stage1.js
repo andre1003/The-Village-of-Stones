@@ -98,11 +98,11 @@ var preStage1State = {
 		    	this.parar_dialogo = false;
 		    }
 		    else  {
-				game.time.events.add(2500, function() {  
+				game.time.events.add(4500, function() {  
 					game.add.tween(this.pedra_ar).to({alpha: 0}, 1500, Phaser.Easing.Linear.None, true);    
 					game.add.tween(this.texto).to({alpha: 0}, 1500, Phaser.Easing.Linear.None, true);
 				}, this);
-				game.time.events.add(4000, this.voltarDialogo, this);
+				game.time.events.add(6000, this.voltarDialogo, this);
 			}
 	    }
 	},
