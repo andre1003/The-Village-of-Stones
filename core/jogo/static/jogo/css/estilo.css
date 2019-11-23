@@ -32,6 +32,31 @@
     font-weight: bold; /* 700 */
 }
 
+.material-icons {
+    font-family: 'Material Icons' !important;
+    font-weight: normal;
+    font-style: normal;
+    font-size: 24px;  /* Preferred icon size */
+    display: inline-block;
+    line-height: 1;
+    text-transform: none;
+    letter-spacing: normal;
+    word-wrap: normal;
+    white-space: nowrap;
+    direction: ltr;
+
+    /* Support for all WebKit browsers. */
+    -webkit-font-smoothing: antialiased;
+    /* Support for Safari and Chrome. */
+    text-rendering: optimizeLegibility;
+
+    /* Support for Firefox. */
+    -moz-osx-font-smoothing: grayscale;
+
+    /* Support for IE. */
+    font-feature-settings: 'liga';
+}
+
 * {
     font-family: 'Montserrat', sans-serif !important;
 }
@@ -43,6 +68,7 @@ html, body {
     --verde: #28a745;
     --vermelho: #dc3545;
     --rosa: rgba(225, 78, 202, 0.6);
+    --azul_soft: #27293d;
 }
 
 .white-color {
@@ -74,7 +100,7 @@ svg.icon {
     padding-bottom: 10px;
     color: rgba(255, 255, 255, 0.8);
     padding-top: 20px;
-    background-color: #27293d;
+    background-color: var(--azul_soft);
     box-shadow: 0 1px 20px 0 rgba(0, 0, 0, 0.1);
     border-radius: 0.2857rem;
     border: 2px solid rgba(225, 78, 202, 0);
@@ -150,6 +176,13 @@ div.dash-card-body h5.title-item-dash:before {
     content: " » ";
 }
 
+
+div.accordion div.card{
+    background-color: var(--azul_soft);
+    border: none;
+    /*border: 1px solid rgba(255, 255, 255, 0.15);*/
+}
+
 hr.soft-hr {
     display: block;
     right: 0;
@@ -181,11 +214,11 @@ ul.dash-list li {
 
 table.dash-table {
     /*color: rgba(255, 255, 255, 0.8);*/
-    padding-left: 15px;
-    padding-right: 15px;
+    /*padding-left: 15px;*/
+    /*padding-right: 15px;*/
     /* tirando conflitos com o bootstrap */
-    margin-bottom: 0 !important;
-    border-collapse: initial !important;
+    /*margin-bottom: 0 !important;*/
+    /*border-collapse: initial !important;*/
 }
 
 table.dash-table tr {
@@ -194,6 +227,14 @@ table.dash-table tr {
 
 table.dash-table tr:hover {
     background-color: rgba(255, 255, 255, 0.1);
+}
+
+div.accordion button.btn::before {
+    /*content: "▶";*/
+    content: "●";
+    /*font-weight: bold;*/
+    /*font-size: 30px;*/
+    font-size: 18px;
 }
 
 /* Pesquisar jogo form */
@@ -296,7 +337,8 @@ ul.rodape-list li a:hover {
 
 #subirTopo {
     text-decoration: none;
-    background: rgba(30,156,161,.9);
+    /*background: rgba(30,156,161,.9);*/
+    background-image: linear-gradient(to top, var(--vermelho), var(--rosa));
     bottom: 30px;
     right: 30px;
     color: #fff;
@@ -313,7 +355,7 @@ ul.rodape-list li a:hover {
 }
 
 #subirTopo:hover {
-opacity:1;
+    opacity:1;
 }
 
 
@@ -324,9 +366,9 @@ opacity:1;
     }
 
     div#game-body {
-    overflow-x: scroll;
-    overflow-y: hidden;
-    white-space: nowrap;
-}
+        overflow-x: scroll;
+        overflow-y: hidden;
+        white-space: nowrap;
+    }
 
 }

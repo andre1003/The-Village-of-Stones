@@ -2,138 +2,325 @@
 {% load static %}
 
 {%  block scripts %}
-    <script>
-        var uuid_jogo = "{{ jogo.id_jogo }}";
-    </script>
+<script>
+    var uuid_jogo = "{{ jogo.id_jogo }}";
+</script>
 
 <!--    <script src="https://code.highcharts.com/highcharts.js"></script>-->
-    <script src="{% static 'jogo/scripts/HighchartsJSv721.js' %}"></script>
-    <script src="{% static 'jogo/scripts/dashboard_scripts.js' %}"></script>
+<script src="{% static 'jogo/scripts/HighchartsJSv721.js' %}"></script>
+<script src="{% static 'jogo/scripts/dashboard_scripts.js' %}"></script>
 
 {%  endblock %}
 {% block body %}
-        <!-- <p>Veja os resultados do jogo {{ jogo.id_jogo }}</p> -->
-        <section id="section-dashboard">
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-sm-12 col-md-12 col-lg-10 offset-lg-1">
-                        <div class="dash-card">
-                            <div class="dash-card-header">
-                                <h4><span class="icon-user"></span>&nbsp;Jogador: {{ jogador.apelido }}</h4>
-                                <p>Descrição do jogador</p>
-                                <hr/>
-                            </div>
-                            <div class="dash-card-body">
-                                <!-- CONCERTAR TODA ESTA SEÇÃO AQUI -->
-                                <div class="row">
-                                    <div class="col-md-12 col-lg-8">
-                                        <h5>Sobre o jogador:</h5>
-                                        <ul class="dash-list">
-                                            <li>Cadastro realizado  {{ jogador.data_cadastro }}</li>
-                                            <li>Total de jogos cadastrados: {{ total_jogos }}</li>
-                                        </ul>
-                                        <!-- Concertar isso -->
-
-                                        <hr class="soft-hr"/>
-                                        <h5>Sobre este jogo:</h5>
-                                        <ul class="dash-list">
-                                            <li>Tentativas: <b class="bold-green">{{ jogo.total_tentativas }}</b></li>
-                                            <li>Mortes: <b class="bold-red">{{ jogo.total_mortes }}</b></li>
-                                        </ul>
-                                    </div>
-                                    <!-- Pegar esse rating do banco -->
-                                    <div class="mx-auto">
-                                        {% if jogo.total_tentativas != 0 %}
-                                            <div class="text-center" id="vitorias-derrotas-rating"></div>
-                                        {% else %}
-                                            <p>Jogo não terminado.</p>
-                                        {% endif %}
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+<!-- <p>Veja os resultados do jogo {{ jogo.id_jogo }}</p> -->
+<section id="section-dashboard">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-12 col-md-12 col-lg-10 offset-lg-1">
+                <div class="dash-card">
+                    <div class="dash-card-header">
+                        <h4><span class="icon-user"></span>&nbsp;Jogador: {{ jogador.apelido }}</h4>
+                        <p>Descrição do jogador</p>
+                        <hr/>
                     </div>
-                </div>
+                    <div class="dash-card-body">
+                        <!-- CONCERTAR TODA ESTA SEÇÃO AQUI -->
+                        <div class="row">
+                            <div class="col-md-12 col-lg-8">
+                                <h5>Sobre o jogador:</h5>
+                                <ul class="dash-list">
+                                    <li>Cadastro realizado  {{ jogador.data_cadastro }}</li>
+                                    <li>Total de jogos cadastrados: {{ total_jogos }}</li>
+                                </ul>
+                                <!-- Concertar isso -->
 
-                <!-- Gráfico da vida dos personagens -->
-                <div class="row">
-                    <div class="col-sm-12 col-md-12 col-lg-5 offset-lg-1">
-                        <div class="dash-card">
-                            <div class="dash-card-header">
-                                <h4><span class="icon-stats-dots"></span> Dano do jogador</h4>
-                                <p>Média de dano de(a) {{ jogador.apelido }} e de outros jogos:</p>
-                                <hr/>
+                                <hr class="soft-hr"/>
+                                <h5>Sobre este jogo:</h5>
+                                <ul class="dash-list">
+                                    <li>Tentativas: <b class="bold-green">{{ jogo.total_tentativas }}</b></li>
+                                    <li>Mortes: <b class="bold-red">{{ jogo.total_mortes }}</b></li>
+                                </ul>
                             </div>
-                            <div class="dash-card-body">
+                            <!-- Pegar esse rating do banco -->
+                            <div class="mx-auto">
                                 {% if jogo.total_tentativas != 0 %}
-                                    <div id="media_dano_fases"></div>
+                                <div class="text-center" id="vitorias-derrotas-rating"></div>
                                 {% else %}
-                                    <p>Jogo não terminado.</p>
+                                <p>Jogo não terminado.</p>
                                 {% endif %}
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-sm-12 col-md-12 col-lg-5">
-                        <div class="dash-card">
-                            <div class="dash-card-header">
-                                <h4><span class="icon-stats-dots"></span>&nbsp;Vida restante</h4>
-                                <p>Vida restante de(a) {{ jogador.apelido }} em cada fase</p>
-                                <hr/>
-                            </div>
-                            <div class="dash-card-body">
-                                <div class="dash-card-body">
-                                    {% if jogo.total_tentativas != 0 %}
-                                        <div id="vida_restante_fases"></div>
-                                    {% else %}
-                                        <p>Jogo não terminado.</p>
-                                    {% endif %}
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="col-sm-12 col-md-12 col-lg-10 offset-lg-1">
-                        <div class="dash-card">
-                            <div class="dash-card-header">
-                                <h4>Simple Table</h4>
-                                <p>Vestibulum vitae cursus orci. Sed erat mi, venenatis id lacinia non, pretium sed velit.</p>
-                                <hr/>
-                            </div>
-                            <div class="dash-card-body">
-                                <table class="table dash-table white-color">
-                                    <thead>
-                                        <tr>
-                                            <th scope="col"><span class="icon-file-text"></span></span>&nbsp;Nº rodada</th>
-                                            <th scope="col"><span class="icon-fire"></span>&nbsp;Dano causado</th>
-                                            <th scope="col"><span class="icon-dice"></span>&nbsp;Valor dado</th>
-                                            <th scope="col">Situação jogador</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        {% for j in jogos %}
-                                            <tr>
-                                                <th scope="row">{{j.numero_rodada}}</th>
-                                                <td>{{ j.dano_atacante }}</td>
-                                                <td>{{ j.numero_dado }}</td>
-                                                <td>
-                                                    {% if j.personagem_atacou %}
-                                                        <span class="icon-eyedropper"></span>
-                                                    {% else %}
-                                                        <span class="icon-shield"></span>
-                                                    {% endif %}
-                                                </td>
-                                            </tr>
-                                        {% endfor %}
-                                    </tbody>
-                                </table>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </section>
+        </div>
+
+        <!-- Gráfico da vida dos personagens -->
+        <div class="row">
+            <div class="col-sm-12 col-md-12 col-lg-5 offset-lg-1">
+                <div class="dash-card">
+                    <div class="dash-card-header">
+                        <h4><span class="icon-stats-dots"></span> Dano do jogador</h4>
+                        <p>Média de dano de(a) {{ jogador.apelido }} e de outros jogos:</p>
+                        <hr/>
+                    </div>
+                    <div class="dash-card-body">
+                        {% if jogo.total_tentativas != 0 %}
+                        <div id="media_dano_fases"></div>
+                        {% else %}
+                        <p>Jogo não terminado.</p>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-12 col-md-12 col-lg-5">
+                <div class="dash-card">
+                    <div class="dash-card-header">
+                        <h4><span class="icon-stats-dots"></span>&nbsp;Vida restante</h4>
+                        <p>Vida restante de(a) {{ jogador.apelido }} em cada fase</p>
+                        <hr/>
+                    </div>
+                    <div class="dash-card-body">
+                        <div class="dash-card-body">
+                            {% if jogo.total_tentativas != 0 %}
+                            <div id="vida_restante_fases"></div>
+                            {% else %}
+                            <p>Jogo não terminado.</p>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TABELA RODADAAAS -->
+        <div class="row">
+            <div class="col-sm-12 col-md-12 col-lg-10 offset-lg-1">
+                <div class="dash-card">
+                    <div class="dash-card-header">
+                        <h4>Rodadas</h4>
+                        <p>Rodadas do jogador.</p>
+                        <p>Clique no nome do inimigo para visualizar as rodadas</p>
+                        <hr/>
+                    </div>
+                    <div class="dash-card-body">
+                        <div class="accordion " id="accordionExample">
+                            <div class="card text-center">
+                                <div class="card-header" id="headingOne">
+                                    <button class="btn btn-success white-color" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                                        Plox (Nível 1)
+                                    </button>
+
+                                    <button class="btn btn-success white-color" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                        Zayin (Nível 2)
+                                    </button>
+
+                                    <button class="btn btn-success white-color" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                        Magus (Nível 3)
+                                    </button>
+
+                                    <button class="btn btn-success white-color" type="button" data-toggle="collapse" data-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                                        Voss (Último Nível)
+                                    </button>
+                                </div>
+
+                                <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
+                                    <div class="card-body">
+                                        <table class="table dash-table white-color">
+                                            <thead>
+                                            <tr>
+                                                <th scope="col">#</th>
+                                                <th scope="col">Vida Herói</th>
+                                                <th scope="col">Vida Inimigo</th>
+                                                <th scope="col">Dano</th>
+                                                <th scope="col">Tempo</th>
+                                                <th scope="col">Rodada</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+
+                                            {% if q_rodadas_primeiro == 0 %}
+                                            <tr>
+                                                <td colspan="6">
+                                                    Ops! parece que o(a) {{ jogador.apelido }} não começou essa fase...
+                                                </td>
+                                            </tr>
+
+                                            {% else %}
+                                            {% for j in jogos %}
+                                            {% if j.numero_fase == 1 %}
+                                            <tr>
+                                                <th scope="row">{{j.numero_rodada}}</th>
+                                                <td>{{ j.vida_personagem }}</td>
+                                                <td>{{ j.vida_boss }}</td>
+                                                <td>{{ j.dano_atacante }}</td>
+                                                <td>{{ j.tempo_resposta }}</td>
+                                                <td>
+                                                    {% if j.personagem_atacou %}
+                                                    Vez do Herói
+                                                    {% else %}
+                                                    Ação do inimigo
+                                                    {% endif %}
+                                                </td>
+                                            </tr>
+                                            {% endif %}
+                                            {% endfor %}
+                                            {% endif %}
+                                            </tbody>
+                                        </table>
+
+                                    </div>
+                                </div>
+
+                                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
+                                    <div class="card-body">
+                                        <table class="table dash-table white-color">
+                                            <thead>
+                                            <tr>
+                                                <th scope="col">#</th>
+                                                <th scope="col">Vida Herói</th>
+                                                <th scope="col">Vida Inimigo</th>
+                                                <th scope="col">Dano</th>
+                                                <th scope="col">Tempo</th>
+                                                <th scope="col">Rodada</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+
+                                            {% if q_rodadas_segundo == 0 %}
+                                            <tr>
+                                                <td colspan="6">
+                                                    Ops! parece que o(a) {{ jogador.apelido }} não começou essa fase...
+                                                </td>
+                                            </tr>
+
+                                            {% else %}
+                                            {% for j in jogos %}
+                                            {% if j.numero_fase == 2 %}
+                                            <tr>
+                                                <th scope="row">{{j.numero_rodada}}</th>
+                                                <td>{{ j.vida_personagem }}</td>
+                                                <td>{{ j.vida_boss }}</td>
+                                                <td>{{ j.dano_atacante }}</td>
+                                                <td>{{ j.tempo_resposta }}</td>
+                                                <td>
+                                                    {% if j.personagem_atacou %}
+                                                    Vez do Herói
+                                                    {% else %}
+                                                    Ação do inimigo
+                                                    {% endif %}
+                                                </td>
+                                            </tr>
+                                            {% endif %}
+                                            {% endfor %}
+                                            {% endif %}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+
+                                <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
+                                    <div class="card-body">
+                                        <table class="table dash-table white-color">
+                                            <thead>
+                                            <tr>
+                                                <th scope="col">#</th>
+                                                <th scope="col">Vida Herói</th>
+                                                <th scope="col">Vida Inimigo</th>
+                                                <th scope="col">Dano</th>
+                                                <th scope="col">Tempo</th>
+                                                <th scope="col">Rodada</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+
+                                            {% if q_rodadas_terceiro == 0 %}
+                                            <tr>
+                                                <td colspan="6">
+                                                    Ops! parece que o(a) {{ jogador.apelido }} não começou essa fase...
+                                                </td>
+                                            </tr>
+
+                                            {% else %}
+                                            {% for j in jogos %}
+                                            {% if j.numero_fase == 3 %}
+                                            <tr>
+                                                <th scope="row">{{j.numero_rodada}}</th>
+                                                <td>{{ j.vida_personagem }}</td>
+                                                <td>{{ j.vida_boss }}</td>
+                                                <td>{{ j.dano_atacante }}</td>
+                                                <td>{{ j.tempo_resposta }}</td>
+                                                <td>
+                                                    {% if j.personagem_atacou %}
+                                                    Vez do Herói
+                                                    {% else %}
+                                                    Ação do inimigo
+                                                    {% endif %}
+                                                </td>
+                                            </tr>
+                                            {% endif %}
+                                            {% endfor %}
+                                            {% endif %}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+
+                                <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordionExample">
+                                    <div class="card-body">
+                                        <table class="table dash-table white-color">
+                                            <thead>
+                                            <tr>
+                                                <th scope="col">#</th>
+                                                <th scope="col">Vida Herói</th>
+                                                <th scope="col">Vida Inimigo</th>
+                                                <th scope="col">Dano</th>
+                                                <th scope="col">Tempo</th>
+                                                <th scope="col">Rodada</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+
+                                            {% if q_rodadas_quarta == 0 %}
+                                            <tr>
+                                                <td colspan="6">
+                                                    Ops! parece que o(a) {{ jogador.apelido }} não começou essa fase...
+                                                </td>
+                                            </tr>
+
+                                            {% else %}
+                                            {% for j in jogos %}
+                                            {% if j.numero_fase == 4 %}
+                                            <tr>
+                                                <th scope="row">{{j.numero_rodada}}</th>
+                                                <td>{{ j.vida_personagem }}</td>
+                                                <td>{{ j.vida_boss }}</td>
+                                                <td>{{ j.dano_atacante }}</td>
+                                                <td>{{ j.tempo_resposta }}</td>
+                                                <td>
+                                                    {% if j.personagem_atacou %}
+                                                    Vez do Herói
+                                                    {% else %}
+                                                    Ação do inimigo
+                                                    {% endif %}
+                                                </td>
+                                            </tr>
+                                            {% endif %}
+
+                                            {% endfor %}
+                                            {% endif %}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 
 {% endblock %}

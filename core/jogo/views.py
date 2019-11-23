@@ -346,15 +346,30 @@ def dashboard(request, apelido, uuid_jogo):
     except ValidationError:
         return redirect(f'/index_jogo/{apelido}')
 
+
+    jogos = jogo.pk_rodada.all()
     data = {
-        'jogos': jogo.pk_rodada.all(),
+        'jogos': jogos,
         'jogador': jogador,
         'jogo': jogo,
         'total_jogos': jogador.pk_jogos.all().count(),
+        'q_rodadas_primeiro': conta_rodada_jogos(jogos, 1),
+        'q_rodadas_segundo': conta_rodada_jogos(jogos, 2),
+        'q_rodadas_terceiro': conta_rodada_jogos(jogos, 3),
+        'q_rodadas_quarta': conta_rodada_jogos(jogos, 4),
     }
 
     return render(request, 'jogo/dashboard.html', data)
 
+
+def conta_rodada_jogos(jogos, rodada):
+    cont = 0
+    for j in jogos:
+        if j.numero_fase == rodada:
+            cont += 1
+        else:
+            return cont
+    return cont
 
 def dashboard_obterDados(request):
     """
