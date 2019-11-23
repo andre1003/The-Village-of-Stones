@@ -493,7 +493,7 @@ def pesquisar_jogo(request):
         except ObjectDoesNotExist:
             messages.error(request, 'Jogador não cadastrado, por favor, tente novamente.')
             messages.info(request, 'Dica: Tente cadastrar este apelido como um novo jogador!')
-            return redirect('/cadastro_jogador')  # Se não existir o jogador, redirecionar cadastro
+            return redirect('/pre-cadastro')  # Se não existir o jogador, redirecionar cadastro
 
         jogos = jogador.pk_jogos.all()                        # Pega todas as chaves de todos os jogos
 
