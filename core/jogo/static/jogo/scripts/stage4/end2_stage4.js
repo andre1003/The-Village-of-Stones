@@ -75,7 +75,7 @@ var end2Stage4State = {
 		else {
 			this.texto.destroy();
 			this.caixa_dialogo.visible = false;
-			this.texto = game.add.text(320, 100, 'Qual vila que o herói mais justo de \n  HumanTown gostaria de salvar?', { font: "40px Montserrat bold", fill: "#fff"});
+			this.texto = game.add.text(game.world.centerX - game.world.centerX/2 +30, 100, 'Qual vila que o herói mais justo de \n  HumanTown gostaria de salvar?', { font: "40px Montserrat bold", fill: "#fff"});
 			this.texto.stroke = '#000000';
     		this.texto.strokeThickness = 3;			
 			this.btn_humanos = game.add.button(game.world.centerX - 230, game.world.centerY + 30, 'btn_humanos', this.btnHumanosAction, this, 0, 0, 1);
