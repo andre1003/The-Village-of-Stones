@@ -604,7 +604,6 @@ var stage4State = { // Objeto da Fase 4
 		this.txt_ataque_magico_2.visible = false;
 
 		if(this.vida_monstro <= 0) {
-			this.enviar_dados_usuario();
 			jogador_passou_fase()
 
 			this.som_morte_inimigo.play();

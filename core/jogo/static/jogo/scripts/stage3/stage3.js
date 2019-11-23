@@ -570,7 +570,6 @@ var stage3State = { // Objeto da Fase 3
 		this.monstro.animations.play('stop');
 
 		if(this.vida_monstro <= 0) {
-			this.enviar_dados_usuario();
 			jogador_passou_fase();
 
 			this.som_morte_inimigo.play();
