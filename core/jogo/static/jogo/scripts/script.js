@@ -207,12 +207,20 @@ function CalculoDefesa(dano_total){
 }
 
 // Essa função utiliza a pedra do ar (único item ativo)
-function pedraAr(vida) {
-    if(vida <= (30 - 2))
-        vida += 2;
-    else 
-        vida = 30;
-
+function pedraAr(vida, fase) {
+    if(fase == 4) {
+        if(vida <= (45 - 2))
+            vida += 2;
+        else 
+            vida = 45;   
+    }
+    else {
+        if(vida <= (30 - 2))
+            vida += 2;
+        else 
+            vida = 30;        
+    }
+    
     return vida;
 }
 

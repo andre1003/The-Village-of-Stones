@@ -322,10 +322,10 @@ var stage1State = { // Objeto da Fase 1
 		this.habilitarBotoes();
 		this.restaurarAnimacaoBotoes();
 
-		if(this.vida_heroi < 50) {
+		if(this.vida_heroi < 30) {
 			this.som_cura.play();
 
-			this.vida_heroi = pedraAr(this.vida_heroi);
+			this.vida_heroi = pedraAr(this.vida_heroi, 1);
 
 			this.cont_ar = 0;
 			this.ar = true;
