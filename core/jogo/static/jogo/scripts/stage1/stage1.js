@@ -514,6 +514,7 @@ var stage1State = { // Objeto da Fase 1
 
 		if(this.vida_monstro <= 0) {
 			this.enviar_dados_usuario();
+			jogador_passou_fase();
 
 			this.som_morte_inimigo.play();
 			// Variável global que indica a fase concluída
