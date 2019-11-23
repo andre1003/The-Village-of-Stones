@@ -58,6 +58,15 @@
     font-feature-settings: 'liga';
 }
 
+/* my svg */
+.icons-svg {
+    fill: var(--white-color-soft);
+    text-decoration: none;
+    margin-left: 5px;
+    margin-right: 5px;
+    transition: 0.5s;
+}
+
 * {
     font-family: 'Montserrat', sans-serif !important;
 }
@@ -70,6 +79,7 @@ html, body {
     --vermelho: #dc3545;
     --rosa: rgba(225, 78, 202, 0.6);
     --azul_soft: #27293d;
+    --white-color-soft: rgba(255, 255, 255, 0.8);
 }
 
 .white-color {

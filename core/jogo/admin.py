@@ -74,7 +74,7 @@ class JogadorAdmin(admin.ModelAdmin):  # Paulo fazendo cagada
 
 class RodadasAdmin(ExportActionMixin, admin.ModelAdmin):
     list_display = (
-        'VIDA_PERSONAGEM', 'VIDA_BOSS', 'DANO_ATACANTE', 'DEFESA_PERSONAGEM',
+        'id', 'VIDA_BOSS', 'DANO_ATACANTE', 'DEFESA_PERSONAGEM',
         'TEMPO_RESPOSTA', 'NUMERO_FASE', 'NUMERO_RODADA', 'PERSONGAGEM_ATACOU', 'TIP0_ATAQUE'
     )
 
