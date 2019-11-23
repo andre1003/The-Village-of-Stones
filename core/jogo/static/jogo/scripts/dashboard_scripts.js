@@ -98,6 +98,7 @@ $.ajax({
             title: { text: undefined },
             xAxis: { title: { text: 'Fases' }, categories: [1, 2, 3, 4] },
             yAxis: { title: { text: 'Dano' }},
+            tooltip: { valueDecimals: 3, },
             legend: { align: 'center', verticalAlign: 'top', borderWidth: 0 },
             credits: { enabled: false },
             series: [
@@ -126,6 +127,7 @@ $.ajax({
             // title: { text: 'Média de dano causado' },
             xAxis: { title: { text: 'Fases' }, categories: [1, 2, 3, 4] },
             yAxis: { title: { text: 'Média de dano' }},
+            tooltip: { valueDecimals: 3, },
             legend: { align: 'center', verticalAlign: 'top', borderWidth: 0 },
             credits: { enabled: false },
             series: [
