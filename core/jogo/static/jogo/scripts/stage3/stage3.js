@@ -134,7 +134,6 @@ var stage3State = { // Objeto da Fase 3
 		this.ataque_basico_heroi = false;
 		this.ataque_magico_heroi = false;
 		this.ar = false;
-		this.cont_ar = 0;
 
 		// Atributos Monstro
 		this.vida_monstro = 30; 
@@ -366,7 +365,7 @@ var stage3State = { // Objeto da Fase 3
 				this.txt_ar.tint = 0x808080;	
 			}
 			else {
-				if(this.vida_heroi == 50) {
+				if(this.vida_heroi == 30) {
 					this.txt_ar.tint = 0x808080;	
 					this.txt_ar.inputEnabled = false;
 				}

@@ -78,10 +78,10 @@ var end2Stage4State = {
 			this.texto = game.add.text(240, 100, 'Qual vila que o herói mais justo de \n  HumanTown gostaria de salvar?', { font: "40px Montserrat bold", fill: "#fff"});
 			this.texto.stroke = '#000000';
     		this.texto.strokeThickness = 3;			
-			this.btn_humanos = game.add.button(game.world.centerX - 210, game.world.centerY + 30, 'btn_humanos', this.btnHumanosAction, this, 0, 0, 1);
+			this.btn_humanos = game.add.button(game.world.centerX - 230, game.world.centerY + 30, 'btn_humanos', this.btnHumanosAction, this, 0, 0, 1);
 			this.btn_humanos.smoothed = false;
 			this.btn_humanos.scale.setTo(3,3);
-			this.btn_monstros = game.add.button(game.world.centerX + 50, game.world.centerY + 30, 'btn_monstros', this.btnMonstrosAction, this, 0, 0, 1);
+			this.btn_monstros = game.add.button(game.world.centerX + 30, game.world.centerY + 30, 'btn_monstros', this.btnMonstrosAction, this, 0, 0, 1);
 			this.btn_monstros.smoothed = false;
 			this.btn_monstros.scale.setTo(3,3);
 		}

@@ -1,6 +1,7 @@
 var loadState = { // Objeto do Carregamento
 	preload: function(){
 		this.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
+		
 		// Inserindo o texto 'CARREGANDO'
 		var txt_carregando = game.add.text(game.world.centerX,150,'CARREGANDO...',{font:'25px pixel_arial_r',fill:'#fff'});
 		txt_carregando.anchor.set(.5);

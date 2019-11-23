@@ -150,7 +150,6 @@ var stage4State = { // Objeto da Fase 4
 		this.ataque_basico_heroi = false;
 		this.ataque_magico_heroi = false;
 		this.ar = false;
-		this.cont_ar = 0;
 
 		// Atributos Monstro
 		this.vida_monstro = 45;
@@ -391,7 +390,7 @@ var stage4State = { // Objeto da Fase 4
 				this.txt_ar.tint = 0x808080;	
 			}
 			else {
-				if(this.vida_heroi == 50) {
+				if(this.vida_heroi == 45) {
 					this.txt_ar.tint = 0x808080;	
 					this.txt_ar.inputEnabled = false;
 				}

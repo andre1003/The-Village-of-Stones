@@ -126,7 +126,6 @@ var stage1State = { // Objeto da Fase 1
 		this.ataque_basico = false;
 		this.ataque_magico = false;
 		this.ar = false;
-		this.cont_ar = 0;
 
 		// Atributos Monstro
 		this.vida_monstro = 30; 
@@ -352,7 +351,7 @@ var stage1State = { // Objeto da Fase 1
 				this.txt_ar.tint = 0x808080;	
 			}
 			else {
-				if(this.vida_heroi == 50) {
+				if(this.vida_heroi == 30) {
 					this.txt_ar.tint = 0x808080;	
 					this.txt_ar.inputEnabled = false;
 				}

@@ -2,12 +2,12 @@ var creditos2State = {
 	create: function() {
 		if(game.global.escolha_jogador == 0) { 
 			this.conteudo = [
-				"Salvar a vila do humanos."
+				"Salvar a vila dos humanos."
 			];
 		} 
 		else if(game.global.escolha_jogador == 1) {
 			this.conteudo = [
-				"Salvar a vila do monstros."
+				"Salvar a vila dos monstros."
 			];
 		}
 
