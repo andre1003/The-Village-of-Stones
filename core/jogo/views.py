@@ -37,8 +37,14 @@ def pre_cadastro(request):
     return render(request, 'jogo/pre-cadastro.html')
 
 
-def tutorial(request):
-    return render(request, 'jogo/tutorial.html')
+def tutorial(request, apelido):
+    try:
+        jogador = Jogador.objects.get(apelido=apelido)
+    except ObjectDoesNotExist:  # não encontrei o jogador no BD, redirecionar para o cadastro
+        messages.error('Jogador não cadastrando, efetue o cadastro')
+        return redirect('/cadastro_jogador')
+
+    return render(request, 'jogo/tutorial.html', {'jogador': jogador})
 
 
 def obrigado(request, apelido):
@@ -198,7 +204,7 @@ def index_jogo(request, apelido):
     return render(request, 'jogo/index_jogo.html', {'jogos': jogos, 'jogador': jogador})
 
 
-def novoJogo(request, id_jogador):
+def novoJogo(request, apelido):
     """
     --> Esta função cadastra um novo jogo no BD
     :param request: requisição do usuário
@@ -207,7 +213,7 @@ def novoJogo(request, id_jogador):
     """
     max_jogos = 4
     try:
-        jogador = Jogador.objects.get(id=id_jogador)
+        jogador = Jogador.objects.get(apelido=apelido)
     except ObjectDoesNotExist:
         return redirect('/cadastro_jogador')
 

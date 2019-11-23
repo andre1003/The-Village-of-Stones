@@ -8,7 +8,7 @@ urlpatterns = [
     # páginas simples
     path('', index, name='index'),  # apresentação do projeto
     path('sobre/', sobre, name='sobre'),
-    path('tutorial/', tutorial, name='tutorial'),
+    path('tutorial/<str:apelido>', tutorial, name='tutorial'),
     path('obrigado/<str:apelido>', obrigado, name='obrigado'),  # fim do jogo
 
     # páginas jogo
@@ -21,7 +21,7 @@ urlpatterns = [
     path('buscarJogos/', buscarJogos),
     path('index_jogo/<str:apelido>', index_jogo, name='index-jogos'),  # view onde o usr pode ver todos os seus jogos
     path('cadastro_jogador/', cadastro_novo_jogador, name='cadastrar-jogador'),  # cadastro novo jogador
-    path('novojogo/<int:id_jogador>', novoJogo, name='novo-jogo'),  # Cadastrar um novo jogo no Banco de dados
+    path('novojogo/<str:apelido>', novoJogo, name='novo-jogo'),  # Cadastrar um novo jogo no Banco de dados
 
     # pesquisar jogo
     path('pesquisar_jogo/', pesquisar_jogo, name='pesquisar_jogo'),  # Url para pesquisar jogos

@@ -2,60 +2,63 @@
 {% load static %}
 
 {% block body %}
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-lg-10 offset-lg-1 col-md-12">
-                <div class="dash-card">
-                    <div class="dash-card-header">
-                        <h4 class="pixel-title">Uma pequena introdução...</h4>
-                        <p>Esta seção é dedicada aos novos jogadores. Aqui explicaremos como as mecânicas do jogo funcionam com o objetivo de trazer uma melhor experiência para o jogador.</p>
-                        <p>Caso queira, você pode <a class="btn btn-outline-light" href="#btn-comecar-jogo"> pular o tutorial</a></p>
-                        <hr/>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-lg-10 offset-lg-1 col-md-12">
+            <div class="dash-card">
+                <div class="dash-card-header">
+                    <h4 class="pixel-title">Uma pequena introdução...</h4>
+                    <p>Esta seção é dedicada aos novos jogadores. Aqui explicaremos como as mecânicas do jogo funcionam com o objetivo de trazer uma melhor experiência para o jogador.</p>
+                    <p>Caso queira, você pode <a class="btn btn-outline-light" href="#btn-comecar-jogo"> pular o tutorial</a></p>
+                    <hr/>
+                </div>
+                <div class="dash-card-body">
+                    {% if jogadador == False %}
+                    <h5 class="title-item-dash">Como criar um novo jogo?</h5>
+                    <p class="text-justify">Após efetuar o cadastro do jogador ou pesquisar um apelido, você pode finalmente criar a sua partida para jogar! Para isso, basta clicar no botão verde, conforme pode ser observado na figura a seguir.</p>
+                    <img src="{% static 'jogo/img/tutorial/tutorial_novo_jogo.jpg' %}" alt="" class="img-fluid img-tutorial">
+                    {% endif %}
+
+                    <h5 class="title-item-dash">Como ver o resultado de um jogo?</h5>
+                    <p class="text-justify">Para acessar a <i>dashboard</i>, basta clicar no botão resultados. Ainda na mesma tela, é possível observar um botão de baixar CSV, esta opção permite extrair os dados armazenados do jogo em questão. Esta opção está disponível apenas para administradores.</p>
+                    <img src="{% static 'jogo/img/tutorial/tutorial_consultar_dashboard.jpg' %}" alt="" class="img-fluid img-tutorial">
+
+                    <h5 class="title-item-dash">Como o jogo funciona?</h5>
+                    <p class="text-justify">A partir desta seção, explicaremos um pouco sobre a mecânica do jogo.</p>
+                    <p><b>Turno:</b> Um turno, ou uma rodada, representa uma medida de ação. Dentro de uma rodada podem ser realizadas ações como atacar o oponente ou defender-se de um ataque. Vale destacar que o item de cura <b>(pedra do ar)</b> não consome uma rodada quando utilizada.</p>
+                    <p>A região destacada na imagem a seguir indica o valor da vida do personagem, do dano realizado e da defesa atualizados para aquele turno em questão. Durante o jogo os valores desta região estão sob constante mudança, sendo atualizados a cada ação.</p>
+                    <img src="{% static 'jogo/img/tutorial/player_HUD.jpg' %}" alt="" class="img-fluid img-tutorial">
+
+                    <p class="text-justify">A região destacada na figura a seguir demonstra a posição do identificador de status do jogo. O primeiro é um <b>contador de tempo, se chegar a 0, a rodada do personagem é consumida.</b> O segundo, é um <b>contador de turnos</b>, onde mostra quantos turnos já ocorreram</p>
+                    <img src="{% static 'jogo/img/tutorial/player_score.jpg' %}" alt="" class="img-fluid img-tutorial">
+
+                    <h5 class="title-item-dash">Como realizar um ataque?</h5>
+                    <p class="text-justify">Ao clicar no botão de <b>ataque</b> a "caixa" de tipos de ataque é aberta. Nela, é possível selecionar o tipo de ataque a ser realizado. O ataque <b>básico</b> produz menos dano que o <b>mágico</b>, porém a chance de acerto é maior. Esta ação consome o turno do personagem.</p>
+                    <img src="{% static 'jogo/img/tutorial/tutorial_atacar.jpg' %}" alt="" class="img-fluid img-tutorial">
+
+                    <h5 class="title-item-dash">Como me defender de um ataque?</h5>
+                    <p class="text-justify">Ao clicar na opção <b>defesa</b>, a rodada do personagem é consumida.</p>
+                    <img src="{% static 'jogo/img/tutorial/tutorial_defesa.jpg' %}" alt="" class="img-fluid img-tutorial">
+
+                    <h5 class="title-item-dash">Como usar um item?</h5>
+                    <p class="text-justify">Ao clicar na opção <b>pedra</b>, uma "caixa" é exibida. Existem dois tipos de items no jogo: ativos e passivos. Itens <b>ativos</b> são aqueles que o jogador precisa clicar para executar uma ação, por exemplo, para recuperar a vida do persongagem é preciso utilizar a pedra do ar. Já os itens <b>passivos</b> não dependem do jogador para serem ativados, quando equipamentos, estão sempre executando as duas ações.</p>
+                    <!--                        !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1 TROCAR IMG-->
+                    <img src="{% static 'jogo/img/tutorial/tutorial_defesa.jpg' %}" alt="" class="img-fluid img-tutorial">
+
+
+                    <p>Agora você está preparado para enfrentar os monstros! Clique no botão abaixo para jogar.</p>
+
+                    <div class="text-center">
+                        <a id="btn-comecar-jogo" href="{% url 'novo-jogo' jogador.apelido %}" class="btn btn-success">Começar o meu jogo!!!</a>
                     </div>
-                    <div class="dash-card-body">
-                        <h5 class="title-item-dash">Como criar um novo jogo?</h5>
-                        <p class="text-justify">Após efetuar o cadastro do jogador ou pesquisar um apelido, você pode finalmente criar a sua partida para jogar! Para isso, basta clicar no botão verde, conforme pode ser observado na figura a seguir.</p>
-                        <img src="{% static 'jogo/img/tutorial/tutorial_novo_jogo.jpg' %}" alt="" class="img-fluid img-tutorial">
 
-                        <h5 class="title-item-dash">Como ver o resultado de um jogo?</h5>
-                        <p class="text-justify">Para acessar a <i>dashboard</i>, basta clicar no botão resultados. Ainda na mesma tela, é possível observar um botão de baixar CSV, esta opção permite extrair os dados armazenados do jogo em questão. Esta opção está disponível apenas para administradores.</p>
-                        <img src="{% static 'jogo/img/tutorial/tutorial_consultar_dashboard.jpg' %}" alt="" class="img-fluid img-tutorial">
+                    <a id="subirTopo">
+                        ▲ <br> topo
+                    </a>
 
-                        <h5 class="title-item-dash">Como o jogo funciona?</h5>
-                        <p class="text-justify">A partir desta seção, explicaremos um pouco sobre a mecânica do jogo.</p>
-                        <p><b>Turno:</b> Um turno, ou uma rodada, representa uma medida de ação. Dentro de uma rodada podem ser realizadas ações como atacar o oponente ou defender-se de um ataque. Vale destacar que o item de cura <b>(pedra do ar)</b> não consome uma rodada quando utilizada.</p>
-                        <p>A região destacada na imagem a seguir indica o valor da vida do personagem, do dano realizado e da defesa atualizados para aquele turno em questão. Durante o jogo os valores desta região estão sob constante mudança, sendo atualizados a cada ação.</p>
-                        <img src="{% static 'jogo/img/tutorial/player_HUD.jpg' %}" alt="" class="img-fluid img-tutorial">
-
-                        <p class="text-justify">A região destacada na figura a seguir demonstra a posição do identificador de status do jogo. O primeiro é um <b>contador de tempo, se chegar a 0, a rodada do personagem é consumida.</b> O segundo, é um <b>contador de turnos</b>, onde mostra quantos turnos já ocorreram</p>
-                        <img src="{% static 'jogo/img/tutorial/player_score.jpg' %}" alt="" class="img-fluid img-tutorial">
-
-                        <h5 class="title-item-dash">Como realizar um ataque?</h5>
-                        <p class="text-justify">Ao clicar no botão de <b>ataque</b> a "caixa" de tipos de ataque é aberta. Nela, é possível selecionar o tipo de ataque a ser realizado. O ataque <b>básico</b> produz menos dano que o <b>mágico</b>, porém a chance de acerto é maior. Esta ação consome o turno do personagem.</p>
-                        <img src="{% static 'jogo/img/tutorial/tutorial_atacar.jpg' %}" alt="" class="img-fluid img-tutorial">
-
-                        <h5 class="title-item-dash">Como me defender de um ataque?</h5>
-                        <p class="text-justify">Ao clicar na opção <b>defesa</b>, a rodada do personagem é consumida.</p>
-                        <img src="{% static 'jogo/img/tutorial/tutorial_defesa.jpg' %}" alt="" class="img-fluid img-tutorial">
-
-                        <h5 class="title-item-dash">Como usar um item?</h5>
-                        <p class="text-justify">Ao clicar na opção <b>pedra</b>, uma "caixa" é exibida. Existem dois tipos de items no jogo: ativos e passivos. Itens <b>ativos</b> são aqueles que o jogador precisa clicar para executar uma ação, por exemplo, para recuperar a vida do persongagem é preciso utilizar a pedra do ar. Já os itens <b>passivos</b> não dependem do jogador para serem ativados, quando equipamentos, estão sempre executando as duas ações.</p>
-<!--                        !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1 TROCAR IMG-->
-                        <img src="{% static 'jogo/img/tutorial/tutorial_defesa.jpg' %}" alt="" class="img-fluid img-tutorial">
-
-
-                        <p>Agora você está preparado para enfrentar os monstros! Clique no botão abaixo para jogar.</p>
-                        <div class="text-center">
-                            <a id="btn-comecar-jogo" href="$" class="btn btn-success">Começar o meu jogo!!!</a>
-                        </div>
-
-                        <a id="subirTopo">
-                            ▲ <br> topo
-                        </a>
-
-                    </div>
                 </div>
             </div>
         </div>
     </div>
+</div>
 {% endblock %}
