@@ -14,14 +14,16 @@ var story2Screen4State = {
 	},
 
 	nextLine: function() {
-	    if (this.lineIndex === this.conteudo.length)
-	    {
-	        //  We're finished
-	        game.time.events.add(4400, function() {      
-	        	game.add.tween(this.texto).to({alpha: 0}, 1500, Phaser.Easing.Linear.None, true);
-	        }, this);
-	        game.time.events.add(6400, function() {game.state.start('story2_screen5');}, this);
-	        return;
+	    if (this.lineIndex === this.conteudo.length) {	
+	    	//  We're finished
+		    game.time.events.add(2500, function() {
+		        game.time.events.add(2000, function() {      
+		        	game.add.tween(this.texto).to({alpha: 0}, 1500, Phaser.Easing.Linear.None, true);
+		        }, this);
+		        game.time.events.add(4000, function() {game.state.start('story2_screen5');}, this);
+	        
+	    	}, this);
+	    	return;
 	    }
 
 	    //  Split the current line on spaces, so one word per array element

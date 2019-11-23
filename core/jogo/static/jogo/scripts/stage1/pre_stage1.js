@@ -67,7 +67,7 @@ var preStage1State = {
 	    }
 	    else {
 	        //  Wait 2 seconds then start a new line
-	        game.time.events.add(Phaser.Timer.SECOND * 2, this.nextLine, this);
+	        game.time.events.add(Phaser.Timer.SECOND * 3, this.nextLine, this);
 	    }
 	},
 
@@ -114,7 +114,7 @@ var preStage1State = {
 
 		this.content = [
 			"",
-		    "Parabéns, você conquistou a PEDRA DO AR.\nAo clicar em AR no botão PEDRA, você irá ganhar +2 vida.\nA PEDRA DO AR poderá ser utilizado a cada 3 rodadas."
+		    "Parabéns, você conquistou a PEDRA DO AR.\nAo clicar em AR no botão PEDRA, você irá ganhar +2 vida.\nA PEDRA DO AR poderá ser utilizada a cada 3 rodadas."
 		];
 
 	    this.index = 0;

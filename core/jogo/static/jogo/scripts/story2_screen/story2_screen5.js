@@ -18,20 +18,17 @@ var story2Screen5State = {
 	},
 
 	nextLine: function() {
-	    if (this.lineIndex === this.conteudo.length)
-	    {
-	        //  We're finished
-	        game.time.events.add(4400, function() {
-	        	game.sound.volume = .2;      
-	        	game.add.tween(this.fundo).to({alpha: 0}, 1500, Phaser.Easing.Linear.None, true);
-	        	game.add.tween(this.texto).to({alpha: 0}, 1500, Phaser.Easing.Linear.None, true);
-	        }, this);
-	       
-	        game.time.events.add(6400, function() {
-	        	game.sound.stopAll();  
-	        	game.state.start('end2_stage4');
-	        }, this);
-	        return;
+	    if (this.lineIndex === this.conteudo.length) {	
+	    	//  We're finished
+		    game.time.events.add(2500, function() {
+		        game.time.events.add(2000, function() {      
+		        	game.add.tween(this.fundo).to({alpha: 0}, 1500, Phaser.Easing.Linear.None, true);
+		        	game.add.tween(this.texto).to({alpha: 0}, 1500, Phaser.Easing.Linear.None, true);
+		        }, this);
+		        game.time.events.add(4000, function() {game.state.start('end2_stage4');}, this);
+	        
+	    	}, this);
+	    	return;
 	    }
 
 	    //  Split the current line on spaces, so one word per array element

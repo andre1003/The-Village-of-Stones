@@ -1,14 +1,13 @@
 var story2Screen1State = {
 	create: function() {
 		this.musica_intro_historia = game.add.audio('musica_intro_historia');
-		this.musica_intro_historia.loop = true;
 		this.musica_intro_historia.volume = .5;
 		this.musica_intro_historia.play();
 
 		this.conteudo = [
 			"Há muitos e muitos anos existia uma colina sem vida...",
 			"Onde a terra era desnutrida, o ar era seco, o fogo era indomável e a água nem se quer existia.",
-			"Tais condições impediam que uma vila de humanos prosperasse em um local tão inóspito."
+			"Tais condições impediam que uma vila de monstros prosperasse em um local tão inóspito."
 		];
 
 		this.line = [];
@@ -25,15 +24,17 @@ var story2Screen1State = {
 	},
 
 	nextLine: function() {
-	    if (this.lineIndex === this.conteudo.length)
-	    {
-	        //  We're finished
-	        game.time.events.add(4400, function() {      
-	        	game.add.tween(this.fundo).to({alpha: 0}, 1500, Phaser.Easing.Linear.None, true);
-	        	game.add.tween(this.texto).to({alpha: 0}, 1500, Phaser.Easing.Linear.None, true);
-	        }, this);
-	        game.time.events.add(6400, function() {game.state.start('story2_screen2');}, this);
-	        return;
+	    if (this.lineIndex === this.conteudo.length) {	
+	    	//  We're finished
+		    game.time.events.add(2500, function() {
+		        game.time.events.add(2000, function() {      
+		        	game.add.tween(this.fundo).to({alpha: 0}, 1500, Phaser.Easing.Linear.None, true);
+		        	game.add.tween(this.texto).to({alpha: 0}, 1500, Phaser.Easing.Linear.None, true);
+		        }, this);
+		        game.time.events.add(4000, function() {game.state.start('story2_screen2');}, this);
+	        
+	    	}, this);
+	    	return;
 	    }
 
 	    //  Split the current line on spaces, so one word per array element

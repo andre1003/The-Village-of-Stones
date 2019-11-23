@@ -58,7 +58,7 @@ var preStage4State = {
 	    }
 	    else {
 	        //  Wait 2 seconds then start a new line
-	        game.time.events.add(Phaser.Timer.SECOND * 2, this.nextLine, this);
+	        game.time.events.add(Phaser.Timer.SECOND * 3, this.nextLine, this);
 	    }
 	},
 

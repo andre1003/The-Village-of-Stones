@@ -1,7 +1,6 @@
 var story1Screen1State = {
 	create: function() {
 		this.musica_intro_historia = game.add.audio('musica_intro_historia');
-		this.musica_intro_historia.loop = true;
 		this.musica_intro_historia.volume = .5;
 		this.musica_intro_historia.play();
 

@@ -45,7 +45,7 @@ var preStage2State = {
 		    "Herói: Parado aí...",
 		    "Zayin: ...",
 		    "Zayin: Pois não?",
-		    "Herói: Você sabe do que estou falando, você é um dos \nmonstro que roubar..."
+		    "Herói: Você sabe do que estou falando, você é um dos \nmonstro quer roubar..."
 		];
 
 		this.index = 0;
@@ -61,7 +61,7 @@ var preStage2State = {
 	    }
 	    else {
 	        //  Wait 2 seconds then start a new line
-	        game.time.events.add(Phaser.Timer.SECOND * 2, this.nextLine, this);
+	        game.time.events.add(Phaser.Timer.SECOND * 3, this.nextLine, this);
 	    }
 	},
 
