@@ -137,7 +137,7 @@ $.ajax({
                     data['vida_restante_jogo'][2],
                     data['vida_restante_jogo'][3],
                     ],
-                    color: '#FF4D43' },
+                    color: '#2AF598' },
                 // { name: 'Boss', data: [2, 2, 3, 2], color: '#08AEEA' }
             ],
         });
