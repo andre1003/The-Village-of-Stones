@@ -355,7 +355,7 @@ def dashboard(request, apelido, uuid_jogo):
         return redirect(f'/index_jogo/{apelido}')
 
 
-    jogos = jogo.pk_rodada.order_by('numero_rodada')
+    jogos = jogo.pk_rodada.order_by('tempo_rodada')
     data = {
         'jogos': jogos,
         'jogador': jogador,

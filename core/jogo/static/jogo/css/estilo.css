@@ -86,6 +86,10 @@ html, body {
     color: rgba(255, 255, 255, 0.8) !important;
 }
 
+.bg-red-soft {
+    background-color: rgba(220, 53, 69, .3) !important;
+}
+
 form label, form input {
     font-size: 1.2rem;
 }

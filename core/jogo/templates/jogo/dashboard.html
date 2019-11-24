@@ -146,26 +146,30 @@
                                                     Ops! parece que o(a) {{ jogador.apelido }} não começou essa fase...
                                                 </td>
                                             </tr>
-
                                             {% else %}
-                                            {% for j in jogos %}
-                                            {% if j.numero_fase == 1 %}
-                                            <tr>
-                                                <th scope="row">{{j.numero_rodada}}</th>
-                                                <td>{{ j.vida_personagem }}</td>
-                                                <td>{{ j.vida_boss }}</td>
-                                                <td>{{ j.dano_atacante }}</td>
-                                                <td>{{ j.tempo_resposta }}</td>
-                                                <td>
-                                                    {% if j.personagem_atacou %}
-                                                    Vez do Herói
-                                                    {% else %}
-                                                    Ação do inimigo
+                                                {% for j in jogos %}
+                                                    {% if j.numero_fase == 1 %}
+                                                        {% if j.vida_personagem == 0 or j.vida_boss == 0 %}
+                                                            <tr class="bg-red-soft">
+                                                        {% else %}
+                                                            <tr>
+                                                        {% endif %}
+
+                                                        <th scope="row">{{j.numero_rodada}}</th>
+                                                        <td>{{ j.vida_personagem }}</td>
+                                                        <td>{{ j.vida_boss }}</td>
+                                                        <td>{{ j.dano_atacante }}</td>
+                                                        <td>{{ j.tempo_resposta }}</td>
+                                                        <td>
+                                                            {% if j.personagem_atacou %}
+                                                            Vez do Herói
+                                                            {% else %}
+                                                            Ação do inimigo
+                                                            {% endif %}
+                                                        </td>
+                                                    </tr>
                                                     {% endif %}
-                                                </td>
-                                            </tr>
-                                            {% endif %}
-                                            {% endfor %}
+                                                {% endfor %}
                                             {% endif %}
                                             </tbody>
                                         </table>
