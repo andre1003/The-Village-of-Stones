@@ -196,25 +196,26 @@
                                             </tr>
 
                                             {% else %}
-                                            {% for j in jogos %}
-                                            {% if j.numero_fase == 2 %}
-                                            <tr>
-                                                <th scope="row">{{j.numero_rodada}}</th>
-                                                <td>{{ j.vida_personagem }}</td>
-                                                <td>{{ j.vida_boss }}</td>
-                                                <td>{{ j.dano_atacante }}</td>
-                                                <td>{{ j.tempo_resposta }}</td>
-                                                <td>
-                                                    {% if j.personagem_atacou %}
-                                                    Vez do Herói
-                                                    {% else %}
-                                                    Ação do inimigo
+                                                {% for j in jogos %}
+                                                    {% if j.numero_fase == 2 %}
+                                                    <tr>
+                                                        <th scope="row">{{j.numero_rodada}}</th>
+                                                        <td>{{ j.vida_personagem }}</td>
+                                                        <td>{{ j.vida_boss }}</td>
+                                                        <td>{{ j.dano_atacante }}</td>
+                                                        <td>{{ j.tempo_resposta }}</td>
+                                                        <td>
+                                                            {% if j.personagem_atacou %}
+                                                            Vez do Herói
+                                                            {% else %}
+                                                            Ação do inimigo
+                                                            {% endif %}
+                                                        </td>
+                                                    </tr>
                                                     {% endif %}
-                                                </td>
-                                            </tr>
+                                                {% endfor %}
                                             {% endif %}
-                                            {% endfor %}
-                                            {% endif %}
+
                                             </tbody>
                                         </table>
                                     </div>
