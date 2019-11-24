@@ -15,6 +15,8 @@ class JogoAdmin(admin.ModelAdmin):
     # readonly_fields = ('id', 'id_jogo')
     list_display = ('PK', 'UUID_JOGO', 'DATA', 'SALVOU_HUMANTOWN')
     filter_horizontal = ('pk_rodada',)
+    list_filter = ('escolha_final','data_jogo','total_mortes')
+    search_fields = ('id_jogo',)
     # search_fields = ('id', 'id_jogo',)  # Barra de pesquisa por id (pk), uuid
     # readonly_fields = ('id', 'id_jogo', 'data_jogo', 'total_mortes', 'escolha_final')
     # fields = ('id', 'id_jogo', 'data_jogo', 'total_mortes', 'escolha_final')
@@ -43,7 +45,8 @@ class JogoAdmin(admin.ModelAdmin):
 
 
 class JogadorAdmin(admin.ModelAdmin):  # Paulo fazendo cagada
-    list_display = ('APELIDO', 'SEXO', 'JOGOU')
+    list_display = ('APELIDO', 'SEXO', 'DATA_CADASTRO', 'DATA_NASCIMENTO')
+    list_filter = ('genero',)
     filter_horizontal = ('pk_jogos',)
     search_fields = ('apelido',)
     # readonly_fields = ('id', 'nome_completo', 'data_nascimento', 'genero',)
@@ -69,14 +72,21 @@ class JogadorAdmin(admin.ModelAdmin):  # Paulo fazendo cagada
         else:
             return False
 
+    def DATA_CADASTRO(self, obj):
+        return obj.data_cadastro
+
+    def DATA_NASCIMENTO(self, obj):
+        return obj.data_nascimento
+
     JOGOU.boolean = True
 
 
 class RodadasAdmin(ExportActionMixin, admin.ModelAdmin):
     list_display = (
-        'id', 'VIDA_BOSS', 'DANO_ATACANTE', 'DEFESA_PERSONAGEM',
+        'id', 'VIDA_BOSS', 'DANO_ATACANTE', 'DEFESA',
         'TEMPO_RESPOSTA', 'NUMERO_FASE', 'NUMERO_RODADA', 'PERSONGAGEM_ATACOU', 'TIP0_ATAQUE'
     )
+    list_filter = ('numero_fase', 'personagem_atacou', 'tipo_ataque',)
 
     def VIDA_PERSONAGEM(self, obj):
         return  obj.vida_personagem
@@ -87,7 +97,7 @@ class RodadasAdmin(ExportActionMixin, admin.ModelAdmin):
     def DANO_ATACANTE(self, obj):
         return  obj.dano_atacante
 
-    def DEFESA_PERSONAGEM(self, obj):
+    def DEFESA(self, obj):
         return  obj.defesa_personagem
 
     def NUMERO_RODADA(self, obj):
