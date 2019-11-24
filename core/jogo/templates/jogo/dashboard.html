@@ -147,29 +147,29 @@
                                                 </td>
                                             </tr>
                                             {% else %}
-                                                {% for j in jogos %}
-                                                    {% if j.numero_fase == 1 %}
-                                                        {% if j.vida_personagem == 0 or j.vida_boss == 0 %}
-                                                            <tr class="bg-red-soft">
-                                                        {% else %}
-                                                            <tr>
-                                                        {% endif %}
+                                            {% for j in jogos %}
+                                            {% if j.numero_fase == 1 %}
+                                            {% if j.vida_personagem == 0 or j.vida_boss == 0 %}
+                                            <tr class="bg-red-soft">
+                                                {% else %}
+                                            <tr>
+                                                {% endif %}
 
-                                                        <th scope="row">{{j.numero_rodada}}</th>
-                                                        <td>{{ j.vida_personagem }}</td>
-                                                        <td>{{ j.vida_boss }}</td>
-                                                        <td>{{ j.dano_atacante }}</td>
-                                                        <td>{{ j.tempo_resposta }}</td>
-                                                        <td>
-                                                            {% if j.personagem_atacou %}
-                                                            Vez do Herói
-                                                            {% else %}
-                                                            Ação do inimigo
-                                                            {% endif %}
-                                                        </td>
-                                                    </tr>
+                                                <th scope="row">{{j.numero_rodada}}</th>
+                                                <td>{{ j.vida_personagem }}</td>
+                                                <td>{{ j.vida_boss }}</td>
+                                                <td>{{ j.dano_atacante }}</td>
+                                                <td>{{ j.tempo_resposta }}</td>
+                                                <td>
+                                                    {% if j.personagem_atacou %}
+                                                    Vez do Herói
+                                                    {% else %}
+                                                    Ação do inimigo
                                                     {% endif %}
-                                                {% endfor %}
+                                                </td>
+                                            </tr>
+                                            {% endif %}
+                                            {% endfor %}
                                             {% endif %}
                                             </tbody>
                                         </table>
@@ -200,24 +200,29 @@
                                             </tr>
 
                                             {% else %}
-                                                {% for j in jogos %}
-                                                    {% if j.numero_fase == 2 %}
-                                                    <tr>
-                                                        <th scope="row">{{j.numero_rodada}}</th>
-                                                        <td>{{ j.vida_personagem }}</td>
-                                                        <td>{{ j.vida_boss }}</td>
-                                                        <td>{{ j.dano_atacante }}</td>
-                                                        <td>{{ j.tempo_resposta }}</td>
-                                                        <td>
-                                                            {% if j.personagem_atacou %}
-                                                            Vez do Herói
-                                                            {% else %}
-                                                            Ação do inimigo
-                                                            {% endif %}
-                                                        </td>
-                                                    </tr>
+                                            {% for j in jogos %}
+                                            {% if j.numero_fase == 2 %}
+                                            {% if j.vida_personagem == 0 or j.vida_boss == 0 %}
+                                            <tr class="bg-red-soft">
+                                                {% else %}
+                                            <tr>
+                                                {% endif %}
+
+                                                <th scope="row">{{j.numero_rodada}}</th>
+                                                <td>{{ j.vida_personagem }}</td>
+                                                <td>{{ j.vida_boss }}</td>
+                                                <td>{{ j.dano_atacante }}</td>
+                                                <td>{{ j.tempo_resposta }}</td>
+                                                <td>
+                                                    {% if j.personagem_atacou %}
+                                                    Vez do Herói
+                                                    {% else %}
+                                                    Ação do inimigo
                                                     {% endif %}
-                                                {% endfor %}
+                                                </td>
+                                            </tr>
+                                            {% endif %}
+                                            {% endfor %}
                                             {% endif %}
 
                                             </tbody>
@@ -250,7 +255,12 @@
                                             {% else %}
                                             {% for j in jogos %}
                                             {% if j.numero_fase == 3 %}
+                                            {% if j.vida_personagem == 0 or j.vida_boss == 0 %}
+                                            <tr class="bg-red-soft">
+                                                {% else %}
                                             <tr>
+                                                {% endif %}
+
                                                 <th scope="row">{{j.numero_rodada}}</th>
                                                 <td>{{ j.vida_personagem }}</td>
                                                 <td>{{ j.vida_boss }}</td>
@@ -297,7 +307,12 @@
                                             {% else %}
                                             {% for j in jogos %}
                                             {% if j.numero_fase == 4 %}
+                                            {% if j.vida_personagem == 0 or j.vida_boss == 0 %}
+                                            <tr class="bg-red-soft">
+                                                {% else %}
                                             <tr>
+                                                {% endif %}
+
                                                 <th scope="row">{{j.numero_rodada}}</th>
                                                 <td>{{ j.vida_personagem }}</td>
                                                 <td>{{ j.vida_boss }}</td>
