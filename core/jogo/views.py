@@ -384,8 +384,8 @@ def get_vida_restante_jogo(rodadas):
 
     for rodada in rodadas:
         if rodada.vida_personagem != 0 and rodada.vida_boss == 0:
+            lvl = rodada.numero_fase
             lista[lvl] = rodada.vida_personagem
-            lvl += 1
 
     return lista
 
