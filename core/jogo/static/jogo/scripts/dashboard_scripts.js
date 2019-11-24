@@ -126,19 +126,19 @@ $.ajax({
             title: { text: undefined },
             // title: { text: 'Média de dano causado' },
             xAxis: { title: { text: 'Fases' }, categories: [1, 2, 3, 4] },
-            yAxis: { title: { text: 'Média de dano' }},
+            yAxis: { title: { text: 'Vida restante' }},
             tooltip: { valueDecimals: 3, },
             legend: { align: 'center', verticalAlign: 'top', borderWidth: 0 },
             credits: { enabled: false },
             series: [
                 { name: 'Herói', data: [
-                    data['media_dano_jogos'][1],
-                    data['media_dano_jogos'][2],
-                    data['media_dano_jogos'][3],
-                    data['media_dano_jogos'][4],
+                    data['vida_restante_jogo'][0],
+                    data['vida_restante_jogo'][1],
+                    data['vida_restante_jogo'][2],
+                    data['vida_restante_jogo'][3],
                     ],
                     color: '#FF4D43' },
-                { name: 'Boss', data: [2, 2, 3, 2], color: '#08AEEA' }
+                // { name: 'Boss', data: [2, 2, 3, 2], color: '#08AEEA' }
             ],
         });
 

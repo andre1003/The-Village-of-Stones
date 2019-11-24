@@ -377,6 +377,16 @@ def conta_rodada_jogos(jogos, rodada):
             cont += 1
     return cont
 
+def get_vida_restante_jogo(rodadas):
+    lvl = 0
+    lista = [0, 0, 0, 0]
+
+    for rodada in rodadas:
+        if rodada.vida_personagem != 0 and rodada.vida_boss == 0:
+            lista[lvl] = rodada.vida_personagem
+
+    return lista
+
 def dashboard_obterDados(request):
     """
     --> Esta função prepara o JSON que irá preencher os gráficos da seção de dashboard
@@ -401,11 +411,14 @@ def dashboard_obterDados(request):
             taxa_vitoria_derrota = 0
 
         media_dano_jogos = get_media_dano_jogos(jogo)
+        vida_restante_jogo = get_vida_restante_jogo(jogo.pk_rodada.order_by('numero_rodada'))
+
         mediaGeral = getMediaJogosGeral()
 
         data = {
             'dano_total_causado': dano_total,
             'perc_vit_derrota': taxa_vitoria_derrota,
+            'vida_restante_jogo': vida_restante_jogo,
             'media_dano_jogos': media_dano_jogos,
             'mediaGeral': mediaGeral,
         }
