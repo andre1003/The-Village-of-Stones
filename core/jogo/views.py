@@ -249,8 +249,8 @@ def get_dano_total_causado(rodadas):
     for rodada in rodadas:
         if rodada.numero_fase != level:
             # prox level, incrementar level e salvar as listas
-            cont += 1
-            level += 1
+            cont = rodada.numero_fase
+            level = rodada.numero_fase
 
         if rodada.personagem_atacou:
             lista['contAtaqueFase'][cont - 1] += 1
