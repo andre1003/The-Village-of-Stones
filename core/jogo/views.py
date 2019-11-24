@@ -393,7 +393,7 @@ def dashboard_obterDados(request):
         rodadas = jogo.pk_rodada.all()
 
         # pegando os dados
-        dano_total = get_dano_total_causado(jogo.pk_rodada.all()[:20])
+        dano_total = get_dano_total_causado(jogo.pk_rodada.order_by('numero_rodada'))
 
         if jogo.total_tentativas != 0:
             taxa_vitoria_derrota = (jogo.total_mortes / jogo.total_tentativas) * 100
