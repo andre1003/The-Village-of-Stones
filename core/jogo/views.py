@@ -305,7 +305,7 @@ def getMediaJogosGeral():
 
     for jogador in jogadores: # Percorre os jogadores
         for jogo in jogador.pk_jogos.all(): # Percorre os jogos de cada jogador
-            soma = get_dano_total_causado(jogo.pk_rodada.all()) # Calcula o somatório do dano de cada fase
+            soma = get_dano_total_causado(jogo.pk_rodada.order_by('numero_fase')) # Calcula o somatório do dano de cada fase
             for i in range(1, 5): # Salva os dados de dano e número de ataques
                 mediaGeral[i] += soma['heroi'][i]
                 contAtaqueFases[i - 1] += soma['contAtaqueFase'][i - 1]
