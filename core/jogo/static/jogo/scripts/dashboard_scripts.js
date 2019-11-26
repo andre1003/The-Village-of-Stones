@@ -102,7 +102,9 @@ $.ajax({
             legend: { align: 'center', verticalAlign: 'top', borderWidth: 0 },
             credits: { enabled: false },
             series: [
-                { name: 'Herói',
+                {
+                    // name: 'Herói',
+                    name: apelido_jogador,
                     data: [
                         data['media_dano_jogos'][1],
                         data['media_dano_jogos'][2],
@@ -131,11 +133,14 @@ $.ajax({
             legend: { align: 'center', verticalAlign: 'top', borderWidth: 0 },
             credits: { enabled: false },
             series: [
-                { name: 'Herói', data: [
-                    data['vida_restante_jogo'][0],
-                    data['vida_restante_jogo'][1],
-                    data['vida_restante_jogo'][2],
-                    data['vida_restante_jogo'][3],
+                {
+                    //name: 'Herói',
+                    showInLegend: false,
+                    data: [
+                        data['vida_restante_jogo'][0],
+                        data['vida_restante_jogo'][1],
+                        data['vida_restante_jogo'][2],
+                        data['vida_restante_jogo'][3],
                     ],
                     color: '#2AF598' },
                 // { name: 'Boss', data: [2, 2, 3, 2], color: '#08AEEA' }
