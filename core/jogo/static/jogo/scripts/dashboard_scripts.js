@@ -134,7 +134,7 @@ $.ajax({
             credits: { enabled: false },
             series: [
                 {
-                    //name: 'Herói',
+                    name: 'Vida',
                     showInLegend: false,
                     data: [
                         data['vida_restante_jogo'][0],
