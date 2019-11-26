@@ -30,7 +30,7 @@ var preStage2State = {
 		this.monstro.body.collideWorldBounds = true;
 		this.monstro.animations.add('stop',[0,1],2,true);
 		this.monstro.animations.add('atacar',[2,3,4,5,6,7],7,true);
-		
+
 		// Iniciando as animações iniciais
     	this.cenario.animations.play('stop');
 		this.heroi.animations.play('stop');
@@ -45,7 +45,7 @@ var preStage2State = {
 		    "Herói: Parado aí...",
 		    "Zayin: ...",
 		    "Zayin: Pois não?",
-		    "Herói: Você sabe do que estou falando, você é um dos \nmonstro quer roubar..."
+		    "Herói: Você sabe do que estou falando, você é um dos \nmonstros que quer roubar..."
 		];
 
 		this.index = 0;

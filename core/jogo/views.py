@@ -298,7 +298,7 @@ def getMediaJogosGeral():
     :return:
     """
 
-    jogadores = Jogador.objects.all()[:20] # Obtém todos os jogadores
+    jogadores = Jogador.objects.all() # Obtém todos os jogadores
     mediaGeral = {1: 0, 2: 0, 3: 0, 4: 0} # Média geral de todos os jogadores
     mediaJogadores = dict() # Dicinário auxiliar para ajudar no cálculo da média
     contAtaqueFases = [0, 0, 0, 0] # Salva o contador de vezes que cada jogador atacou em cada fase
