@@ -4,9 +4,9 @@ Este projeto foi proposto na disciplina de Probabilidade e Estatística. Conceit
 
 ## Bibliotecas utilizadas
 
-* [Django 2.2.5](https://www.djangoproject.com/) - The web framework used
-* [Phaser v.2](https://phaser.io/) - Dependency Management
-* [Bootstrap v4.4.1](https://getbootstrap.com/) - Used to generate RSS Feeds 
+* [Django 2.2.5](https://www.djangoproject.com/) - Framework Python para Web
+* [Phaser v.2](https://phaser.io/) - Framework HTML5 de jogos
+* [Bootstrap v4.4.1](https://getbootstrap.com/) - Framework CSS 
 
 ## Autores
 * Leandro Marcos da Silva [Facebook](https://www.facebook.com/silvamleandro) - [Linkedin](https://www.linkedin.com/in/silvamleandro)
