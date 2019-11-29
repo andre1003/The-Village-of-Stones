@@ -34,10 +34,21 @@ def index(request):
 
 
 def pre_cadastro(request):
+    """
+    --> Esta função renderiza a página anterior ao cadastro do jogador
+    :param request: requisição do usuário
+    :return: renderiza pre-cadastro.html
+    """
     return render(request, 'jogo/pre-cadastro.html')
 
 
 def tutorial(request, apelido):
+    """
+    --> Esta função renderiza a página de tutorial
+    :param request: requisição do usuário
+    :param apelido: apelido do jogador
+    :return: renderiza a página de tutorial
+    """
     try:
         jogador = Jogador.objects.get(apelido=apelido)
     except ObjectDoesNotExist:  # não encontrei o jogador no BD, redirecionar para o cadastro
@@ -48,6 +59,12 @@ def tutorial(request, apelido):
 
 
 def obrigado(request, apelido):
+    """
+    --> Esta função renderiza a página obrigado.html
+    :param request: requisição do usuário
+    :param apelido: apelido pra procurar no BD
+    :return: renderiza a página obrigado.html
+    """
     try:
         jogador = Jogador.objects.get(apelido=apelido)
     except ObjectDoesNotExist:  # não encontrei o jogador no BD, redirecionar para o cadastro
@@ -235,8 +252,6 @@ def novoJogo(request, apelido):
 #     Dashboard section     #
 #############################
 
-
-
 def get_dano_total_causado(rodadas):
     lista = {
         'heroi': {1: 0, 2: 0, 3: 0, 4: 0},
@@ -265,8 +280,6 @@ def get_media_dano_jogos(jogo):
     aux_level = 1
     i = 0
 
-
-
     for rodada in jogo.pk_rodada.all():
         if rodada.numero_fase != aux_level:
             if i != 0:
@@ -294,10 +307,8 @@ def getMediaJogosGeral():
     Dessa forma, ela  percorre cada jogo de cada jogador obtendo a somatória
     total de dano. No final, essa somatória é dividida pelo número de vezes
     que foi chamada.
-    :return:
-    :return:
+    :return: Media geral de todos o jogos
     """
-
     jogadores = Jogador.objects.all() # Obtém todos os jogadores
     mediaGeral = {1: 0, 2: 0, 3: 0, 4: 0} # Média geral de todos os jogadores
     mediaJogadores = dict() # Dicinário auxiliar para ajudar no cálculo da média
@@ -329,7 +340,6 @@ def dashboard(request, apelido, uuid_jogo):
     :param uuid: identificador uuid do jogo (utilizado para consulta)
     :return: retorna a renderização da página em questão
     """
-
     try:
         # existe o jogo, verificando se o usuário pertence a este nome
         jogador = Jogador.objects.get(apelido=apelido)
@@ -354,7 +364,6 @@ def dashboard(request, apelido, uuid_jogo):
     except ValidationError:
         return redirect(f'/index_jogo/{apelido}')
 
-
     jogos = jogo.pk_rodada.order_by('tempo_rodada')
     data = {
         'jogos': jogos,
@@ -371,6 +380,12 @@ def dashboard(request, apelido, uuid_jogo):
 
 
 def conta_rodada_jogos(jogos, rodada):
+    """
+    --> Esta função conta o número de turnos naquela rodada passada por parâmetro
+    :param jogos: lista de jogos
+    :param rodada: rodada a ser contada
+    :return: retorna o número de vezes que a rodada está na lista
+    """
     cont = 0
     for j in jogos:
         if j.numero_fase == rodada:
@@ -379,6 +394,11 @@ def conta_rodada_jogos(jogos, rodada):
 
 
 def get_vida_restante_jogo(rodadas):
+    """
+    --> Auxilia na dashboard, esta função retorna a vida restante em cada rodada do jogador
+    :param rodadas: lista de rodadas
+    :return: lista contendo a vida em cada uma das rodadas
+    """
     lvl = 0
     lista = [0, 0, 0, 0]
 
@@ -528,6 +548,13 @@ def pesquisar_jogo(request):
 
 
 def somar_morte(request, apelido, uuid_jogo):
+    """
+    --> Salva a morte do jogador no BD
+    :param request: requisição do jogador
+    :param apelido: apelido a ser buscado
+    :param uuid_jogo: identificador do jogo
+    :return: 200 OK - Status se tudo tiver ocorrindo bem (salvo no BD)
+    """
     if request.method == 'PATCH':
         # existe o jogo, verificando se o usuário pertence a este nome
         try:
@@ -560,6 +587,13 @@ def somar_morte(request, apelido, uuid_jogo):
 
 
 def somar_tentativa(request, apelido, uuid_jogo):
+    """
+    --> Esta função soma um valor na tentativa do jogador
+    :param request: requisição do jogador
+    :param apelido: apelido do jogador
+    :param uuid_jogo: id do jogo
+    :return: returna 200 OK se tudo tiver ocorrido bem
+    """
     if request.method == 'POST':
         # existe o jogo, verificando se o usuário pertence a este nome
         # try:
@@ -592,6 +626,13 @@ def somar_tentativa(request, apelido, uuid_jogo):
 
 
 def change_escolha_final(request, apelido, uuid_jogo):
+    """
+    --> Salva a escolha final (boolean) do jogador no BD
+    :param request: requisição do jogador
+    :param apelido: apelido do jogador
+    :param uuid_jogo: identificador do jogo
+    :return: 200 OK - Se a mudança foi salva no BD
+    """
     if request.method == 'POST':
         # existe o jogo, verificando se o usuário pertence a este nome
         try:
