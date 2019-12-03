@@ -1,6 +1,7 @@
 var game = new Phaser.Game(1200,600,Phaser.AUTO, 'game-section');
 
 game.global = {
+	marca_morte: 0,
 	fase_concluida: 0,
 	escolha_jogador: -1
 };

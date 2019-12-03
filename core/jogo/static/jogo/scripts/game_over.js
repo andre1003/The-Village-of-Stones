@@ -5,6 +5,8 @@ var gameOverState = {
 		musica.volume = .5;
 		musica.play();
 
+		game.global.marca_morte = 1; // Marcando que o jogador morreu
+
 		this.cenario = game.add.sprite(0,0,'game_over');
 		this.cenario.smoothed = false;
 		this.cenario.scale.setTo(5,5);

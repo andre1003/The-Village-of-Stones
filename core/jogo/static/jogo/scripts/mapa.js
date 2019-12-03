@@ -48,14 +48,38 @@ var mapaState = {
 		game.time.events.add(2000, function() {
 	    	this.musica_mapa.stop();
 
-	    	if(game.global.fase_concluida == 0)  
-	    		game.state.start('pre_stage1'); // Inicializando o estado da pré-fase 1
-			else if(game.global.fase_concluida == 1)
-				game.state.start('pre_stage2'); // Inicializando o estado da pré-fase 2
-			else if(game.global.fase_concluida == 2)
-				game.state.start('pre_stage3'); // Inicializando o estado da pré-fase 3
-			else if(game.global.fase_concluida == 3)
-				game.state.start('pre_stage4'); // Inicializando o estado da pré-fase 4
+	    	if(game.global.fase_concluida == 0) {
+	    		if(game.global.marca_morte == 1) {
+	    			game.global.marca_morte = 0; // Marcador de morte igual a 0
+	    			game.state.start('stage1'); // Inicializando o estado da fase 1
+	    		}
+	    		else
+	    			game.state.start('pre_stage1'); // Inicializando o estado da pré-fase 1
+	    	}
+			else if(game.global.fase_concluida == 1) {
+	    		if(game.global.marca_morte == 1) {
+	    			game.global.marca_morte = 0; // Marcador de morte igual a 0
+	    			game.state.start('stage2'); // Inicializando o estado da fase 2
+	    		}
+	    		else
+	    			game.state.start('pre_stage2'); // Inicializando o estado da pré-fase 2
+			}
+			else if(game.global.fase_concluida == 2) {
+	    		if(game.global.marca_morte == 1) {
+	    			game.global.marca_morte = 0; // Marcador de morte igual a 0
+	    			game.state.start('stage3'); // Inicializando o estado da fase 3
+	    		}
+	    		else
+	    			game.state.start('pre_stage3'); // Inicializando o estado da pré-fase 3
+			}
+			else if(game.global.fase_concluida == 3) {
+	    		if(game.global.marca_morte == 1) {
+	    			game.global.marca_morte = 0; // Marcador de morte igual a 0
+	    			game.state.start('stage4'); // Inicializando o estado da fase 4
+	    		}
+	    		else
+	    			game.state.start('pre_stage4'); // Inicializando o estado da pré-fase 4
+			}
 	    }, this);
 	}
 };
