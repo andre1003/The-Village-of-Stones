@@ -11,7 +11,7 @@ admin.site.site_header = 'Administração The Village of Stones'
 
 # https://developer.mozilla.org/pt-BR/docs/Learn/Server-side/Django/Admin_site
 # https://docs.djangoproject.com/en/2.2/ref/contrib/admin/
-class JogoAdmin(admin.ModelAdmin):
+class JogoAdmin(ExportActionMixin, admin.ModelAdmin):
     # readonly_fields = ('id', 'id_jogo')
     list_display = ('PK', 'UUID_JOGO', 'DATA', 'SALVOU_HUMANTOWN')
     filter_horizontal = ('pk_rodada',)
@@ -44,8 +44,8 @@ class JogoAdmin(admin.ModelAdmin):
     SALVOU_HUMANTOWN.boolean = True
 
 
-class JogadorAdmin(admin.ModelAdmin):  # Paulo fazendo cagada
-    list_display = ('APELIDO', 'SEXO', 'DATA_CADASTRO', 'DATA_NASCIMENTO')
+class JogadorAdmin(ExportActionMixin, admin.ModelAdmin):  # Paulo fazendo cagada
+    list_display = ('APELIDO', 'SEXO', 'DATA_CADASTRO', 'DATA_NASCIMENTO', 'ZEROU')
     list_filter = ('genero',)
     filter_horizontal = ('pk_jogos',)
     search_fields = ('apelido',)
@@ -66,11 +66,11 @@ class JogadorAdmin(admin.ModelAdmin):  # Paulo fazendo cagada
     def SEXO(self, obj):
         return str(obj.genero)
 
-    def JOGOU(self, obj):
-        if obj.pk_jogos:
-            return True
-        else:
-            return False
+    def ZEROU(self, obj):
+        for jogo in obj.pk_jogos.all():
+            if jogo.escolha_final != None:
+                return True
+        return False
 
     def DATA_CADASTRO(self, obj):
         return obj.data_cadastro
@@ -78,7 +78,7 @@ class JogadorAdmin(admin.ModelAdmin):  # Paulo fazendo cagada
     def DATA_NASCIMENTO(self, obj):
         return obj.data_nascimento
 
-    JOGOU.boolean = True
+    ZEROU.boolean = True
 
 
 class RodadasAdmin(ExportActionMixin, admin.ModelAdmin):
